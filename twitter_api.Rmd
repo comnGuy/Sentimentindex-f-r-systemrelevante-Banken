@@ -1,0 +1,20 @@
+---
+title: "Twitter-API"
+author: "Bernhard Preisler"
+date: "17 Oktober 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Twitter-API
+
+
+```{r cars}
+library(twitteR)
+source("config.r")
+#setup_twitter_oauth(api_key, api_secret)
+```
+

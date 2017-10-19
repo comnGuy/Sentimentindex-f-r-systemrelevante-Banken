@@ -10,11 +10,11 @@ json_str <-"C:/Users/Christian/Documents/textmining/00.json"
 a<-fromJSON(json_str, nullValue = NA)
 #asFrame <- do.call("rbind.fill", lapply(a, as.data.frame))
 #df <- lapply(a, function(play) # Loop through each "play"
-{
+#{
   # Convert each group to a data frame.
   # This assumes you have 6 elements each time
-  data.frame(matrix(unlist(play), ncol=1, byrow=T))
-})
+  #data.frame(matrix(unlist(play), ncol=1, byrow=T))
+#})
 
 #df<-data.frame(matrix(unlist(a), ncol=1, byrow=T))
 #df <- do.call(rbind, df)

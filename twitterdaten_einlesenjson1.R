@@ -3,7 +3,6 @@ library(rjson)
 # winners <- fromJSON("00.json")
 # colnames(winners)
 
-
 # read in individual JSON lines
 json_str <-"C:/Users/Christian/Documents/textmining/00.json"
 #json_str <-"C:/Users/Christian/Documents/textmining/prob.json"

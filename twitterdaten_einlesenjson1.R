@@ -4,9 +4,11 @@ library(rjson)
 # colnames(winners)
 
 # read in individual JSON lines
-json_str <-"C:/Users/Christian/Documents/textmining/00.json"
+#json_str <- "C:/Clouds/OwnCloud/Studium/Text Mining/Sentimentindex-f-r-systemrelevante-Banken/test.json"
 #json_str <-"C:/Users/Christian/Documents/textmining/prob.json"
-a<-fromJSON(json_str, nullValue = NA)
+
+
+a <- fromJSON(file = json_str)
 #asFrame <- do.call("rbind.fill", lapply(a, as.data.frame))
 #df <- lapply(a, function(play) # Loop through each "play"
 #{

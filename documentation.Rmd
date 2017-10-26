@@ -1,0 +1,38 @@
+---
+title: "Sentimentindex für systemrelevante Banken"
+author: "Bernhard Preisler, Christian Hofmann, Jochen Roeth, Florian Ganns"
+date: "26 Oktober 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Ergebnisse
+
+<!-- In einem Paper vom Herrn Becker stand, dass das Ergebnis direkt zu Begin präsentiert werden sollte -->
+
+
+# Einführung
+
+<!-- Sachen wir wir evtl. benötigen, oder soll das weggelassen werden? -->
+
+
+## Datenherkunft
+
+<!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
+
+
+
+# Einfacher Sentimentindex
+
+
+## Wörterbücher
+
+<!-- Auflistung der Wörterbücher, Vor- und Nachteil der Wörterbücher -->
+
+
+## Verfahren
+
+<!-- Was haben wir genau gemacht? Einfacher Counter Gut/Schlecht ... -->

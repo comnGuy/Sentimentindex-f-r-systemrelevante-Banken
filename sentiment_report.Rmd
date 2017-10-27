@@ -1,0 +1,89 @@
+---
+#title: "Sentimentindex für systemrelevate Banken"
+output: pdf_document
+---
+
+---
+classoption: oneside
+documentclass: article
+fontsize: 12pt
+header-includes:
+- \usepackage{amsthm}
+- \usepackage{xcolor}
+- \usepackage[ngerman]{babel}
+- \usepackage[utf8]{inputenc}
+- \usepackage{amsmath}
+- \usepackage{amsfonts}
+- \usepackage{amssymb}
+- \usepackage[mathscr]{euscript}
+- \usepackage{graphicx}
+- \usepackage{subcaption}
+- \usepackage{tabularx}
+- \usepackage{url}
+- \usepackage{hyperref}
+- \usepackage[]{algorithm2e}
+- \usepackage{mdframed}
+- \usepackage{lipsum}
+- \usepackage{extarrows}
+- \usepackage[most]{tcolorbox}
+- \usepackage{color}
+- \usepackage{paralist}
+- \usepackage{amsthm}
+- \usepackage{blindtext}
+- \usepackage{fancyhdr}
+- \usepackage{colortbl}
+- \usepackage{framed}
+- \usepackage{float}
+- \usepackage{fancyhdr}
+
+output:
+  pdf_document:
+    number_sections: yes
+  html_document: default
+---
+
+
+
+
+\newcommand{\mybox}[1]{%
+  \tikz[baseline=(text.base)]
+    {\node [draw,rounded corners,fill=red!20] (text) {#1};}%
+}
+
+\newtheoremstyle{normal}
+{10pt} 
+{10pt}
+{\normalfont}
+{}
+{\bfseries}
+{}
+{0.8em}
+{\bfseries{\thmname{#1} \thmnumber{#2}\thmnote{ \hspace{0.5em}(#3)\newline}}}
+\theoremstyle{normal}
+
+\newtheorem{satz}{Satz}
+\newtheorem{defin}{Definition}
+\newtheorem{beispiel}{Beispiel}
+
+\pagenumbering{roman}
+
+\renewcommand{\headrulewidth}{0.5pt}
+\lhead{\nouppercase{\rightmark}}\rhead{}
+<!-- \renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}} -->
+<!-- \onehalfspacing -->
+<!-- \cleardoublepage -->
+
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+
+
+\setlength{\parindent}{0pt} 
+\renewcommand{\footrulewidth}{1pt}
+\pagenumbering{arabic}
+
+<!--- Titelseite ---> \input{Titelblatt2}
+<!--- Inhaltsverzeichnis ---> \tableofcontents\newpage
+<!--- Abbildungsverzeichnis ---> \listoffigures\newpage
+
+<!--- Beginn --->

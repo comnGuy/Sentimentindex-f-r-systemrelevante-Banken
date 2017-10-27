@@ -1,5 +1,5 @@
 ---
-#title: "Sentimentindex für systemrelevate Banken"
+#title: "Sentimentindex für systemrelevate Banke"
 output: pdf_document
 ---
 

@@ -87,3 +87,31 @@ output:
 <!--- Abbildungsverzeichnis ---> \listoffigures\newpage
 
 <!--- Beginn --->
+# Ergebnisse
+
+<!-- In einem Paper vom Herrn Becker stand, dass das Ergebnis direkt zu Begin präsentiert werden sollte -->
+
+
+# Einführung
+
+<!-- Sachen wir wir evtl. benötigen, oder soll das weggelassen werden? -->
+
+
+## Datenherkunft
+
+<!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
+
+
+
+\section{Einfacher Sentimentindex}
+
+\section{W�rterb�cher}
+
+<!-- Auflistung der Wörterbücher, Vor- und Nachteil der Wörterbücher -->
+
+
+\section{Verfahren}
+
+
+
+

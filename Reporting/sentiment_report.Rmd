@@ -96,7 +96,19 @@ output:
 
 <!-- Sachen wir wir evtl. benötigen, oder soll das weggelassen werden? -->
 ## Aufgabenbeschreibung
-Eine Sentiment Analyse soll über die zehn größten Bank mittels den Twitterdaten auf Cuda erstellt werden. Die Twitterdaten liegen als R-Dataframe vor.
+Eine Sentiment Analyse soll über die zehn größten Bank mittels den Twitterdaten auf Cuda erstellt werden. Die Twitterdaten liegen als R-Dataframe vor. Die Tabelle zeigt den Aufbau des DataFrames und die benötigten Daten. 
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lrrrr}
+	Tweets & Follower			& favourites\_count			& friends\_count			& ... \\
+    \hline
+    My twit pic is sexy	& 81	& 101	& 3523	& 85 \\
+    I am I really this tired	& 233	& 517	& 23542	& 99 \\
+    F5 Copy	& 181	& 345	& 2672	& 99 \\
+  \end{tabular}
+  \caption{Ein Ausschnitt des DataFrames vom Cuda} \label{tab:example_dataframe_twits}
+\end{table}
 
 
 <!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
@@ -105,7 +117,9 @@ Eine Sentiment Analyse soll über die zehn größten Bank mittels den Twitterdat
 
 \section{Einfacher Sentimentindex}
 
-\section{Wörterböcher}
+
+\section{Wörterbücher}
+
 
 <!-- Auflistung der Wörterbücher, Vor- und Nachteil der Wörterbücher -->
 

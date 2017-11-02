@@ -95,9 +95,9 @@ output:
 # Einführung
 
 <!-- Sachen wir wir evtl. benötigen, oder soll das weggelassen werden? -->
+## Aufgabenbeschreibung
+Eine Sentiment Analyse soll über die zehn größten Bank mittels den Twitterdaten auf Cuda erstellt werden. Die Twitterdaten liegen als R-Dataframe vor.
 
-
-## Datenherkunft
 
 <!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
 
@@ -105,7 +105,7 @@ output:
 
 \section{Einfacher Sentimentindex}
 
-\section{W?rterb?cher}
+\section{Wörterböcher}
 
 <!-- Auflistung der Wörterbücher, Vor- und Nachteil der Wörterbücher -->
 

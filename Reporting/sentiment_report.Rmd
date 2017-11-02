@@ -1,5 +1,5 @@
 ---
-#title: "Sentimentindex für systemrelevate Banke"
+#title: "Sentimentindex f?r systemrelevate Banke"
 output: pdf_document
 ---
 
@@ -105,7 +105,7 @@ output:
 
 \section{Einfacher Sentimentindex}
 
-\section{Wörterbücher}
+\section{W?rterb?cher}
 
 <!-- Auflistung der WÃ¶rterbÃ¼cher, Vor- und Nachteil der WÃ¶rterbÃ¼cher -->
 

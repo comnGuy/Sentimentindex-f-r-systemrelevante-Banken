@@ -34,6 +34,7 @@ header-includes:
 - \usepackage{colortbl}
 - \usepackage{framed}
 - \usepackage{float}
+- \usepackage{listings}
 - \usepackage{fancyhdr}
 
 output:
@@ -87,16 +88,16 @@ output:
 <!--- Abbildungsverzeichnis ---> \listoffigures\newpage
 
 <!--- Beginn --->
-# Ergebnisse
+\section{Ergebnisse} 
 
 <!-- In einem Paper vom Herrn Becker stand, dass das Ergebnis direkt zu Begin prÃ¤sentiert werden sollte -->
 
 
-# EinfÃ¼hrung
+\section{Einführung}
 
 <!-- Sachen wir wir evtl. benÃ¶tigen, oder soll das weggelassen werden? -->
-## Aufgabenbeschreibung
-Eine Sentiment Analyse soll Ã¼ber die zehn grÃ¶ÃŸten Bank mittels den Twitterdaten auf Cuda erstellt werden. Die Twitterdaten liegen als R-Dataframe vor. Die Tabelle zeigt den Aufbau des DataFrames und die benÃ¶tigten Daten. 
+\section{Aufgabenbeschreibung} 
+Eine Sentiment Analyse soll über die zehn görßten Bank mittels den Twitterdaten auf Cuda erstellt werden. Die Twitterdaten liegen als R-Dataframe vor. Die Tabelle zeigt den Aufbau des DataFrames und die benÃ¶tigten Daten. 
 
 \begin{table}[H]
   \centering
@@ -116,9 +117,33 @@ Eine Sentiment Analyse soll Ã¼ber die zehn grÃ¶ÃŸten Bank mittels den Twitterdat
 
 
 \section{Einfacher Sentimentindex}
+Um lokal auf den eigenen Rechnern zur Arbeite, war der erste Schritt die Daten auf den Cuda Rechner auf zu splitten in kleinere Pakete. 
 
+Hier Code Einfügen 
 
-\section{WÃ¶rterbÃ¼cher}
+Wenn Personen einen Text lesen, verwenden sie das Verständnis Wörtern zu deuten, um daraus abzuleiten, ob ein Textabschnitt positiv oder negativ ist, oder vielleicht durch andere nuanciertere Emotionen wie Überraschung oder Ekel gekennzeichnet ist. Die Werkzeuge des Text Mining werden nun genutzen, um den emotionalen Inhalt von Texte zu analysieren. Zu Beginn soll eine einfache Sentimentindex über die $10$ größten Banken in der Welt erstellt werden. Für die erste Analyse werden die Wörterbücher verwendet, die in R implementiert sind. 
+
+\begin{itemize}
+\item Im Package tidytext befindet sich das Stopwörterbuch stop$\_$words
+\item Im package tidytex befindet sich die Wörterbücher afinn und bing.
+\end{itemize}
+
+<!-- \newline -->
+Die $10$ größten Banken:
+\begin{itemize}
+\item Prudential Financial Inc
+\item Citigroup Inc
+\item Goldman Sachs Group Inc/The
+\item MetLife Inc
+\item Morgan Stanley
+\item Voya Financial Inc
+\item Lincoln National Corp
+\item Principal Financial Group Inc
+\item Genworth Financial Inc
+\item Hartford Financial Services Group Inc/The
+\end{itemize}
+
+\section{Wörterbücher}
 
 
 <!-- Auflistung der WÃ¶rterbÃ¼cher, Vor- und Nachteil der WÃ¶rterbÃ¼cher -->

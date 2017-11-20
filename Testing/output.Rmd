@@ -60,7 +60,7 @@ count(word, sentiment, sort = TRUE) %>%
   acast(word ~ sentiment, value.var = "n", fill = 0) %>%
   comparison.cloud(colors = c("#F8766D", "#00BFC4"),
                    max.words = 100)
-#Die Ranking postiv und negative Wörts USA---------------------------------------------------------------------------------
+#Die Ranking postiv und negative Wörts USA ---------------------------------------------------------------------------------
 wordcount <-tidy_2012_ohne_stopwords %>%
   inner_join(get_sentiments("bing")) %>%
   count(word, sentiment, sort = TRUE) %>%

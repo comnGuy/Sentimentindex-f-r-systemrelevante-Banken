@@ -1,3 +1,9 @@
+---
+title: "Textmining Becker"
+output: pdf_document
+---
+
+```{r}
 require(ggplot2)
 library(tidyr)
 library(tidytext)
@@ -208,4 +214,7 @@ bind_rows(afinn_gr,
   geom_col(show.legend = FALSE) +
   facet_wrap(~method, ncol = 1, scales = "free_y")
 class(tidy_daten2012_word$Month)
+
+
+```
 

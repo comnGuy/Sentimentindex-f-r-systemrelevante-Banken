@@ -5,6 +5,7 @@ library(dplyr)
 library(lubridate)
 library(reshape2)
 library(wordcloud)
+library(SentimentAnalysis)
 #usa pro Monat
 daten_usa<-read.csv("C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten2012usa.csv")
 data_fr_usa<- data.frame(daten_usa, stringsAsFactors=FALSE)
@@ -33,7 +34,7 @@ datplot<-tidy_2012_ohne_stopwords  %>%
   count(sentiment) 
 
 
-
+loadDictionaryLM()
 
 ggplot(data=datplot, aes(x=Month2, y=n, fill=sentiment)) + geom_col(show.legend = FALSE)+
   geom_bar( aes(x=Month2, y=n),stat="identity") + facet_wrap(~sentiment, ncol = 2, scales = "free_x")
@@ -209,3 +210,5 @@ bind_rows(afinn_gr,
   facet_wrap(~method, ncol = 1, scales = "free_y")
 class(tidy_daten2012_word$Month)
 
+data(loughran)
+get_sentiments(loughran)

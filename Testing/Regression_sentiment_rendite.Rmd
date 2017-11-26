@@ -101,11 +101,11 @@ if(wochen$Month[n]=="Jan"||wochen$Month[n]=="Mar"||wochen$Month[n]=="Jul"||woche
 }
 #plus eins dazu rechnen, da von 0 bis 51 geht---------------------------------
 wochen$week<- wochen$week+1
+#doppelte heraus gefiltert
+wochen_distinct<- distinct(wochen)
 #sentimentanalyse-------------------------------------------------------------
-tidy_daten2012_word <- wochen %>% unnest_tokens(word, Tweets)
+tidy_daten2012_word <- wochen_distinct %>% unnest_tokens(word, Tweets)
 
-a<-tidy_2012_ohne_stopwords %>% select(id_str_tweet)%>% distinct
-b<- tidy_2012_ohne_stopwords %>% inner_join(a)#entferne stopwords
 tidy_2012_ohne_stopwords <- tidy_daten2012_word %>% anti_join(stop_words)
 bing <- get_sentiments("bing")
 datplot<-tidy_2012_ohne_stopwords  %>%

@@ -1,0 +1,43 @@
+---
+title: "main"
+output: pdf_document
+---
+
+```{r}
+
+source("SentimentFunctionChris.R")
+require(ggplot2)
+  library(tidyr)
+  library(tidytext)
+  library(dplyr)
+  library(lubridate)
+  library(reshape2)
+  library(wordcloud)
+  library(stringr)
+  library(readxl)
+ file<-"C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten2012usa.csv"
+ b<-Datei_einlesen("C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten2012usa.csv")
+ kalender<-Kalenderwochen(b)
+ doppelt<-Distinct(kalender)
+clearing_data<- clearing_dataframe(doppelt)
+wochen="Wochen"
+#wochen="Monat"
+ Plot_Sentiment_bing_postive_und_negative_month(clearing_data, wochen)
+ Plot_Sentiment_bing_postive_minus_negative_socre(clearing_data, wochen)
+ vergleich_woerterbuecher(clearing_data, wochen)
+ wordcloud_sentiment(clearing_data)
+
+ #Analyse auf tweet ebene, zuerst bestimmen ob ein tweet positve oder negative durch(positive-negative), danach positve, neutrale und negative Tweets zählen pro Monat oder Wochen
+Plot_Sentiment_tweet(clearing_data,"Monat")
+Plot_Sentiment_tweet(clearing_data,"Woche")  
+  
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

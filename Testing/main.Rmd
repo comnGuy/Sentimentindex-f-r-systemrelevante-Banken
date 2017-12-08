@@ -6,31 +6,32 @@ output: pdf_document
 ```{r}
 
 source("SentimentFunctionChris.R")
-require(ggplot2)
-  library(tidyr)
-  library(tidytext)
-  library(dplyr)
-  library(lubridate)
-  library(reshape2)
-  library(wordcloud)
-  library(stringr)
-  library(readxl)
+pakete_lade()
  file<-"C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten2012usa.csv"
  b<-Datei_einlesen("C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten2012usa.csv")
  kalender<-Kalenderwochen(b)
- doppelt<-Distinct(kalender)
+
+    doppelt<-Distinct(kalender)
 clearing_data<- clearing_dataframe(doppelt)
 wochen="Wochen"
-#wochen="Monat"
- Plot_Sentiment_bing_postive_und_negative_month(clearing_data, wochen)
- Plot_Sentiment_bing_postive_minus_negative_socre(clearing_data, wochen)
- vergleich_woerterbuecher(clearing_data, wochen)
+Plot_Sentiment_bing_postive_und_negative_month(clearing_data, wochen)
+Plot_Sentiment_bing_postive_minus_negative_socre(clearing_data, wochen)
+Plot_Sentiment_bing_postive_minus_negative_socre(clearing_data, "Monat")
+Plot_Sentiment_bing_postive_minus_negative_socre_means(clearing_data, "Monat")
+vergleich<-vergleich_woerterbuecher(clearing_data, wochen)
+plot_vergleich_woertbuch(vergleich)
+wordcount_plot(clearing_data, "bing")
  wordcloud_sentiment(clearing_data)
+#tweets positive negative makieren (mittels differenz positive - negative wörter falls kleiner als 0 dann positiver, größer als 1 negative und 0 neutral), dann gruppieren auf Monat oder Woche und zählen positver bzw. negative, neutrale tweets und Plot
+Plot_Sentiment_tweet(clearing_data, "Woche")
+Plot_Sentiment_tweet(clearing_data, "Monat")
 
- #Analyse auf tweet ebene, zuerst bestimmen ob ein tweet positve oder negative durch(positive-negative), danach positve, neutrale und negative Tweets zählen pro Monat oder Wochen
-Plot_Sentiment_tweet(clearing_data,"Monat")
-Plot_Sentiment_tweet(clearing_data,"Woche")  
-  
+ afinn_score_monat<-afinn_score_wert(clearing_data, "Monat")
+ afinn_score_week<-afinn_score_wert(clearing_data, "Wochen")
+plot_afinn_score(afinn_score_monat)
+plot_afinn_score(afinn_score_week)
+
+
 ```
 
 ## R Markdown
@@ -38,6 +39,13 @@ Plot_Sentiment_tweet(clearing_data,"Woche")
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
 
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

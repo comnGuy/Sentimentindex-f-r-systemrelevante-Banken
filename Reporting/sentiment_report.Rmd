@@ -42,6 +42,9 @@ output:
     number_sections: yes
   html_document: default
 ---
+```{r}
+knitr::opts_chunk$set(echo = TRUE, fig.align="center")
+```
 
 
 
@@ -66,6 +69,7 @@ output:
 \newtheorem{defin}{Definition}
 \newtheorem{beispiel}{Beispiel}
 
+
 \pagenumbering{roman}
 
 \renewcommand{\headrulewidth}{0.5pt}
@@ -87,17 +91,19 @@ output:
 <!--- Inhaltsverzeichnis ---> \tableofcontents\newpage
 <!--- Abbildungsverzeichnis ---> \listoffigures\newpage
 
+\newcommand*{\secref}[1]{Section~\ref{#1}}
+
 <!--- Beginn --->
 \section{Ergebnisse} 
 
-<!-- In einem Paper vom Herrn Becker stand, dass das Ergebnis direkt zu Begin präsentiert werden sollte -->
+<!-- In einem Paper vom Herrn Becker stand, dass das Ergebnis direkt zu Begin prC$sentiert werden sollte -->
 
 
-\section{Einf�hrung}
+\section{Einf?hrung}
 
-<!-- Sachen wir wir evtl. benötigen, oder soll das weggelassen werden? -->
+<!-- Sachen wir wir evtl. benC6tigen, oder soll das weggelassen werden? -->
 \section{Aufgabenbeschreibung} 
-Eine Sentiment Analyse soll �ber die zehn g�r�ten Bank mittels den Twitterdaten auf Cuda erstellt werden. Die Twitterdaten liegen als R-Dataframe vor. Die Tabelle zeigt den Aufbau des DataFrames und die benötigten Daten. 
+Eine Sentiment Analyse soll ?ber die zehn g?r?ten Bank mittels den Twitterdaten auf Cuda erstellt werden. Die Twitterdaten liegen als R-Dataframe vor. Die Tabelle zeigt den Aufbau des DataFrames und die benC6tigten Daten. 
 
 \begin{table}[H]
   \centering
@@ -113,23 +119,75 @@ Eine Sentiment Analyse soll �ber die zehn g�r�ten Bank mittels den Twitterdaten 
 
 
 <!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
+\section{Daten}
+TODO
+\subsection{Twitterarchive}
+TODO
+\subsection{Gescannte Daten}
+
+\label{sub:scanned_data}
+
+TODO
+
+
+
+
+
+
+\section{Wörterbücher}
+Bevor ein Sentimentindex über ein Tweet erstellt werden kann, müssen die Stimmungen aus dem jeweiligen Tweet extrahiert werden. Diese Extraktion passiert im einfachsten Fall mit einem oder mehreren Wörterbüchern.
+
+Der Aufbau eines Wörterbuches ist häufig ähnlich, wobei die Wörter in einer Liste aufgelistet und bewertet werden. Die Bewertung kann 1/0, Negativ/Positive, 0-10 usw. sein. Die Abbildung \ref{fig:worterbuch} zeigt ein Wörterbuch aus dem R-Package "tidytext". Die Spalte "word" steht für das bewertende Wort und "sentiment" für deren Bewertung.
+
+![Positiv/Negativ Wörterbuch \label{fig:worterbuch}](Pictures/worterbuch.PNG)
+
+\textbf{Hononym} ist der Begriff für die Doppeldeutigkeit eines Wortes, zum Beispiel "Bank". Wird ein Wort für ein Wörterbuch bewertet, muss der Kontext in dem sich das Wörterbuch befindet, beachtet werden. Angenommen es steht jeweils ein Wörterbuch für die Natur und dem Immobiliensektor zur Verfügung. Das Wort "Bank" kann in diesem Fall zwei unterschiedliche Bewertung erhalten. In der Natur könnte eine Bank eher als positiv bewertet werden, wohingegen die Bank für den Immobiliensektor eher negativ ausgelegt werden könnte.
+
+Um die \textbf{Güte eines Wörterbuches} beurteilen zu können, werden Tweets benötigt, die in irgendeiner Art und Weise eine Bewertung beinhalten. Der gegebene Datensatz aus Kapitel TODO von Tweets erhielt kein Merkmal, welches auf eine Stimmung hinweisen könnte. Die Konsequenz war Teile des Datensatzes manuell und subjektiv zu bewerten (Jochen & Bernhard). In der Abbilung \ref{fig:testdata_bewertet} sind die Bewertungungen mit "sentimentOriginal", den Tweettext mit "full_text" und die Nummerierung mit "X" zu sehen.
+
+![Manuell bewertetes Wörterbuch \label{fig:testdata_bewertet}](Pictures/testdata_bewertet.PNG)
+
+
+\subsection{Verwendete Wörterbücher}
+
+In diesem Bericht wurden die Wörterbücher "bing", "afinn" und "loughran" aus dem R-Package "tidytext" und das vaderSentiment verwendet (TODO verlinken).
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|rrr}
+\textbf{Wörterbuch}     & \multicolumn{1}{l}{\textbf{Bewertungsart}} & \multicolumn{1}{l}{\textbf{Intelligenz}} & \multicolumn{1}{l}{\textbf{Programmiersprache}} \\
+\hline
+\textbf{bing}           & Positiv/Negativ                            & -                                        & R                                               \\
+\textbf{afinn}          & -5 bis 5                                   & -                                        & R                                               \\
+\textbf{loughran}       & Positiv/Negativ                            & -                                        & R                                               \\
+\textbf{vaderSentiment} & -4 bis 4                                   & vaderSentiment                           & Python                                         
+\end{tabular}
+\caption{Übersicht der verwendeten Wörterbücher}
+\label{tab:used_wordbooks}
+\end{table}
+
+In der Tabelle \ref{tab:used_wordbooks} sind die verwendeten Wörterbücher mit deren Bewertungsart, ob eine Intelligenz verfügbar und in welcher Programmiersprache dieses Wörterbuch ursprünglich vorhanden war, aufgelistet. Die Wörterbücher "bing" und "loughran" arbeiten mit positiven und negativen Bewertungen, "afinn" arbeitet mit einer Bewertungsreichweite von -5 bis 5, wobei -5 die negativste- und 5 die positivste Stimmung wiederspiegelt. Das Wörterbuch "vaderSentiment" wurde von 10 unabhängigen Menschen manuell mit der Reichweite -4 bis 4 bewertet und davon der Durchschnitt und die Standardabweichung berechnet. Weiterhin wurde eine Logik von den Machern hinterlegt, die Verneinung, Satzzeiten, groß geschriebene Wörter u. v. m. bei der Berechnung des Sentiments beachtet.
+
+
+
+
 
 
 
 \section{Einfacher Sentimentindex}
 Um lokal auf den eigenen Rechnern zur Arbeite, war der erste Schritt die Daten auf den Cuda Rechner auf zu splitten in kleinere Pakete. 
 
-Hier Code Einf�gen 
+Hier Code Einf?gen 
 
-Wenn Personen einen Text lesen, verwenden sie das Verst�ndnis W�rtern zu deuten, um daraus abzuleiten, ob ein Textabschnitt positiv oder negativ ist, oder vielleicht durch andere nuanciertere Emotionen wie �berraschung oder Ekel gekennzeichnet ist. Die Werkzeuge des Text Mining werden nun genutzen, um den emotionalen Inhalt von Texte zu analysieren. Zu Beginn soll eine einfache Sentimentindex �ber die $10$ gr��ten Banken in der Welt erstellt werden. F�r die erste Analyse werden die W�rterb�cher verwendet, die in R implementiert sind. 
+Wenn Personen einen Text lesen, verwenden sie das Verst?ndnis W?rtern zu deuten, um daraus abzuleiten, ob ein Textabschnitt positiv oder negativ ist, oder vielleicht durch andere nuanciertere Emotionen wie ?berraschung oder Ekel gekennzeichnet ist. Die Werkzeuge des Text Mining werden nun genutzen, um den emotionalen Inhalt von Texte zu analysieren. Zu Beginn soll eine einfache Sentimentindex ?ber die $10$ gr??ten Banken in der Welt erstellt werden. F?r die erste Analyse werden die W?rterb?cher verwendet, die in R implementiert sind. 
 
 \begin{itemize}
-\item Im Package tidytext befindet sich das Stopw�rterbuch stop$\_$words
-\item Im package tidytex befindet sich die W�rterb�cher afinn und bing.
+\item Im Package tidytext befindet sich das Stopw?rterbuch stop$\_$words
+\item Im package tidytex befindet sich die W?rterb?cher afinn und bing.
 \end{itemize}
 
 <!-- \newline -->
-Die $10$ gr��ten Banken:
+Die $10$ gr??ten Banken:
 \begin{itemize}
 \item Prudential Financial Inc
 \item Citigroup Inc
@@ -143,10 +201,9 @@ Die $10$ gr��ten Banken:
 \item Hartford Financial Services Group Inc/The
 \end{itemize}
 
-\section{W�rterb�cher}
 
 
-<!-- Auflistung der Wörterbücher, Vor- und Nachteil der Wörterbücher -->
+<!-- Auflistung der WC6rterbC<cher, Vor- und Nachteil der WC6rterbC<cher -->
 
 
 \section{Verfahren}

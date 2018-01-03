@@ -147,6 +147,7 @@ Um die \textbf{Güte eines Wörterbuches} beurteilen zu können, werden Tweets b
 
 ![Manuell bewertetes Wörterbuch \label{fig:testdata_bewertet}](Pictures/testdata_bewertet.PNG)
 
+TODO Bevor alles gemacht wurde, wurden die Tweets komplett in einzelne Wörter getrennt, außer beim Vader.
 
 \subsection{Verwendete Wörterbücher}
 
@@ -180,7 +181,22 @@ Zu Beginn wurden mittels den vier Wörterbüchern ein Sentiment über den Testda
 
 Die Wörterbücher "bing" und "afinn" liegen können insgesamt um die 70 Übereinstimmungen aufweisen, wohingegen "loughren" knapp über 50 vorweisen kann. Das beste Wörterbuch ist "vader" mit ca. 120 Übereinstimmmungen. Weiterhin ist auffällig, dass "bing", "afinn" und "vader" eine ähnliche Anzahl der Übereinstimmungen bei den positiv bewertenden Tweets aufweisen kann, jedoch punktet "vader" bei den neutralen Tweets, wo er mit ca. 30 Übereinstimmungen mit Abstand der beste ist. 
 
+\subsection{Stemming}
 
+Die Idee hinter Stemming ist das Reduzieren einer Wortvariante auf seinem Wortstamm. Zum Beispiel werden die Worte "Häuser" und "Häusern" zu deren Wortstamm "Haus" reduziert.
+
+Um das Stemming durchzuführen, wurde das R-Package \textit{corpus} verwendet. Die folgenden Varianten des Stemmings wurden durchgeführt.
+
+ * Corpus unterstützt vom Haus aus 17 unterschiedliche Sprachen, um ein Wortstamm zu bilden. Da der gegebene Datensazu nur englische Texte enthält, wurde nur die englische Sprache betrachtet des Standard-Packetes betrachtet.
+ * Der \textit{Hunspell stemmer} soll prezisere Stämme bilden.
+ * Der \textit{Dictionary stemmer} wird on-the-fly von lexoconista.com als Tupels von (Wörter, Stamm) geladen und danach mittels einer Funtkion den corpus-Package übergeben.
+ * Hunspell liefert eine \textit{Rechtschreibkorrektur} mit. Zu erst wird geprüft, ob das Wort im Hunspell-Stemming-Wörterbuch existiert. Falls das Wort existiert, wird der Wortstamm zurück gegeben. Falls das Wort im Hunspell-Stemming-Wörterbuch nicht existiert, werden versucht ähnliche Wörter mittels der bereits existierten Funktion zu finden.
+
+
+\subsection{Ausblick}
+TODO
+
+n-gram
 
 
 

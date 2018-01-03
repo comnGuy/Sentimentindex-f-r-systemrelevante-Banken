@@ -42,7 +42,7 @@ output:
     number_sections: yes
   html_document: default
 ---
-```{r}
+```{r, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.align="center")
 ```
 
@@ -168,7 +168,17 @@ In diesem Bericht wurden die Wörterbücher "bing", "afinn" und "loughran" aus d
 
 In der Tabelle \ref{tab:used_wordbooks} sind die verwendeten Wörterbücher mit deren Bewertungsart, ob eine Intelligenz verfügbar und in welcher Programmiersprache dieses Wörterbuch ursprünglich vorhanden war, aufgelistet. Die Wörterbücher "bing" und "loughran" arbeiten mit positiven und negativen Bewertungen, "afinn" arbeitet mit einer Bewertungsreichweite von -5 bis 5, wobei -5 die negativste- und 5 die positivste Stimmung wiederspiegelt. Das Wörterbuch "vaderSentiment" wurde von 10 unabhängigen Menschen manuell mit der Reichweite -4 bis 4 bewertet und davon der Durchschnitt und die Standardabweichung berechnet. Weiterhin wurde eine Logik von den Machern hinterlegt, die Verneinung, Satzzeiten, groß geschriebene Wörter u. v. m. bei der Berechnung des Sentiments beachtet.
 
+Zu Beginn wurden mittels den vier Wörterbüchern ein Sentiment über den Testdatensatz berechnet. Diese Berechnung wurde mittels der Abbildung \ref{fig:ubereinstimmung_nothing} visualisiert. Jeder Block entspricht ein Wörterbuch und jeder Balken spiegelt die Anzahl der Treffer wieder. 
 
+ * Die \textit{Hits} sind die Anzahl der gesamten Treffer.
+ * Die \textit{noHits} spiegelt die Anzahl der keinen Treffer wieder.
+ * Die \textit{negativen} Treffer sind ausschließlich die Anzahl der negativen Treffer
+ * Die \textit{positiven} Treffer sind ausschließlich die Anzahl der positiven Treffer
+ * Die \textit{neutralen} Treffer sind ausschließlich die Anzahl der neutralen Treffer
+
+![Anzahl der Übereinstimmungen der vorgesagten und der manuel eingepflegten Sentiments\label{fig:ubereinstimmung_nothing}](Pictures/ubereinstimmung_nothing.PNG)
+
+Die Wörterbücher "bing" und "afinn" liegen können insgesamt um die 70 Übereinstimmungen aufweisen, wohingegen "loughren" knapp über 50 vorweisen kann. Das beste Wörterbuch ist "vader" mit ca. 120 Übereinstimmmungen. Weiterhin ist auffällig, dass "bing", "afinn" und "vader" eine ähnliche Anzahl der Übereinstimmungen bei den positiv bewertenden Tweets aufweisen kann, jedoch punktet "vader" bei den neutralen Tweets, wo er mit ca. 30 Übereinstimmungen mit Abstand der beste ist. 
 
 
 

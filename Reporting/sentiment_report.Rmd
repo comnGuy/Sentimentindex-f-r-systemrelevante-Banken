@@ -191,12 +191,16 @@ Um das Stemming durchzuführen, wurde das R-Package \textit{corpus} verwendet. D
  * Der \textit{Hunspell stemmer} soll prezisere Stämme bilden.
  * Der \textit{Dictionary stemmer} wird on-the-fly von lexoconista.com als Tupels von (Wörter, Stamm) geladen und danach mittels einer Funtkion den corpus-Package übergeben.
  * Hunspell liefert eine \textit{Rechtschreibkorrektur} mit. Zu erst wird geprüft, ob das Wort im Hunspell-Stemming-Wörterbuch existiert. Falls das Wort existiert, wird der Wortstamm zurück gegeben. Falls das Wort im Hunspell-Stemming-Wörterbuch nicht existiert, werden versucht ähnliche Wörter mittels der bereits existierten Funktion zu finden.
+ 
+Für die gestemmten Tweets wurden die Gleichen Auswertungen berechnet, wie in der Abbildung \ref{fig:ubereinstimmung_nothing} zu sehen ist. Dabei stellte sich heraus, dass alle Verfahren bezüglich Stemming den Score verschlechterten. Die einzige Ausnahme gilt der Rechtschreibkorrektur, die insgesamt zwei Tweets mehr erkennt.
 
 
 \subsection{Ausblick}
 TODO
 
-n-gram
+ * Weitere Stemming Verfahren
+ * Bessere Rechtschreibkorrektor
+ * n-gram
 
 
 

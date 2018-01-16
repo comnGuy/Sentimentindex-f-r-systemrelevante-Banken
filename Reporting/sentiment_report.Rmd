@@ -120,17 +120,31 @@ Eine Sentiment Analyse soll ?ber die zehn g?r?ten Bank mittels den Twitterdaten 
 
 <!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
 \section{Daten}
-TODO
+Um ein Sentiment zu bilden, werden Daten mit Texten von Nutzern benötigt. Diese Daten wurden aus den zwei Quellen des Twitterarchives und gescannten Daten bezogen.
+Weiterhin wurden Daten für den Vergleich mit den Sentiments benötigt, hier im Unterkapitel Dividende (TODO) zu finden.
 \subsection{Twitterarchive}
-TODO
+Twitter veröffentlicht monatlich 1 % ihrer gesamten Tweets. Auf dem CUDA-Rechner wurde das Twitterarchive aus dem Jahr 2012 in einem R-spezifischen DataFrame aufbereitet und zur Verfügung gestellt. Da diese Twitterdaten alle Tweets enthalten, auch Tweets die nicht benötigt werden, wurde ein Filter gebaut, der die benötigten Daten filtert.
+
+![Filter für grieschiche Banken \label{fig:filter}](Pictures/filter_twitter_archive.PNG)
+
+In der Abbildung \ref{fig:filter} ist ein Filter für die grieschichen Banken zu sehen. Die Begriffe, nachdem gefilter wird, sind in grün zu sehen. Diese sind jeweils durch einem logischen "Oder" getrennt. Wird ein Begriff in einem Tweet gefunden, wurde dieser Tweet in unserem Datenbestand mitaufgenommen. 
+
+Eine große Herausforderung war das Finden sinnvoller Begriffe zum Filtern. Sind die Begriffe nicht wohlwollend gewählt, könnten folgende Fälle eintreten, die sich wiederum negativ auf dem Sentiment auswirken könnten.
+
+ * Ist ein Begriff zu allgemein gewählt, besteht die Möglichkeit Überschneidungen mit weiteren nicht bezogenen Themen auszuwählen. Z.B. ist der Begriff \textit{Bank} zu allgemein gewählt, da die Bank im Park oder die Bank im Glücksspiel gemeint sein könnte. An dieser Stelle kann die Anzahl der nicht gewollten Tweets abgewägt werden. Sind diese anteilig gering, kann es Sinn ergeben den Begriff als Filter aufzunehmen.
+ * Ist ein Begriff zu speziell gewählt, besteht die Möglichkeit zu wenige Tweets mit einzubeziehen.
+
+Die Wahl der Begriffe ist demnach ein Trade-Off zwischen der Noise, die Anzahl der nicht relevanten Themen, und die Anzahl der gesamten Tweets, die nach dem Filtern übrig bleibt. Werden die Begriffe zu allgemein gewählt, werden zwar viele Tweets einbezogen, jedoch wird die Noise sehr hoch. Werden die Filter zu streng gewählt, besteht die Möglichkeit zu wenige Tweets nach dem Filtern einzubeziehen.
+
+Insgesamt wurden ca. 17.000 Tweets durch die gewählten Filter über das gesamte Jahre 2012 gefiltert. Da das Sentiment wöchentlich gebildet wird, sind das ca. 325 Tweets pro Woche, die für das Bilden eines Sentiments ausreichen.
+
 \subsection{Gescannte Daten}
-
 \label{sub:scanned_data}
-
 TODO
 
-
-
+\subsection{Dividende}
+\label{sub:dividende}
+TODO
 
 
 
@@ -192,7 +206,7 @@ Um das Stemming durchzuführen, wurde das R-Package \textit{corpus} verwendet. D
  * Der \textit{Dictionary stemmer} wird on-the-fly von lexoconista.com als Tupels von (Wörter, Stamm) geladen und danach mittels einer Funtkion den corpus-Package übergeben.
  * Hunspell liefert eine \textit{Rechtschreibkorrektur} mit. Zu erst wird geprüft, ob das Wort im Hunspell-Stemming-Wörterbuch existiert. Falls das Wort existiert, wird der Wortstamm zurück gegeben. Falls das Wort im Hunspell-Stemming-Wörterbuch nicht existiert, werden versucht ähnliche Wörter mittels der bereits existierten Funktion zu finden.
  
-Für die gestemmten Tweets wurden die Gleichen Auswertungen berechnet, wie in der Abbildung \ref{fig:ubereinstimmung_nothing} zu sehen ist. Dabei stellte sich heraus, dass alle Verfahren bezüglich Stemming den Score verschlechterten. Die einzige Ausnahme gilt der Rechtschreibkorrektur, die insgesamt zwei Tweets mehr erkennt.
+Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in der Abbildung \ref{fig:ubereinstimmung_nothing} zu sehen ist. Dabei stellte sich heraus, dass alle Verfahren bezüglich Stemming den Score verschlechterten. Die einzige Ausnahme gilt der Rechtschreibkorrektur, die insgesamt zwei Tweets mehr erkennt.
 
 
 \subsection{Ausblick}

@@ -120,7 +120,7 @@ Eine Sentiment Analyse soll ?ber die zehn g?r?ten Bank mittels den Twitterdaten 
 
 <!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
 \section{Daten}
-Um ein Sentiment zu bilden, werden Daten mit Texten von Nutzern benötigt. Diese Daten wurden aus den zwei Quellen des Twitterarchives und gescannten Daten bezogen.
+Um ein Sentiment zu bilden, werden Daten mit Texten von Nutzern benötigt. Diese Daten wurden aus den zwei Quellen des Twitterarchives und durch die Twitter-API bezogen.
 Weiterhin wurden Daten für den Vergleich mit den Sentiments benötigt, hier im Unterkapitel Dividende (TODO) zu finden.
 \subsection{Twitterarchive}
 Twitter veröffentlicht monatlich 1 % ihrer gesamten Tweets. Auf dem CUDA-Rechner wurde das Twitterarchive aus dem Jahr 2012 in einem R-spezifischen DataFrame aufbereitet und zur Verfügung gestellt. Da diese Twitterdaten alle Tweets enthalten, auch Tweets die nicht benötigt werden, wurde ein Filter gebaut, der die benötigten Daten filtert.
@@ -138,9 +138,29 @@ Die Wahl der Begriffe ist demnach ein Trade-Off zwischen der Noise, die Anzahl d
 
 Insgesamt wurden ca. 17.000 Tweets durch die gewählten Filter über das gesamte Jahre 2012 gefiltert. Da das Sentiment wöchentlich gebildet wird, sind das ca. 325 Tweets pro Woche, die für das Bilden eines Sentiments ausreichen.
 
-\subsection{Gescannte Daten}
+\subsection{Twitter-API}
 \label{sub:scanned_data}
-TODO
+Zu Beginn war nicht klar, ob ausreichend Daten durch das Twitterarchive gewonnen werden können. Dadurch ergab sich die Idee, die Twitter-API zusätzlich zu verwenden. Die Twitter-API erlaubt 450 Anfragen alle 15 Minuten. Der Kern des PHP-Skriptes wird durch folgenden Code erleutert.
+
+```php
+// Query with one Hashtag and a limit up to 100
+// GET call
+$getfield = '?q=' . $hastag . '&
+              result_type=recent&
+              count=100&
+              tweet_mode=extended';
+
+// Setting up the Twitter-API
+$twitter = new TwitterAPIExchange($this->settings);
+
+// Perform the request
+$data = $twitter->setGetfield($getfield)
+		            ->buildOauth($this->url, $this->requestMethod)
+		            ->performRequest();
+```
+Der obige Code zeigt die Abfrage eines Hastags. Die verschiedenen Hashtags werden mittels einer Schleife iteriert. Der Abruf (GET) wird mit einem URL Aufruf realisiert. Hierbei können verschiedene Einstellungen, wie Anzahl der maximalen Tweets (\textit{100}), welcher Typ (\textit{recent}) und in welchen Mode (\textit{extended}) werden die Tweets zurück gegeben. Als nächstes werden die Settings übergeben. Die Settings \textit{oauth\_access\_token}, \textit{oauth\_access\_token\_secret}, textit{consumer\_key} und \textit{consumer\_secret} werden durch Twitter generiert. Danach wird die Abfrage mittels der Twitter-Klasse realisiert. Als Rückgabe erhält man einen Array im JSON-Format mit den letzten 100 Tweets. Zum Speichern werden die Tweets aufbereitet und als JSON-Format gespeichert.
+
+Der aktuelle Stand des Skriptes ist, dass es zum Ausführen manuel angestoßen werden muss. Dieses Problem wird durch ein \textit{Cronjob} gelöst. Ein Cronjob ist im Stande in definierten Intervallen oder an definierten Zeitpunkten ein Event, in unserem Fall eine PHP-Datei, auszuführen. An dieser Stelle wurde entschieden, dass höher frequentierte Tweets auf einem zwei Minuten Intervall und weniger frequentierte Tweets auf einem 15 Minuten Intervall gestellt werden.
 
 \subsection{Dividende}
 \label{sub:dividende}

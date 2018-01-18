@@ -1,0 +1,10 @@
+
+\section{Wörterbucher}
+Wenn Personen einen Text lesen, verwenden sie das Verständnis Wörtern zu deuten, um daraus abzuleiten, ob ein Textabschnitt positiv oder negativ ist, oder vielleicht durch andere nuanciertere Emotionen wie Überraschung oder Ekel gekennzeichnet ist. Die Werkzeuge des Text Mining werden nun genutzen, um den emotionalen Inhalt von Texten zu analysieren. Hierzu benötigen wir Wöterbücher die Wörter kennzeichne als positive/negative oder mit einem Score. In dieser Ausarbeitung nutzen wir zur Berechnung von Sentimentindize die allgemeinen Wörterbücher afinn, bing, nrc und warp.\\
+
+
+
+\begin{itemize}
+\item Im Package tidytext befindet sich das Stopwörterbuch stop$\_$words
+.
+\end{itemize}>

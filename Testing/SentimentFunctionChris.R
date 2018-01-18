@@ -27,6 +27,16 @@ pakete_lade<-function()
   library(wordcloud)
   library(stringr)
   library(readxl)
+  library(HAC)
+  library(lmtest)
+  library(nlme)
+  library(sandwich)
+  library(boot)
+  library(copula)
+  library(HAC)
+  library(lmtest)
+  library(MASS)
+  
 }
 #lese Daten ein-----------------------------------------------------
 Datei_einlesen<-function(filename_string){
@@ -78,18 +88,15 @@ Kalenderwochen<-function(data_fr){
     else if(wochen$DayOfMonth[n] < wochen$DayOfMonth[n-1]) {
       
       if(wochen$Month[n]=="Jan"||wochen$Month[n]=="Mar"||wochen$Month[n]=="Jul"||wochen$Month[n]=="Aug"||wochen$Month[n]=="Oct"|wochen$Month[n]=="Dec"){
-        print("gut31")
         endmonth= 31-wochen$DayOfMonth[n-1]
         anfangmonth=wochen$DayOfMonth[n]-0
         anzahltag=endmonth+anfangmonth
       }
       else if (wochen$Month[n]=="Feb"){
-        print("Februa")
         endmonth= 29-wochen$DayOfMonth[n-1]
         anfangmonth=wochen$DayOfMonth[n]-0
         anzahltag=endmonth+anfangmonth
       } else{
-        print("normal")
         endmonth= 30-wochen$DayOfMonth[n-1]
         anfangmonth=wochen$DayOfMonth[n]-0
         anzahltag=endmonth+anfangmonth}
@@ -124,7 +131,7 @@ wochen
 #Daten säubern---------------------------------------------------------------------
 clearing_dataframe<-function(wochen_distinct){
   #clearing-----------------------------------------------
-  replace_reg <- "https://t.co/[A-Za-z\\d]+|http://[A-Za-z\\d]+|&amp;|&lt;|&gt;|RT|https"
+ # replace_reg <- "https://t.co/[A-Za-z\\d]+|http://[A-Za-z\\d]+|&amp;|&lt;|&gt;|RT|https"
   unnest_reg <- "([^A-Za-z_\\d#@']|'(?![A-Za-z_\\d#@]))"
   clearing_dataframe_und_tokens<- wochen_distinct  %>%
     unnest_tokens(word, Tweets, token = "regex", pattern = unnest_reg) %>%
@@ -146,7 +153,7 @@ Plot_Sentiment_bing_postive_und_negative_month<-function(clearing_dataframe_und_
     count(sentiment) 
   
   ggplot(data=Sentiment_Bing, aes(x=Month2, y=n, fill=sentiment)) + geom_col(show.legend = FALSE)+
-    geom_bar(stat="identity") + facet_wrap(~sentiment, ncol = 2, scales = "free_x")
+    geom_bar(stat="identity") + facet_wrap(~sentiment, ncol = 2, scales = "free_x")+xlab("Monat")+ylab("Sentiment")
   }
   else if(Zeit=="Wochen"){
     bing <- get_sentiments("bing")
@@ -156,7 +163,7 @@ Plot_Sentiment_bing_postive_und_negative_month<-function(clearing_dataframe_und_
       count(sentiment) 
     
     ggplot(data=Sentiment_Bing, aes(x=week, y=n, fill=sentiment)) + geom_col(show.legend = FALSE)+
-      geom_bar(stat="identity") + facet_wrap(~sentiment, ncol = 2, scales = "free_x")
+      geom_bar(stat="identity") + facet_wrap(~sentiment, ncol = 2, scales = "free_x")+xlab("Monat")+ylab("Sentiment")
     
   }
   else{
@@ -167,7 +174,7 @@ Plot_Sentiment_bing_postive_und_negative_month<-function(clearing_dataframe_und_
       count(sentiment) 
     
     ggplot(data=Sentiment_Bing, aes(x=X, y=n, fill=sentiment)) + geom_col(show.legend = FALSE)+
-      geom_bar(stat="identity") + facet_wrap(~sentiment, ncol = 2, scales = "free_x")
+      geom_bar(stat="identity") + facet_wrap(~sentiment, ncol = 2, scales = "free_x")+xlab("Monat")+ylab("Sentiment")
     
   }
 
@@ -177,7 +184,7 @@ Plot_Sentiment_tweet<-function(clearing_dataframe_und_tokens,Zeit){
   bing <- get_sentiments("bing")
   
   data_monat<- clearing_data %>% inner_join(bing)
-  differenz_positive_negative<-  clearing_data %>%
+  differenz_positive_negative<-  clearing_dataframe_und_tokens %>%
     inner_join(bing) %>%
     group_by(X)%>%
     count(sentiment) %>%
@@ -458,5 +465,106 @@ plot_afinn_score<-function(afinn_score){
     ggplot(afinn_score,aes(week, sentiment_mittelwert, fill = sentiment_mittelwert)) +
       geom_col(show.legend = FALSE) 
      
+  }
+}
+#Bing Sentimen-------------------------------------------------------------------------------
+Sentiment_bing_postive_und_negative<-function(clearing_dataframe_und_tokens, Zeit){
+  
+  
+  if(Zeit=="Monat"){
+    bing <- get_sentiments("bing")
+    Sentiment_Bing<-  clearing_dataframe_und_tokens  %>%
+      inner_join(bing) %>%
+      group_by(Month2)%>%
+      count(sentiment) 
+    
+  }
+  else if(Zeit=="Wochen"){
+    bing <- get_sentiments("bing")
+    Sentiment_Bing<-  clearing_dataframe_und_tokens  %>%
+      inner_join(bing) %>%
+      group_by(week)%>%
+      count(sentiment) 
+    
+  }
+  else{
+    bing <- get_sentiments("bing")
+    Sentiment_Bing<-  clearing_dataframe_und_tokens  %>%
+      inner_join(bing) %>%
+      group_by(X)%>%
+      count(sentiment) 
+    
+   
+    
+  }
+  
+}
+Sentiment_bing_postive_minus_negative_socre_means<-function(clearing_dataframe_und_tokens,Zeit){
+  
+  bing <- get_sentiments("bing")
+  join_positive_negative<-clearing_dataframe_und_tokens  %>%
+    inner_join(bing) 
+  
+  if(Zeit=="Monat"){
+    differenz_positive_negative<-join_positive_negative %>%
+      group_by(Month2)%>%
+      count(sentiment) %>%
+      spread(sentiment, n)%>%
+      mutate(sentiment = positive - negative)%>%
+      mutate(mittelwert=sentiment/length(join_positive_negative$sentiment))
+
+  }else{
+    
+    bing <- get_sentiments("bing")
+    differenz_positive_negative<-  join_positive_negative %>%
+      group_by(week)%>%
+      count(sentiment) %>%
+      spread(sentiment, n)%>%
+      mutate(sentiment = positive - negative)%>%
+      mutate(mittelwert=sentiment/length(join_positive_negative$sentiment))
+    
+  }
+}
+
+#Tweetebene---------------------------------------------------------------------------------
+Sentiment_tweet<-function(clearing_dataframe_und_tokens,Zeit){
+  bing <- get_sentiments("bing")
+  
+  data_monat<- clearing_data %>% inner_join(bing)
+  differenz_positive_negative<-  clearing_dataframe_und_tokens %>%
+    inner_join(bing) %>%
+    group_by(X)%>%
+    count(sentiment) %>%
+    ungroup()%>%
+    spread(sentiment, n) 
+  
+  differenz_positive_negative[is.na(differenz_positive_negative$negative),"negative"]<-0
+  differenz_positive_negative[is.na(differenz_positive_negative$positive),"positive"]<-0
+  diff_neu<-differenz_positive_negative%>% mutate(sentiment = positive - negative)
+  
+  diff_neu$sentiment_neu<-""
+  diff_neu[diff_neu$sentiment>0,"sentiment_neu"]<-"positive"
+  diff_neu[diff_neu$sentiment<0,"sentiment_neu"]<-"negative"
+  diff_neu[diff_neu$sentiment==0,"sentiment_neu"]<-"neutral"
+  
+  monat_week<-data.frame(cbind(as.integer( data_monat$X),  data_monat$Month2,  data_monat$week)) 
+  
+  colnames(monat_week)<-c("X", "Month2", "week")
+  
+  if(Zeit=="Monat"){
+    diff<-diff_neu %>%
+      inner_join(monat_week)%>%
+      group_by(Month2)%>%
+      count(sentiment_neu) 
+    
+   
+  }else{
+    diff<-diff_neu %>%
+      inner_join(monat_week)%>%
+      group_by(week)%>%
+      count(sentiment_neu) 
+    
+   
+    
   }
 }

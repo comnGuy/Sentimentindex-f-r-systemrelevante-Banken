@@ -6,6 +6,8 @@ output: pdf_document
 ```{r}
 
 source("SentimentFunctionChris.R")
+source("varianz.R")
+source("functions.R")
 pakete_lade()
  file<-"C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten2012usa.csv"
  b<-Datei_einlesen("C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten2012usa.csv")
@@ -30,7 +32,21 @@ Plot_Sentiment_tweet(clearing_data, "Monat")
  afinn_score_week<-afinn_score_wert(clearing_data, "Wochen")
 plot_afinn_score(afinn_score_monat)
 plot_afinn_score(afinn_score_week)
+Rendite
+reg <-generateLinearRegressionDataFrame(rendite2, 
+                                  columnSizeSentiment = 3,
+                                  prediction = 1,
+                                  sentimentColumnName = 'sentiment',
+                                  renditeColumnName = 'Rendite',
+                                  renditeColumnNameOutput = 'rendite_v',
+                                  renditeColumnNameOutput = 'rendite_v')
 
+colnames(reg)<-c("Sentiment1","Sentiment2", "Sentiment3", "Rendite")
+dat<-lm(Rendite~ Sentiment1+Sentiment2+Sentiment3,data=reg)
+dat<-nls(Rendite~ Sentiment1*b+Sentiment2*b+Sentiment4*b, data=reg)
+dat
+summary(dat)
+plot()
 
 ```
 

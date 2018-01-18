@@ -16,9 +16,9 @@ generateLinearRegressionDataFrame <- function(dataframe, columnSizeSentiment = 3
   tmpFrame[complete.cases(tmpFrame), ]
 }
 
-generateLinearRegressionDataFrame(rendite, 
-                                  columnSizeSentiment = 3,
-                                  prediction = 1,
-                                  sentimentColumnName = 'sentiment',
-                                  renditeColumnName = 'Rendite',
-                                  renditeColumnNameOutput = 'rendite')
+#generateLinearRegressionDataFrame(rendite, 
+ #                                 columnSizeSentiment = 3,
+  #                                prediction = 1,
+   #                               sentimentColumnName = 'sentiment',
+    #                              renditeColumnName = 'Rendite',
+     #                             renditeColumnNameOutput = 'rendite')

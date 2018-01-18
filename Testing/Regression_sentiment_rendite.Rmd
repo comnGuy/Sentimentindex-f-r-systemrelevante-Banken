@@ -151,8 +151,9 @@ View(Rendite3)
 rendite<- datplot %>% inner_join(Rendite3)
 save(rendite, file = "C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten_Regresssion.rda")
 
-rendite1<- sentiment_score_week_tf_idf %>% inner_join(Rendite3)
+#rendite1<- sentiment_score_week_tf_idf %>% inner_join(Rendite3)
 rendite2<- datplot %>% inner_join(Rendite3)
+rendite2$
 # Linear Regression----------------------------------------------------------
 
 fit <- lm(Rendite ~ sentiment, data=rendite)

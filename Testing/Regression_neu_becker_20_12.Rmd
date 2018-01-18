@@ -1,0 +1,328 @@
+---
+title: "Untitled"
+output: pdf_document
+---
+
+```{r}
+source("SentimentFunctionChris.R")
+#source("varianz.R")
+source("functions.R")
+pakete_lade()
+#Aufbereitung der Daten------------------------------------------------------------------
+ file<-"C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten2012usa.csv"
+ daten_usa<-Datei_einlesen("C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten2012usa.csv")
+ daten_europa<-Datei_einlesen("C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten2012europaneu3.csv")
+
+kalenderwochen_hinzufuegen<-Kalenderwochen(daten_usa)
+daten_doppelt_loeschen<-Distinct(kalenderwochen_hinzufuegen)
+clearing_data<- clearing_dataframe(daten_doppelt_loeschen)
+clearing_data
+
+wochen="Wochen"
+#Verschiedene-Indexe berechnen Wörterbücher afinn und Bing------------------------------
+usa_afinn_score_week<-afinn_score_wert(clearing_data,"week")
+bing_score_week<- Sentiment_bing_postive_und_negative(clearing_data,"Wochen")
+bing_score_tweet_ebene<- Sentiment_tweet(clearing_data,"Wochen")
+
+#USA Dowe_Jonas einlessen----------------------------------------------------------------
+
+dow_jones <- read_excel("~/textmining/R-projekt/BeckerSeminar2/Daten/Dow_jones_rendite_2012.xlsx")
+
+#Join rendite mit sentimenanalyse über Kalenderwoche (week)-------------------
+dow_jones_afinn_score<- usa_afinn_score_week %>% inner_join(dow_jones)
+dow_jones_bing_score_simple_count<- bing_score_week %>% inner_join(dow_jones)
+dow_jones_bing_tweet_ebene <- bing_score_tweet_ebene %>% inner_join(dow_jones)
+
+#Histogramme und Varianz unserer Targets------------------------------------------------
+hist(dow_jones$Schlusskurs)
+hist(dow_jones$Rendite)
+
+
+#Regression----------------------------------------------------------------------------
+reg_vorbereitung_afinn_dow_jones<-generateLinearRegressionDataFrame(dow_jones_afinn_score, columnSizeSentiment = 3, prediction = 1, sentimentColumnName ='sentiment_mittelwert',renditeColumnName = 'Rendite', renditeColumnNameOutput = 'rendit_afinn')
+
+
+colnames(reg_vorbereitung_afinn_dow_jones)<-c("Sentiment1","Sentiment2", "Sentiment3", "Rendite")
+regression_afinn_dow_jones<-lm(Rendite~Sentiment1+Sentiment2+Sentiment3,data=reg_vorbereitung_afinn_dow_jones)
+summary(regression_afinn_dow_jones)
+acf(regression_afinn_dow_jones$residuals)
+plot(regression_afinn_dow_jones)
+data.new<-data.frame(reg_vorbereitung_afinn_dow_jones$Sentiment1,reg_vorbereitung_afinn_dow_jones$Sentiment2, reg_vorbereitung_afinn_dow_jones$Sentiment3)
+colnames(data.new)<-c("Sentiment1","Sentiment2", "Sentiment3")
+y=predict(regression_afinn_dow_jones, data.new)
+x<-seq(1,49,by=1)
+plot(dow_jones$week,dow_jones$Rendite,xlab="Wochen", ylab="Rendite",col="blue")
+lines(x,y,type="l")
+coeftest(regression_afinn_dow_jones, df = Inf, vcov = NeweyWest)
+
+
+#Abschlusskurs---------------------------------------------------------------------------
+regression_afinn_dow_jones_kursabschluss<-generateLinearRegressionDataFrame(dow_jones_afinn_score, 
+                                  columnSizeSentiment = 3,
+                                  prediction = 1,
+                                  sentimentColumnName = 'sentiment_mittelwert',
+                                  renditeColumnName = 'Veraenderung',
+                                  renditeColumnNameOutput = 'Rendite')
+
+colnames(regression_afinn_dow_jones_kursabschluss)<-c("Sentiment1","Sentiment2", "Sentiment3", "Rendite")
+regression_afinn_dow_jones<-lm(Rendite~ Sentiment1+Sentiment2+Sentiment3,data=regression_afinn_dow_jones_kursabschluss)
+summary(regression_afinn_dow_jones)
+data.new<-data.frame(regression_afinn_dow_jones_kursabschluss$Sentiment1,regression_afinn_dow_jones_kursabschluss$Sentiment2,regression_afinn_dow_jones_kursabschluss$Sentiment3)
+colnames(data.new)<-c("Sentiment1","Sentiment2", "Sentiment3")
+y=predict(regression_afinn_dow_jones,data.new)
+x<-seq(1,49,by=1)
+plot(dow_jones$week,dow_jones$Veraenderung, xlabel="Wochen", ylabel="Rendite")
+lines(x,y,type="l")
+colnames(dow_jones)<-c("week","Rendite", "Veraenderung","Schlusskurs")
+
+results<-rlm(Rendite~ I(Sentiment1)+I(Sentiment2) + I(Sentiment3), data=regression_afinn_dow_jones_kursabschluss, maxit=40)
+summary(results) 
+coeftest(regression_afinn_dow_jones, df = Inf, vcov = NeweyWest)
+#--------------------------------------------------------------
+regression_afinn_dow_jones<-lm(Rendite~ I(log(Sentiment1))+I(log(Sentiment2/Sentiment1))+I(log(Sentiment3/Sentiment2)),data=regression_afinn_dow_jones_kursabschluss)
+summary(regression_afinn_dow_jones)
+plot(regression_afinn_dow_jones)
+plot(dow_jones$week,dow_jones$Schlusskurs)
+#fm<-nlsList(SSasymp, data=regression_afinn_dow_jones_kursabschluss)
+#probe<-nlme(fm,data=regression_afinn_dow_jones_kursabschluss,fi)
+summary(regression_afinn_dow_jones)
+coeftest(regression_afinn_dow_jones, df = Inf, vcov = NeweyWest)
+#------------------------------------------------------
+
+regression_afinn_dow_jones<-lm(Rendite~ I(Sentiment1)+I(Sentiment1*Sentiment2) + I(Sentiment1*Sentiment2*Sentiment3),data=regression_afinn_dow_jones_kursabschluss)
+summary(regression_afinn_dow_jones)
+plot(regression_afinn_dow_jones)
+coeftest(regression_afinn_dow_jones, df = Inf, vcov = NeweyWest)
+#-----------------------------------------------------------------
+regression_afinn_dow_jones_kursabschluss<-generateLinearRegressionDataFrame(dow_jones_afinn_score, 
+                                  columnSizeSentiment = 6,
+                                  prediction = 1,
+                                  sentimentColumnName = 'sentiment_mittelwert',
+                                  renditeColumnName = 'Veraenderung',
+                                  renditeColumnNameOutput = 'Rendite')
+
+colnames(regression_afinn_dow_jones_kursabschluss)<-c("Sentiment1","Sentiment2", "Sentiment3","Sentiment4","Sentiment5","Sentiment6","Rendite")
+regression_afinn_dow_jones<-lm(Rendite~ Sentiment1+Sentiment2 + Sentiment3+ Sentiment4+Sentiment5+ Sentiment6,data=regression_afinn_dow_jones_kursabschluss)
+summary(regression_afinn_dow_jones)
+plot(regression_afinn_dow_jones)
+coeftest(regression_afinn_dow_jones, df = Inf, vcov = NeweyWest)
+#Bootstrap---------------------------------------------------------
+rsq <- function(formula, data, indices) {
+  d <- data[indices,] # allows boot to select sample 
+  fit <- lm(formula, data=d)
+  return(summary(fit)$r.square)
+} 
+results <- boot(data=regression_afinn_dow_jones_kursabschluss, statistic=rsq,
+  	R=1000, formula=Abschlusskurs~ Sentiment1+Sentiment2 + Sentiment3+ Sentiment4+Sentiment5+ Sentiment6)
+results
+# view results-------------------------------------------------------------------
+
+results<-rlm(Rendite~ Sentiment1+Sentiment2 + Sentiment3+ Sentiment4+Sentiment5+ Sentiment6, data=regression_afinn_dow_jones_kursabschluss)
+summary(results) 
+plot(results)
+
+#HAC berücksichtigen---------------------------------------------
+regression_afinn_dow_jones_kursabschluss<-generateLinearRegressionDataFrame(dow_jones_afinn_score, 
+                                  columnSizeSentiment = 3,
+                                  prediction = 1,
+                                  sentimentColumnName = 'sentiment_mittelwert',
+                                  renditeColumnName = 'Veraenderung',
+                                  renditeColumnNameOutput = 'Rendite')
+
+colnames(regression_afinn_dow_jones_kursabschluss)<-c("Sentiment1","Sentiment2", "Sentiment3", "Rendite")
+gls_afinn <-gls(Rendite ~ Sentiment1+Sentiment2+Sentiment3,data=regression_afinn_dow_jones_kursabschluss , correlation=corARMA(p=3), method="ML")
+summary(gls_afinn)
+#-----------------------------------------------------------------
+
+hac_afinn<-vcovHC(regression_afinn_dow_jones)
+summary(hac_afinn)
+
+r.se = sqrt(diag(hac_afinn))
+r.t = coef(regression_afinn_dow_jones) / r.se
+r.p = 2*pnorm(-abs(r.t))
+r.p
+
+
+#Regression Bing count-------------------------------------------------------------------
+reg_vorbereitung_bing_dow_jones<-generateLinearRegressionDataFrame(dow_jones_bing_score_simple_count, prediction = 1, columnSizeSentiment = 3, sentimentColumnName = 'n', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'rendite_bing')
+
+colnames(reg_vorbereitung_bing_dow_jones)<-c("Sentiment1","Sentiment2", "Sentiment3", "Rendite")
+regression_bing_dow_jones<-lm(Rendite~Sentiment1 + Sentiment2 + Sentiment3,data=reg_vorbereitung_bing_dow_jones)
+summary(regression_bing_dow_jones)
+
+#Bing Count---------------------------------------------------------------------
+reg_vorbereitung_bing_dow_jones<-generateLinearRegressionDataFrame(dow_jones_bing_score_simple_count, prediction = 1, columnSizeSentiment = 4, sentimentColumnName = 'n', renditeColumnName = 'Rendite', renditeColumnNameOutput = 'rendite_bing')
+
+colnames(reg_vorbereitung_bing_dow_jones)<-c("Sentiment1","Sentiment2","Sentiment3","Sentiment4", "Rendite")
+regression_bing_dow_jones<-lm(Rendite~ Sentiment1 + Sentiment2+ Sentiment3+ Sentiment4,data=reg_vorbereitung_bing_dow_jones)
+regression_bing_dow_jones
+summary(regression_bing_dow_jones)
+coeftest(regression_afinn_dow_jones, df = Inf, vcov = NeweyWest)
+HAC<-vcovHAC(regression_bing_dow_jones)
+#---------------------------------------------------------------------------------------
+reg_vorbereitung_bing_dow_jones<-generateLinearRegressionDataFrame(dow_jones_bing_score_simple_count, prediction = 1, columnSizeSentiment = 3, sentimentColumnName = 'n', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'rendite_bing')
+
+colnames(reg_vorbereitung_bing_dow_jones)<-c("Sentiment1","Sentiment2", "Sentiment3", "Rendite")
+regression_bing_dow_jones<-lm(Rendite~Sentiment1 + Sentiment2 + Sentiment3,data=reg_vorbereitung_bing_dow_jones)
+summary(regression_bing_dow_jones)
+
+coeftest(regression_afinn_dow_jones, df = Inf, vcov = NeweyWest)
+
+#tweetebene----------------------------------------------
+reg_vorbereitung_bing_dow_jones_tweet<-generateLinearRegressionDataFrame(dow_jones_bing_tweet_ebene, prediction = 1, columnSizeSentiment = 6, sentimentColumnName = 'n', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'rendite_bing')
+
+colnames(reg_vorbereitung_bing_dow_jones_tweet)<-c("Sentiment1","Sentiment2", "Sentiment3", "Rendite")
+regression_bing_dow_jones<-lm(Rendite~Sentiment1 + Sentiment2 + Sentiment3,data=reg_vorbereitung_bing_dow_jones_tweet)
+summary(regression_bing_dow_jones)
+
+#nls-------------------------------------------------------
+b1=1
+b2=0.5
+b3=0.25
+nlo<-nls(Schlusskurs ~ b1*sin(Sentiment1 + b2*Sentiment2 + b3*Sentiment3),data=reg_vorbereitung_bing_dow_jones_tweet, start=list(b1=b1,b2=b2, b3=b3))
+summary(nlo)
+plot(nlo)
+#-----------------
+nlo<-nls(Schlusskurs ~ b1*Sentiment1 + b2*Sentiment2 + b3*Sentiment3,data=reg_vorbereitung_bing_dow_jones_tweet, start=list(b1=b1,b2=b2, b3=b3))
+summary(nlo)
+
+
+#------------------------------------------------------------------------
+daten_usa_new_sentiment_2_ <- read_delim("~/textmining/R-projekt/BeckerSeminar2/Daten/daten_usa_new_sentiment (3).csv",";", escape_double = FALSE, trim_ws = TRUE)
+kalenderwochen_hinzufuegen<-Kalenderwochen(daten_usa_new_sentiment_2_)
+reg_wader_group_wochen<- kalenderwochen_hinzufuegen %>% group_by(week)%>% summarise(score=sum(Sentiment))
+reg_wader_group_wochen<-reg_wader_group_wochen %>% inner_join(dow_jones)
+reg_vorbereitung_wader<-generateLinearRegressionDataFrame(reg_wader_group_wochen,prediction = 1, columnSizeSentiment = 3, sentimentColumnName = 'score', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'Veränderung')
+
+colnames(reg_vorbereitung_wader)<-c("Sentiment1","Sentiment2", "Sentiment3","Rendite")
+regression_wader<-lm(Rendite~ Sentiment1+Sentiment2+Sentiment3,data=reg_vorbereitung_wader)
+summary(regression_wader)
+coeftest(regression_wader, df = Inf, vcov = NeweyWest)
+#--------------------------------------------------------
+
+
+#---------------------------------------------------------------------------------
+reg_vorbereitung_wader<-generateLinearRegressionDataFrame(reg_wader_group_wochen,prediction = 1, columnSizeSentiment = 3, sentimentColumnName = 'score', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'Rendite')
+colnames(reg_vorbereitung_wader)<-c("Sentiment1","Sentiment2", "Sentiment3", "Rendite")
+regression_wader<-lm(Rendite~ Sentiment1 + Sentiment2+ Sentiment3,data=reg_vorbereitung_wader)
+summary(regression_wader)
+coeftest(regression_wader, df = Inf, vcov = NeweyWest)
+
+#------------------------------------------
+reg_vorbereitung_wader<-generateLinearRegressionDataFrame(reg_wader_group_wochen,prediction = 1, columnSizeSentiment = 6, sentimentColumnName = 'score', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'Rendite')
+
+colnames(reg_vorbereitung_wader)<-c("Sentiment1","Sentiment2", "Sentiment3","Sentiment4","Sentiment5","Sentiment6", "Rendite")
+regression_wader<-lm(Rendite~ Sentiment1+Sentiment2+Sentiment3+Sentiment4+Sentiment5+Sentiment6,data=reg_vorbereitung_wader)
+summary(regression_wader)
+coeftest(regression_wader, df = Inf, vcov = NeweyWest)
+data.new<-data.frame(reg_vorbereitung_wader$Sentiment1,reg_vorbereitung_wader$Sentiment2,reg_vorbereitung_wader$Sentiment3,reg_vorbereitung_wader$Sentiment4,reg_vorbereitung_wader$Sentiment5,reg_vorbereitung_wader$Sentiment6)
+colnames(data.new)<-c("Sentiment1","Sentiment2", "Sentiment3","Sentiment4","Sentiment5","Sentiment6")
+y=predict(regression_wader,data.new)
+x<-seq(1,46,by=1)
+plot(dow_jones$week,dow_jones$Veraenderung)
+lines(x,y,type="l")
+#---------------------------------------------------------------------------
+reg_vorbereitung_wader<-generateLinearRegressionDataFrame(reg_wader_group_wochen,prediction = 1, columnSizeSentiment = 9, sentimentColumnName = 'score', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'Rendite')
+
+colnames(reg_vorbereitung_wader)<-c("Sentiment1","Sentiment2", "Sentiment3","Sentiment4","Sentiment5", "Sentiment6","Sentiment7","Sentiment8", "Sentiment9","Rendite")
+regression_wader<-lm(Rendite~ I(Sentiment1^9)+I(Sentiment2^8)+I(Sentiment3^7)+I(Sentiment4^6)+I(Sentiment5^5)+I(Sentiment6^4)+I(Sentiment7^3)+I(Sentiment8^2)+I(Sentiment9),data=reg_vorbereitung_wader)
+summary(regression_wader)
+#----------------------------------------------------------------------------
+reg_vorbereitung_wader<-generateLinearRegressionDataFrame(reg_wader_group_wochen,prediction = 1, columnSizeSentiment = 3, sentimentColumnName = 'score', renditeColumnName = 'Schlusskurs', renditeColumnNameOutput = 'Schlusskurs')
+
+colnames(reg_vorbereitung_wader)<-c("Sentiment1","Sentiment2", "Sentiment3","Schlusskurs")
+polynome<-polywog(Schlusskurs~Sentiment1+Sentiment2+Sentiment3,data=reg_vorbereitung_wader,degree=4)
+summary(polynome)
+#---------------------------------
+polynome<-lm(Schlusskurs~ Sentiment1+I(Sentiment1^2*Sentiment2*Sentiment3),data=reg_vorbereitung_wader)
+
+summary(polynome)
+#--------------------------------------------------------------------------
+source("~/textmining/R-projekt/BeckerSeminar2/Testing/SentimentFunctionChris.R")
+
+afinn <- clearing_data%>% 
+        inner_join(get_sentiments("afinn")) %>% 
+        group_by(week) %>% 
+        summarise(sentiment = sum(score)) %>% 
+        mutate(method = "AFINN")
+    
+    bing_and_nrc <- bind_rows(clearing_data%>% 
+                                inner_join(get_sentiments("bing")) %>%
+                                mutate(method = "Bing et al."),
+                              clearing_data %>% 
+                                inner_join(get_sentiments("nrc") %>% 
+                                             filter(sentiment %in% c("positive","negative"))) %>%
+                                mutate(method = "NRC")) %>%
+      count(method, week, sentiment) %>%
+      spread(sentiment, n, fill = 0) %>%
+      mutate(sentiment = (positive - negative))
+    
+warp_score<-Kalenderwochen(daten_usa_new_sentiment_2_)
+reg_wader_group_wochen<- warp_score %>% group_by(week)%>% summarise(sentiment=sum(Sentiment))%>% mutate(method = "Warp")    
+    
+Ergebniss<-bind_rows( reg_wader_group_wochen,afinn,bing_and_nrc) 
+
+  
+      
+    Ergebniss %>%
+    ggplot(aes(week, sentiment, fill = method)) +
+    geom_col(show.legend = FALSE) +
+    facet_wrap(~method, ncol = 1, scales = "free_y")
+
+    
+    
+    
+    
+#----------------------------------------------------------------
+  
+  bing <- get_sentiments("bing")
+    differenz_positive_negative<-  clearing_data  %>%
+      inner_join(bing) %>%
+      group_by(Month2)%>%
+      count(sentiment) %>%
+      spread(sentiment, n)%>%
+      mutate(sentiment = positive - negative)
+differenz_positive_negative    
+ggplot(data= differenz_positive_negative, aes(x=Month2, y=sentiment),fill=sentiment) + geom_col(show.legend = FALSE)+
+      geom_bar(stat="identity",  fill="blue", colour="black")+xlab("Monatn")+ylab("Sentimentindex USA")
+
+
+
+kalenderwochen_hinzufuegen_eu<-Kalenderwochen( daten_europa)
+daten_doppelt_loeschen_eu<-Distinct(kalenderwochen_hinzufuegen_eu)
+clearing_data_eu<- clearing_dataframe(daten_doppelt_loeschen_eu)
+
+differenz_positive_negative_eu<-  clearing_data_eu  %>%
+      inner_join(bing) %>%
+      group_by(week)%>%
+      count(sentiment) %>%
+      spread(sentiment, n)%>%
+      mutate(sentiment = positive - negative)
+   
+ggplot(data= differenz_positive_negative_eu, aes(x=week, y=sentiment),fill=sentiment) + geom_col(show.legend = FALSE)+
+      geom_bar(stat="identity",  fill="red", colour="black")+xlab("Monate")+ylab("Sentimentindex EU")
+#----------------------------
+ Plot_Sentiment_bing_postive_und_negative_month(clearing_data_eu,"Monat")
+ Plot_Sentiment_bing_postive_und_negative_month(clearing_data,"Monat")
+```
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -121,17 +121,17 @@ Eine Sentiment Analyse soll ?ber die zehn g?r?ten Bank mittels den Twitterdaten 
 <!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
 \section{Daten}
 Um ein Sentiment zu bilden, werden Daten mit Texten von Nutzern benötigt. Diese Daten wurden aus den zwei Quellen des Twitterarchives und durch die Twitter-API bezogen.
-Weiterhin wurden Daten für den Vergleich mit den Sentiments benötigt, hier im Unterkapitel Dividende (TODO) zu finden.
+Weiterhin wurden Daten für den Vergleich mit den Sentiments benötigt, die im Unterkapitel Dividende (TODO) zu finden sind.
 \subsection{Twitterarchive}
-Twitter veröffentlicht monatlich 1 % ihrer gesamten Tweets. Auf dem CUDA-Rechner wurde das Twitterarchive aus dem Jahr 2012 in einem R-spezifischen DataFrame aufbereitet und zur Verfügung gestellt. Da diese Twitterdaten alle Tweets enthalten, auch Tweets die nicht benötigt werden, wurde ein Filter gebaut, der die benötigten Daten filtert.
+Twitter veröffentlicht monatlich 1 % ihrer gesamten Tweets auf \textit{archive.org}[TODO Referen?]. Auf dem CUDA-Rechner wurde das Twitterarchive aus dem Jahr 2012 in einem R-spezifischen DataFrame aufbereitet und zur Verfügung gestellt. Da diese Twitterdaten alle Tweets enthalten, auch Tweets die nicht benötigt werden, wurde ein Filter gebaut, der die benötigten Daten filtert.
 
 ![Filter für grieschiche Banken \label{fig:filter}](Pictures/filter_twitter_archive.PNG)
 
-In der Abbildung \ref{fig:filter} ist ein Filter für die grieschichen Banken zu sehen. Die Begriffe, nachdem gefilter wird, sind in grün zu sehen. Diese sind jeweils durch einem logischen "Oder" getrennt. Wird ein Begriff in einem Tweet gefunden, wurde dieser Tweet in unserem Datenbestand mitaufgenommen. 
+In Abbildung \ref{fig:filter} ist ein Filter für die grieschichen Banken zu sehen. Die Begriffe, nachdem gefilter wird, sind in grün zu sehen. Diese sind jeweils durch einem logischen "Oder" getrennt. Wird ein Begriff in einem Tweet gefunden, wurde dieser Tweet in unserem Datenbestand mitaufgenommen. 
 
 Eine große Herausforderung war das Finden sinnvoller Begriffe zum Filtern. Sind die Begriffe nicht wohlwollend gewählt, könnten folgende Fälle eintreten, die sich wiederum negativ auf dem Sentiment auswirken könnten.
 
- * Ist ein Begriff zu allgemein gewählt, besteht die Möglichkeit Überschneidungen mit weiteren nicht bezogenen Themen auszuwählen. Z.B. ist der Begriff \textit{Bank} zu allgemein gewählt, da die Bank im Park oder die Bank im Glücksspiel gemeint sein könnte. An dieser Stelle kann die Anzahl der nicht gewollten Tweets abgewägt werden. Sind diese anteilig gering, kann es Sinn ergeben den Begriff als Filter aufzunehmen.
+ * Ist ein Begriff zu allgemein gewählt, besteht die Möglichkeit Überschneidungen mit weiteren nicht bezogenen Themen auszuwählen. Z.B. ist der Begriff \textit{Bank} zu allgemein gewählt, da die Bank im Park oder die Bank im Glücksspiel gemeint sein könnte. An dieser Stelle besteht die Möglichkeit die Anzahl der nicht gewollten Tweets abzuwägen. Sind diese anteilig gering, kann der Begriff als Filter aufgenommen werden.
  * Ist ein Begriff zu speziell gewählt, besteht die Möglichkeit zu wenige Tweets mit einzubeziehen.
 
 Die Wahl der Begriffe ist demnach ein Trade-Off zwischen der Noise, die Anzahl der nicht relevanten Themen, und die Anzahl der gesamten Tweets, die nach dem Filtern übrig bleibt. Werden die Begriffe zu allgemein gewählt, werden zwar viele Tweets einbezogen, jedoch wird die Noise sehr hoch. Werden die Filter zu streng gewählt, besteht die Möglichkeit zu wenige Tweets nach dem Filtern einzubeziehen.
@@ -155,12 +155,12 @@ $twitter = new TwitterAPIExchange($this->settings);
 
 // Perform the request
 $data = $twitter->setGetfield($getfield)
-		            ->buildOauth($this->url, $this->requestMethod)
-		            ->performRequest();
+                ->buildOauth($this->url, $this->requestMethod)
+                ->performRequest();
 ```
-Der obige Code zeigt die Abfrage eines Hastags. Die verschiedenen Hashtags werden mittels einer Schleife iteriert. Der Abruf (GET) wird mit einem URL Aufruf realisiert. Hierbei können verschiedene Einstellungen, wie Anzahl der maximalen Tweets (\textit{100}), welcher Typ (\textit{recent}) und in welchen Mode (\textit{extended}) werden die Tweets zurück gegeben. Als nächstes werden die Settings übergeben. Die Settings \textit{oauth\_access\_token}, \textit{oauth\_access\_token\_secret}, textit{consumer\_key} und \textit{consumer\_secret} werden durch Twitter generiert. Danach wird die Abfrage mittels der Twitter-Klasse realisiert. Als Rückgabe erhält man einen Array im JSON-Format mit den letzten 100 Tweets. Zum Speichern werden die Tweets aufbereitet und als JSON-Format gespeichert.
+Der obige Code zeigt die Abfrage eines Hastags. Die verschiedenen Hashtags werden mittels einer Schleife iteriert. Der Abruf (GET) wird mit einem URL Aufruf realisiert, der mit unterschiedlichen Einstellungen, wie Anzahl der maximalen Tweets (\textit{100}), welcher Typ (\textit{recent}) und in welchen Mode (\textit{extended}) werden die Tweets zurück gegeben, aufgerufen werden kann. Als nächstes werden die Settings übergeben. Die Twitter-spezifischen Settings werden nach der Registration im Entwicklungsbereich auf deren Webseite von generiert. Danach wird die Abfrage mittels der Twitter-Klasse realisiert. Die Rückgabe enthält ein Array im JSON-Format mit den letzten 100 Tweets. Zum Speichern werden die Tweets aufbereitet und als JSON-Format gespeichert.
 
-Der aktuelle Stand des Skriptes ist, dass es zum Ausführen manuel angestoßen werden muss. Dieses Problem wird durch ein \textit{Cronjob} gelöst. Ein Cronjob ist im Stande in definierten Intervallen oder an definierten Zeitpunkten ein Event, in unserem Fall eine PHP-Datei, auszuführen. An dieser Stelle wurde entschieden, dass höher frequentierte Tweets auf einem zwei Minuten Intervall und weniger frequentierte Tweets auf einem 15 Minuten Intervall gestellt werden.
+Aktuell muss das Skript manuell ausgeführt werden. Dieses Problem wird durch ein \textit{Cronjob} gelöst. Ein Cronjob führt in definierten Intervallen oder an definierten Zeitpunkten ein Event, in unserem Fall eine PHP-Datei, aus. An dieser Stelle wurde entschieden die höher frequentierten Tweets auf einem zwei Minuten Intervall und weniger frequentierten Tweets auf einem 15 Minuten Intervall zu setzen.
 
 \subsection{Dividende}
 \label{sub:dividende}
@@ -169,23 +169,21 @@ TODO
 
 
 \section{Wörterbücher}
-Bevor ein Sentimentindex über ein Tweet erstellt werden kann, müssen die Stimmungen aus dem jeweiligen Tweet extrahiert werden. Diese Extraktion passiert im einfachsten Fall mit einem oder mehreren Wörterbüchern.
+Bevor ein Sentimentindex über einem Tweet erstellt werden kann, müssen die Stimmungen aus dem jeweiligen Tweet extrahiert werden. Diese Extraktion passiert im einfachsten Fall mit einem oder mehreren Wörterbüchern.
 
-Der Aufbau eines Wörterbuches ist häufig ähnlich, wobei die Wörter in einer Liste aufgelistet und bewertet werden. Die Bewertung kann 1/0, Negativ/Positive, 0-10 usw. sein. Die Abbildung \ref{fig:worterbuch} zeigt ein Wörterbuch aus dem R-Package "tidytext". Die Spalte "word" steht für das bewertende Wort und "sentiment" für deren Bewertung.
+Ein Wörterbuch besteht aus einer Liste von Wörtern, die von einem oder mehreren bewertet wurden. Die Bewertung kann 1/0, Negativ/Positive, 0-10 usw. sein. Die Abbildung \ref{fig:worterbuch} zeigt ein Wörterbuch aus dem R-Package \textit{tidytext}. Die Spalte \textit{word} steht für das bewertende Wort und \textit{sentiment} für deren Bewertung.
 
 ![Positiv/Negativ Wörterbuch \label{fig:worterbuch}](Pictures/worterbuch.PNG)
 
-\textbf{Hononym} ist der Begriff für die Doppeldeutigkeit eines Wortes, zum Beispiel "Bank". Wird ein Wort für ein Wörterbuch bewertet, muss der Kontext in dem sich das Wörterbuch befindet, beachtet werden. Angenommen es steht jeweils ein Wörterbuch für die Natur und dem Immobiliensektor zur Verfügung. Das Wort "Bank" kann in diesem Fall zwei unterschiedliche Bewertung erhalten. In der Natur könnte eine Bank eher als positiv bewertet werden, wohingegen die Bank für den Immobiliensektor eher negativ ausgelegt werden könnte.
+\textbf{Hononym} ist der Begriff für die Doppeldeutigkeit eines Wortes, zum Beispiel \textit{Bank}. Wird ein Wort für ein Wörterbuch bewertet, muss der Kontext in dem sich das Wörterbuch befindet, beachtet werden. Angenommen ein Wörterbuch steht jeweils für die Natur und dem Immobiliensektor zur Verfügung. Das Wort \textit{Bank} kann in diesem Fall zwei unterschiedliche Bewertung erhalten. In der Natur könnte eine Bank eher als positiv bewertet werden, wohingegen die Bank für den Immobiliensektor eher negativ ausgelegt werden könnte.
 
-Um die \textbf{Güte eines Wörterbuches} beurteilen zu können, werden Tweets benötigt, die in irgendeiner Art und Weise eine Bewertung beinhalten. Der gegebene Datensatz aus Kapitel TODO von Tweets erhielt kein Merkmal, welches auf eine Stimmung hinweisen könnte. Die Konsequenz war Teile des Datensatzes manuell und subjektiv zu bewerten (Jochen & Bernhard). In der Abbilung \ref{fig:testdata_bewertet} sind die Bewertungungen mit "sentimentOriginal", den Tweettext mit "full_text" und die Nummerierung mit "X" zu sehen.
+Um die \textbf{Güte eines Wörterbuches} beurteilen zu können, werden Tweets benötigt, die in irgendeiner Art und Weise eine Bewertung beinhalten. Der gegebene Datensatz aus Kapitel \ref{sub:scanned_data} von Tweets erhielt kein Merkmal, welches auf eine Stimmung hinweisen könnte. Die Konsequenz war Teile des Datensatzes manuell und subjektiv zu bewerten. In der Abbilung \ref{fig:testdata_bewertet} sind die Bewertungungen mit \textit{sentimentOriginal}, den Tweettext mit \textit{full\_text} und die Nummerierung mit \textit{X} zu sehen.
 
 ![Manuell bewertetes Wörterbuch \label{fig:testdata_bewertet}](Pictures/testdata_bewertet.PNG)
 
-TODO Bevor alles gemacht wurde, wurden die Tweets komplett in einzelne Wörter getrennt, außer beim Vader.
-
 \subsection{Verwendete Wörterbücher}
 
-In diesem Bericht wurden die Wörterbücher "bing", "afinn" und "loughran" aus dem R-Package "tidytext" und das vaderSentiment verwendet (TODO verlinken).
+In diesem Bericht wurden die Wörterbücher "bing", "afinn" und "loughran" aus dem R-Package "tidytext" und das vaderSentiment verwendet (TODO verlinken, bzw. in der Referenz erwähnen).
 
 \begin{table}[H]
 \centering
@@ -201,7 +199,8 @@ In diesem Bericht wurden die Wörterbücher "bing", "afinn" und "loughran" aus d
 \label{tab:used_wordbooks}
 \end{table}
 
-In der Tabelle \ref{tab:used_wordbooks} sind die verwendeten Wörterbücher mit deren Bewertungsart, ob eine Intelligenz verfügbar und in welcher Programmiersprache dieses Wörterbuch ursprünglich vorhanden war, aufgelistet. Die Wörterbücher "bing" und "loughran" arbeiten mit positiven und negativen Bewertungen, "afinn" arbeitet mit einer Bewertungsreichweite von -5 bis 5, wobei -5 die negativste- und 5 die positivste Stimmung wiederspiegelt. Das Wörterbuch "vaderSentiment" wurde von 10 unabhängigen Menschen manuell mit der Reichweite -4 bis 4 bewertet und davon der Durchschnitt und die Standardabweichung berechnet. Weiterhin wurde eine Logik von den Machern hinterlegt, die Verneinung, Satzzeiten, groß geschriebene Wörter u. v. m. bei der Berechnung des Sentiments beachtet.
+In Tabelle \ref{tab:used_wordbooks} sind die verwendeten Wörterbücher mit deren Bewertungsart, ob eine Intelligenz verfügbar und in welcher Programmiersprache dieses Wörterbuch ursprünglich vorhanden war, aufgelistet. Die Wörterbücher "bing" und "loughran" arbeiten mit positiven und negativen Bewertungen, "afinn" arbeitet mit einer Bewertungsreichweite von -5 bis 5, wobei -5 die negativste- und 5 die positivste Stimmung wiederspiegelt. Das Wörterbuch "vaderSentiment" wurde von 10 unabhängigen Menschen manuell mit der Reichweite -4 bis 4 bewertet und davon der Durchschnitt und die Standardabweichung berechnet. Weiterhin wurde eine Logik von den Machern hinterlegt, die Verneinung, Satzzeiten, groß geschriebene Wörter u. v. m. bei der Berechnung des Sentiments beachtet.
+
 
 Zu Beginn wurden mittels den vier Wörterbüchern ein Sentiment über den Testdatensatz berechnet. Diese Berechnung wurde mittels der Abbildung \ref{fig:ubereinstimmung_nothing} visualisiert. Jeder Block entspricht ein Wörterbuch und jeder Balken spiegelt die Anzahl der Treffer wieder. 
 
@@ -211,9 +210,9 @@ Zu Beginn wurden mittels den vier Wörterbüchern ein Sentiment über den Testda
  * Die \textit{positiven} Treffer sind ausschließlich die Anzahl der positiven Treffer
  * Die \textit{neutralen} Treffer sind ausschließlich die Anzahl der neutralen Treffer
 
-![Anzahl der Übereinstimmungen der vorgesagten und der manuel eingepflegten Sentiments\label{fig:ubereinstimmung_nothing}](Pictures/ubereinstimmung_nothing.PNG)
+![Anzahl der Übereinstimmungen der vorhergesagten und der manuel eingepflegten Sentiments\label{fig:ubereinstimmung_nothing}](Pictures/ubereinstimmung_nothing.PNG)
 
-Die Wörterbücher "bing" und "afinn" liegen können insgesamt um die 70 Übereinstimmungen aufweisen, wohingegen "loughren" knapp über 50 vorweisen kann. Das beste Wörterbuch ist "vader" mit ca. 120 Übereinstimmmungen. Weiterhin ist auffällig, dass "bing", "afinn" und "vader" eine ähnliche Anzahl der Übereinstimmungen bei den positiv bewertenden Tweets aufweisen kann, jedoch punktet "vader" bei den neutralen Tweets, wo er mit ca. 30 Übereinstimmungen mit Abstand der beste ist. 
+Die Wörterbücher "bing" und "afinn" liegen können insgesamt um die 70 Übereinstimmungen aufweisen, wohingegen "loughren" knapp über 50 vorweisen kann. Das beste Wörterbuch ist "vader" mit ca. 120 Übereinstimmmungen. Eine weitere Auffälligkeit bezüglich "bing", "afinn" und "vader" sind die Anzahl der Übereinstimmungen im Bereich der positiv bewertenden Tweets. Jedoch punktet "vader" bei den neutralen Tweets, wo er mit ca. 30 Übereinstimmungen die beste Performance liefert.
 
 \subsection{Stemming}
 
@@ -224,17 +223,15 @@ Um das Stemming durchzuführen, wurde das R-Package \textit{corpus} verwendet. D
  * Corpus unterstützt vom Haus aus 17 unterschiedliche Sprachen, um ein Wortstamm zu bilden. Da der gegebene Datensazu nur englische Texte enthält, wurde nur die englische Sprache betrachtet des Standard-Packetes betrachtet.
  * Der \textit{Hunspell stemmer} soll prezisere Stämme bilden.
  * Der \textit{Dictionary stemmer} wird on-the-fly von lexoconista.com als Tupels von (Wörter, Stamm) geladen und danach mittels einer Funtkion den corpus-Package übergeben.
- * Hunspell liefert eine \textit{Rechtschreibkorrektur} mit. Zu erst wird geprüft, ob das Wort im Hunspell-Stemming-Wörterbuch existiert. Falls das Wort existiert, wird der Wortstamm zurück gegeben. Falls das Wort im Hunspell-Stemming-Wörterbuch nicht existiert, werden versucht ähnliche Wörter mittels der bereits existierten Funktion zu finden.
+ * Hunspell liefert eine \textit{Rechtschreibkorrektur} mit. Zu Beginn wird geprüft, ob das Wort im Hunspell-Stemming-Wörterbuch existiert. Falls das Wort existiert, wird der Wortstamm zurück gegeben. Falls das Wort im Hunspell-Stemming-Wörterbuch nicht existiert, wird versucht ähnliche Wörter mittels der bereits existierten Funktion zu finden.
  
-Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in der Abbildung \ref{fig:ubereinstimmung_nothing} zu sehen ist. Dabei stellte sich heraus, dass alle Verfahren bezüglich Stemming den Score verschlechterten. Die einzige Ausnahme gilt der Rechtschreibkorrektur, die insgesamt zwei Tweets mehr erkennt.
+Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Abbildung \ref{fig:ubereinstimmung_nothing} zu sehen ist. Dabei verschlechterten alle Stemming-Verfahren den Score. Die einzige Ausnahme gilt der Rechtschreibkorrektur, die insgesamt zwei Tweets mehr erkennt.
 
 
 \subsection{Ausblick}
-TODO
+In diesem Kapitel wurden 4 verschiedene Wörterbücher und 4 verschiedene Stemming-Verfahren, wobei ein Verfahren die Rechtschreibkorrektur ist, verwendet. Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram mit 2-gramme oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut dem [Paper 5 TODO] ist dieser Ansatz sehr vielversprechend.
 
- * Weitere Stemming Verfahren
- * Bessere Rechtschreibkorrektor
- * n-gram
+Ein weiterer interessanter Ansatz ist das Verwenden mehrere Wörterbücher und deren Ergebnisse durch ein Votum entscheiden zu lassen. Angenommen drei Wörterbücher beurteilen ein Tweet. Zwei Wörterbücher beurteilen den Tweet als negativ und das dritte Wörterbuch als positiv. Im nächsten Schritt wird durch das Votum der Tweet als negativ klassifiziert, da mehr Wörterbücher den Tweet als negativ eingestuft hatten. Eine Verfeinerung des Votums ist durch eine mögliche Gewichtung der Wörterbücher möglich.
 
 
 
@@ -273,5 +270,11 @@ Die $10$ gr??ten Banken:
 \section{Verfahren}
 
 
+\section{Referenzen}
 
+ * https://archive.org/details/twitterstream
+
+TODO Allgemeiner Ausblick
+
+ * Besseres PreProcessing
 

@@ -127,20 +127,20 @@ Twitter veröffentlicht monatlich 1 % ihrer gesamten Tweets auf \textit{archive.
 
 ![Filter für grieschiche Banken \label{fig:filter}](Pictures/filter_twitter_archive.PNG)
 
-In Abbildung \ref{fig:filter} ist ein Filter für die grieschichen Banken zu sehen. Die Begriffe, nachdem gefilter wird, sind in grün zu sehen. Diese sind jeweils durch einem logischen "Oder" getrennt. Wird ein Begriff in einem Tweet gefunden, wurde dieser Tweet in unserem Datenbestand mitaufgenommen. 
+In Abbildung \ref{fig:filter} ist einer unserer Filter für die grieschichen Banken zu sehen. Die Begriffe, nachdem gefiltert wird, sind in grün zu sehen. Diese sind jeweils durch einem logischen \textit{Oder} getrennt. Wird ein Begriff in einem Tweet gefunden, wurde dieser Tweet in unserem Datenbestand mitaufgenommen. 
 
 Eine große Herausforderung war das Finden sinnvoller Begriffe zum Filtern. Sind die Begriffe nicht wohlwollend gewählt, könnten folgende Fälle eintreten, die sich wiederum negativ auf dem Sentiment auswirken könnten.
 
- * Ist ein Begriff zu allgemein gewählt, besteht die Möglichkeit Überschneidungen mit weiteren nicht bezogenen Themen auszuwählen. Z.B. ist der Begriff \textit{Bank} zu allgemein gewählt, da die Bank im Park oder die Bank im Glücksspiel gemeint sein könnte. An dieser Stelle besteht die Möglichkeit die Anzahl der nicht gewollten Tweets abzuwägen. Sind diese anteilig gering, kann der Begriff als Filter aufgenommen werden.
+ * Ist ein Begriff zu allgemein gewählt, besteht die Möglichkeit Überschneidungen mit weiteren nicht bezogenen Themen auszuwählen. Z. B. ist der Begriff \textit{Bank} sehr allgemein gewählt, da die Bank im Park oder die Bank im Glücksspiel gemeint sein könnte. An dieser Stelle besteht die Möglichkeit die Anzahl der nicht gewollten Tweets abzuwägen. Sind diese anteilig gering, kann der Begriff als Filter aufgenommen werden.
  * Ist ein Begriff zu speziell gewählt, besteht die Möglichkeit zu wenige Tweets mit einzubeziehen.
 
-Die Wahl der Begriffe ist demnach ein Trade-Off zwischen der Noise, die Anzahl der nicht relevanten Themen, und die Anzahl der gesamten Tweets, die nach dem Filtern übrig bleibt. Werden die Begriffe zu allgemein gewählt, werden zwar viele Tweets einbezogen, jedoch wird die Noise sehr hoch. Werden die Filter zu streng gewählt, besteht die Möglichkeit zu wenige Tweets nach dem Filtern einzubeziehen.
+Die Wahl der Begriffe ist demnach ein Trade-Off zwischen der Noise, die Anzahl der nicht relevanten Themen, und die Anzahl der gesamten Tweets, die nach dem Filtern übrig bleibt. Werden die Begriffe zu allgemein gewählt, werden zwar viele Tweets einbezogen, jedoch könnte dadurch die Noise sehr hoch werden. Werden die Filter zu streng gewählt, besteht die Möglichkeit zu wenige Tweets nach dem Filtern einzubeziehen.
 
-Insgesamt wurden ca. 17.000 Tweets durch die gewählten Filter über das gesamte Jahre 2012 gefiltert. Da das Sentiment wöchentlich gebildet wird, sind das ca. 325 Tweets pro Woche, die für das Bilden eines Sentiments ausreichen.
+Insgesamt haben wir ca. 17.000 Tweets durch die gewählten Filter über das gesamte Jahre 2012 gefiltert. Da das Sentiment wöchentlich gebildet wird, sind das ca. 325 Tweets pro Woche, die für das Bilden eines Sentiments ausreichen.
 
 \subsection{Twitter-API}
 \label{sub:scanned_data}
-Zu Beginn war nicht klar, ob ausreichend Daten durch das Twitterarchive gewonnen werden können. Dadurch ergab sich die Idee, die Twitter-API zusätzlich zu verwenden. Die Twitter-API erlaubt 450 Anfragen alle 15 Minuten. Der Kern des PHP-Skriptes wird durch folgenden Code erleutert.
+Zu Beginn war uns nicht klar, ob ausreichend Daten durch das Twitterarchive gewonnen werden können. Dadurch ergab sich die Idee, die Twitter-API zusätzlich zu verwenden. Die Twitter-API erlaubt 450 Anfragen alle 15 Minuten. Der Kern des PHP-Skriptes wird durch folgenden Code erleutert.
 
 ```php
 // Query with one Hashtag and a limit up to 100
@@ -160,7 +160,7 @@ $data = $twitter->setGetfield($getfield)
 ```
 Der obige Code zeigt die Abfrage eines Hastags. Die verschiedenen Hashtags werden mittels einer Schleife iteriert. Der Abruf (GET) wird mit einem URL Aufruf realisiert, der mit unterschiedlichen Einstellungen, wie Anzahl der maximalen Tweets (\textit{100}), welcher Typ (\textit{recent}) und in welchen Mode (\textit{extended}) werden die Tweets zurück gegeben, aufgerufen werden kann. Als nächstes werden die Settings übergeben. Die Twitter-spezifischen Settings werden nach der Registration im Entwicklungsbereich auf deren Webseite von generiert. Danach wird die Abfrage mittels der Twitter-Klasse realisiert. Die Rückgabe enthält ein Array im JSON-Format mit den letzten 100 Tweets. Zum Speichern werden die Tweets aufbereitet und als JSON-Format gespeichert.
 
-Aktuell muss das Skript manuell ausgeführt werden. Dieses Problem wird durch ein \textit{Cronjob} gelöst. Ein Cronjob führt in definierten Intervallen oder an definierten Zeitpunkten ein Event, in unserem Fall eine PHP-Datei, aus. An dieser Stelle wurde entschieden die höher frequentierten Tweets auf einem zwei Minuten Intervall und weniger frequentierten Tweets auf einem 15 Minuten Intervall zu setzen.
+Aktuell muss das Skript manuell ausgeführt werden. Dieses Problem haben wir durch ein \textit{Cronjob} gelöst. Ein Cronjob führt in definierten Intervallen oder an definierten Zeitpunkten ein Event, in unserem Fall eine PHP-Datei, aus. An dieser Stelle wurde entschieden die höher frequentierten Tweets auf einem zwei Minuten Intervall und weniger frequentierten Tweets auf einem 15 Minuten Intervall zu setzen.
 
 \subsection{Dividende}
 \label{sub:dividende}
@@ -175,7 +175,7 @@ Ein Wörterbuch besteht aus einer Liste von Wörtern, die von einem oder mehrere
 
 ![Positiv/Negativ Wörterbuch \label{fig:worterbuch}](Pictures/worterbuch.PNG)
 
-\textbf{Hononym} ist der Begriff für die Doppeldeutigkeit eines Wortes, zum Beispiel \textit{Bank}. Wird ein Wort für ein Wörterbuch bewertet, muss der Kontext in dem sich das Wörterbuch befindet, beachtet werden. Angenommen ein Wörterbuch steht jeweils für die Natur und dem Immobiliensektor zur Verfügung. Das Wort \textit{Bank} kann in diesem Fall zwei unterschiedliche Bewertung erhalten. In der Natur könnte eine Bank eher als positiv bewertet werden, wohingegen die Bank für den Immobiliensektor eher negativ ausgelegt werden könnte.
+Ein \textbf{Hononym} ist der Begriff für die Doppeldeutigkeit eines Wortes, zum Beispiel \textit{Bank}. Wird ein Wort für ein Wörterbuch bewertet, muss der Kontext in dem sich das Wörterbuch befindet, beachtet werden. Angenommen es existieren zwei Wörterbücher, wobei jeweils eins für die Natur und  eins für den Immobiliensektor abgestimmt ist. Das Wort \textit{Bank} kann in diesem Fall zwei unterschiedliche Bewertung erhalten. In der Natur könnte eine Bank eher als positiv bewertet werden, wohingegen die Bank für den Immobiliensektor eher negativ ausgelegt werden könnte.
 
 Um die \textbf{Güte eines Wörterbuches} beurteilen zu können, werden Tweets benötigt, die in irgendeiner Art und Weise eine Bewertung beinhalten. Der gegebene Datensatz aus Kapitel \ref{sub:scanned_data} von Tweets erhielt kein Merkmal, welches auf eine Stimmung hinweisen könnte. Die Konsequenz war Teile des Datensatzes manuell und subjektiv zu bewerten. In der Abbilung \ref{fig:testdata_bewertet} sind die Bewertungungen mit \textit{sentimentOriginal}, den Tweettext mit \textit{full\_text} und die Nummerierung mit \textit{X} zu sehen.
 
@@ -183,7 +183,7 @@ Um die \textbf{Güte eines Wörterbuches} beurteilen zu können, werden Tweets b
 
 \subsection{Verwendete Wörterbücher}
 
-In diesem Bericht wurden die Wörterbücher "bing", "afinn" und "loughran" aus dem R-Package "tidytext" und das vaderSentiment verwendet (TODO verlinken, bzw. in der Referenz erwähnen).
+In diesem Bericht wurden die Wörterbücher \textit{bing}, \textit{afinn} und \textit{loughran} aus dem R-Package \textit{tidytext} und das vaderSentiment verwendet (TODO verlinken, bzw. in der Referenz erwähnen).
 
 \begin{table}[H]
 \centering

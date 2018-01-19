@@ -476,7 +476,9 @@ Sentiment_bing_postive_und_negative<-function(clearing_dataframe_und_tokens, Zei
     Sentiment_Bing<-  clearing_dataframe_und_tokens  %>%
       inner_join(bing) %>%
       group_by(Month2)%>%
-      count(sentiment) 
+      count(sentiment) %>%
+      spread(sentiment, n)%>%
+      mutate(sentiment = positive - negative)
     
   }
   else if(Zeit=="Wochen"){
@@ -484,16 +486,18 @@ Sentiment_bing_postive_und_negative<-function(clearing_dataframe_und_tokens, Zei
     Sentiment_Bing<-  clearing_dataframe_und_tokens  %>%
       inner_join(bing) %>%
       group_by(week)%>%
-      count(sentiment) 
-    
+      count(sentiment) %>%
+      spread(sentiment, n)%>%
+      mutate(sentiment = positive - negative)
   }
   else{
     bing <- get_sentiments("bing")
     Sentiment_Bing<-  clearing_dataframe_und_tokens  %>%
       inner_join(bing) %>%
       group_by(X)%>%
-      count(sentiment) 
-    
+      count(sentiment)%>% 
+      spread(sentiment, n)%>%
+      mutate(sentiment = positive - negative)
    
     
   }

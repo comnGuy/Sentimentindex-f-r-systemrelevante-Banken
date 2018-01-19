@@ -1,7 +1,7 @@
 
 
 generateLinearRegressionDataFrame <- function(dataframe, columnSizeSentiment = 3, prediction = 0, sentimentColumnName = 'sentiment', renditeColumnName = 'Rendite', renditeColumnNameOutput = 'rendite'){
-  tmpFrame <- data.frame(matrix(NA, nrow = 1, ncol = columnSizeSentiment + 1))
+  tmpFrame <- data.frame(matrix(NA, nrow = 1, ncol = columnSizeSentiment+1))
   colnames(tmpFrame) <- c(1:columnSizeSentiment, renditeColumnNameOutput)
   
   columnSizeSentiment <- columnSizeSentiment - 1

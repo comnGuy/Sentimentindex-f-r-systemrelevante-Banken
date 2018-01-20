@@ -211,7 +211,7 @@ Plot_Sentiment_tweet<-function(clearing_dataframe_und_tokens,Zeit){
     count(sentiment_neu) 
   
   ggplot(data= diff, aes(x=Month2, y=n,fill=sentiment_neu)) + geom_col(show.legend = FALSE)+
-    geom_bar(stat="identity")+ facet_wrap(~sentiment_neu, ncol = 3, scales = "free_x")
+    geom_bar(stat="identity")+ facet_wrap(~sentiment_neu, ncol = 3, scales = "free_x")+xlab("Monate")+ylab("Anzahl Tweets")+scale_x_continuous(limits = c(0, 13))
   }else{
     diff<-diff_neu %>%
       inner_join(monat_week)%>%
@@ -219,7 +219,7 @@ Plot_Sentiment_tweet<-function(clearing_dataframe_und_tokens,Zeit){
       count(sentiment_neu) 
     
     ggplot(data= diff, aes(x=week, y=n,fill=sentiment_neu)) + geom_col(show.legend = FALSE)+
-      geom_bar(stat="identity")+ facet_wrap(~sentiment_neu, ncol = 3, scales = "free_x")
+      geom_bar(stat="identity")+ facet_wrap(~sentiment_neu, ncol = 3, scales = "free_x")+xlab("Wochen")+ylab("Anzahl Tweets")+scale_x_continuous(limits = c(0, 13))
     
   }
   
@@ -295,7 +295,7 @@ Plot_Sentiment_bing_postive_minus_negative_socre_means<-function(clearing_datafr
       mutate(mittelwert=sentiment/length(join_positive_negative$sentiment))
     
     ggplot(data= differenz_positive_negative, aes(x=Month2, y=mittelwert,fill=mittelwert))+ geom_col(show.legend = FALSE)+
-      geom_bar(stat="identity")
+      geom_bar(stat="identity")+xlab("Monate")+ylab("")+scale_x_continuous(limits = c(0, 13))
   }else{
     
     bing <- get_sentiments("bing")
@@ -459,11 +459,11 @@ plot_afinn_score<-function(afinn_score){
   
   if(colnames(afinn_score[1])=="Month2"){
     ggplot(afinn_score,aes(Month2, sentiment_mittelwert, fill = sentiment_mittelwert)) +
-      geom_col(show.legend = FALSE) 
+      geom_col(show.legend = FALSE) +xlab("Wochen")+ylab("Sentimentindex")+scale_x_continuous(limits = c(0, 13))
     
   }else{
     ggplot(afinn_score,aes(week, sentiment_mittelwert, fill = sentiment_mittelwert)) +
-      geom_col(show.legend = FALSE) 
+      geom_col(show.legend = FALSE) +xlab("Wochen")+ylab("Sentimentindex")+scale_x_continuous(limits = c(0, 13))
      
   }
 }

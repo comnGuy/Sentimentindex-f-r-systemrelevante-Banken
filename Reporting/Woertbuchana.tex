@@ -70,7 +70,7 @@ Im Folgendem wird nun versucht mit verschiedene Sentimentindizes auf den \textit
 \textbf{Wie viel Wochen der Vergangenheit von Zeitpunkt heute muss mitgenommen werden, damit keine wichtigen Informationen verloren gehen?} 
 \\
 \\
-Dies kann nur empirisch ermittelt werden. In unserem Fall gehen wir von der Hypothese aus, dass drei bis vier Wochen ein erster vernünftiger Startpunkt ist. Im nächsten Schritt wird eine Regression mit den Sentimentindizes der letzten drei Wochen durchgeführt werden. Hierzu muss mit der Funktion \textit{generateLinearRegressionDataFrame} unsere Dataframe in die richtige Form transformiert werden. In der unteren R Ausgabe sind die Ergebnisse Regression zu sehen. Auf den ersten Blick fällt auf, dass nach dem T-Test alle $H_{0}$ Hypothesen für die Regressionskoeffizienten nicht verworfen werden können, da alle $\alpha>0.05$ sind, wie in der Tabelle \textit{Coefficients} in der Spalte $Pr(>|t|)$ zu sehen ist. Daraus folgt die Sentimentinidizes der letzen drei Wochen besitzen keinen Einfluss auf die Renditen (wöchentliche Veränderung pro Woche)  des \textit{Dow Jones Industrial} $30$. Diese Ergebnisse sind nicht ungewöhnlich, da wir nicht mehr in der normalen multiplen Regression uns bewegen, sondern im Bereich der Zeitreihenanalyse schon, da zeitliche Ereignisse betrachtet werden.
+Dies kann nur empirisch ermittelt werden. In unserem Fall gehen wir von der Hypothese aus, dass drei bis vier Wochen ein erster vernünftiger Startpunkt ist. Im nächsten Schritt wird eine Regression mit den Sentimentindizes der letzten drei Wochen durchgeführt werden. Hierzu muss mit der Funktion \textit{generateLinearRegressionDataFrame} unsere Dataframe in die richtige Form transformiert werden. In der unteren R Ausgabe sind die Ergebnisse Regression zu sehen. Auf den ersten Blick fällt auf, dass nach dem T-Test alle $H_{0}$ Hypothesen für die Regressionskoeffizienten nicht verworfen werden können, da alle $\alpha>0.05$ sind, wie in der Tabelle \textit{Coefficients} in der Spalte $Pr(>|t|)$ zu sehen ist. Daraus folgt die Sentimentinidizes der letzen drei Wochen besitzen keinen Einfluss auf die Renditen (wöchentliche Veränderung pro Woche)  des \textit{Dow Jones Industrial} $30$. Diese Ergebnisse sind nicht ungewöhnlich, da wir uns nicht mehr in der normalen multiplen Regression bewegen, sondern im Bereich der Zeitreihenanalyse schon, da zeitliche Ereignisse betrachtet werden. Das $R^2$ trägt $1,3\%$ für die Erklärung der Rendite dazu. 
  \begin{figure}[H]
    	\centering
   \includegraphics[width=1\textwidth]{Pictures/ergebnisse_sentiment.png}
@@ -81,7 +81,16 @@ Dies kann nur empirisch ermittelt werden. In unserem Fall gehen wir von der Hypo
 	\includegraphics[width=1\textwidth]{Pictures/Regression_bing_diff.png}
 	\caption{Plot der Regression}
 \end{figure}
-
-
+Im nächsten Schritt wird noch eine Regression mit einem Sentimentindex, der Aufbasis des Wörterbuch \textit{Afinn} einen mittleren Score berechnet.\\
+\\
+\textbf{Afinn-Score}
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{Pictures/Afinn_plot.png}
+\end{figure} 
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{Pictures/afinn_summary.png}
+\end{figure} 
 url https://www.stoxx.com/index-details?symbol=SX5P
 https://www.boerse.de/boersenlexikon/EURO-STOXX

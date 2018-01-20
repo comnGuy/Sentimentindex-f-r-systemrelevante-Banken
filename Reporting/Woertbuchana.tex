@@ -3,7 +3,7 @@ Ein wichtiger schritt bei Erstellung eines Sentimentindizes ist die wahl des ric
 Mit mehreren Optionen für Sentiment Lexika's, ist es nötig mehr Informationen zu bekommen über diese Wörterbücher. Es werden alle vier Stimmungswörterbücher verwendet und untersucht, wie sich die Stimmung über die Wochen hinweg verändert. Zuerst benutzen wir die Funktion \textit{filter()}, um nur die Wörter aus dem einen Roman auszuwählen, der uns interessiert. Für die Wörterbücher \textit{Bing} und \textit{NRC} werden die positven und negativen Wörter pro Woche gezählt und miteinander verrechnet um einen Sentimenindex zu bilden. Die Wörterbücher \textit{NRC} und \textit{Warp} besitzen einen Score für jedes Wort schon.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Reporting/Woertbuch.png}
+	\includegraphics[width=1\textwidth]{Woertbuch.png}
 	\caption{Sentimentindiezes Wörterbücher}
 	\label{senti}
 \end{figure}
@@ -17,34 +17,34 @@ In diesem Abschnitt wird ein kurzes Resume gezogen, in wie weit der Sentimentsin
 Um ein Bild der Stimmung in den Tweets zu erhalten, sollen die Anzahl der positiven und negativen Wörter pro Monat gezählt werden und die Differenz genommen werden, dazu wird das Wörterbuch \textit{Bing} verwendet.
 \begin{figure}[H]
 	\begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
-		\includegraphics[width=1\textwidth]{C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Reporting/EUpostneg.png}
+		\includegraphics[width=1\textwidth]{EUpostneg.png}
 		\caption{Sentimentindex EU-Banken positve und negative Wörter pro Monat} \label{eusent}
 	\end{minipage}
 	\hspace{.1\linewidth}% Abstand zwischen Bilder
 	\begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
-		\includegraphics[width=1\textwidth]{C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Reporting/USApostneg.png}
+		\includegraphics[width=1\textwidth]{USApostneg.png}
 		\caption{Sentimentindex USA-Bankenbpositve und negative Wörter pro Monat}\label{usasent}
 	\end{minipage}
 
 	\begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
-	\includegraphics[width=1\textwidth]{C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Reporting/Monateu.png}
+	\includegraphics[width=1\textwidth]{Monateu.png}
 	\caption{Sentimentindex EU-Banken differenz  zwischen positve und negative Wörter pro Monat}\label{eudiff}
 \end{minipage}
 	\hspace{.2\linewidth}
 \begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
-	\includegraphics[width=1\textwidth]{C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Reporting/Monatusa.png}
+	\includegraphics[width=1\textwidth]{Monatusa.png}
 	\caption{Sentimentindex USA-Banken differenz  zwischen positve und negativen Wörter pro Monat}\label{usadiff}
 \end{minipage}
 \end{figure}
 In den Grafiken \ref{usasent} und \ref{usadiff} der Tweets der US-Banken  ist abzulesen, dass es mehr negative als positive Wörter gibt, in den Monaten Januar bis November. Die Sentiments in den Plots \ref{eusent} und \ref{eudiff} der Tweets der EU-Banken sind sehr wechselhaft. Die Monaten Mai, Juni, August, Oktober und November besitzen mehr negative als positive Wörter. Es werden die Hoch und tiefst der obigen Grafiken mit dem Aktienkurs des \textit{Dow Jones} und \textit{Euro Stoxx} $50$ aus $2012$ auf Gemeinsamkeiten untersucht. 
  \begin{figure}[H]
  \begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
- 	\includegraphics[width=1\textwidth]{C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Reporting/EuroxStoxx.png}
+ 	\includegraphics[width=1\textwidth]{EuroxStoxx.png}
  	\caption{Euro Stoxx $50$ Aktienkurs $2012$} \label{eustoxx}
  \end{minipage}
  \hspace{.1\linewidth}% Abstand zwischen Bilder
  \begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
- 	\includegraphics[width=1\textwidth]{C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Reporting/DowJones2012.png}
+ 	\includegraphics[width=1\textwidth]{DowJones2012.png}
  	\caption{Dow Jones Aktienkurs $2012$}\label{dowjones}
  \end{minipage}
 \end{figure}

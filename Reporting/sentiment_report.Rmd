@@ -37,6 +37,8 @@ header-includes:
 - \usepackage{float}
 - \usepackage{listings}
 - \usepackage{fancyhdr}
+- \usepackage{geometry}
+geometry: top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm
 
 output:
   pdf_document:
@@ -84,7 +86,7 @@ output:
 \renewcommand{\footrulewidth}{1pt}
 \pagenumbering{arabic}
 
-<!--- Titelseite ---> \input{Titelblatt2}
+<!--- Titelseite ---> \input{Titelblatt2} 
 <!--- Inhaltsverzeichnis ---> \tableofcontents\newpage
 <!--- Abbildungsverzeichnis ---> \listoffigures\newpage
 
@@ -114,7 +116,6 @@ Eine Sentiment Analyse soll ?ber die Banken von USA und Europa mittels den Twitt
 
 
 <!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
-<<<<<<< HEAD
 =======
 \section{Daten}
 Um ein Sentiment zu bilden, werden Daten mit Texten von Nutzern benötigt. Diese Daten wurden aus den zwei Quellen des Twitterarchives und durch die Twitter-API bezogen.
@@ -229,7 +230,6 @@ Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Ab
 In diesem Kapitel wurden 4 verschiedene Wörterbücher und 4 verschiedene Stemming-Verfahren, wobei ein Verfahren die Rechtschreibkorrektur ist, verwendet. Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram mit 2-gramme oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut dem [Paper 5 TODO] ist dieser Ansatz sehr vielversprechend.
 
 Ein weiterer interessanter Ansatz ist das Verwenden mehrere Wörterbücher und deren Ergebnisse durch ein Votum entscheiden zu lassen. Angenommen drei Wörterbücher beurteilen ein Tweet. Zwei Wörterbücher beurteilen den Tweet als negativ und das dritte Wörterbuch als positiv. Im nächsten Schritt wird durch das Votum der Tweet als negativ klassifiziert, da mehr Wörterbücher den Tweet als negativ eingestuft hatten. Eine Verfeinerung des Votums ist durch eine mögliche Gewichtung der Wörterbücher möglich.
->>>>>>> 54ea087412e6a039fead8af94d4cf7075c003d12
 
 
 
@@ -241,12 +241,12 @@ Hier Code Einfügen
 
 
 Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet die mit \textit{eng} gekennzeichnet sind. Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken. Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
-\textbf{String Filter der US-Banken-Tweets:}\\
+<!--\textbf{String Filter der US-Banken-Tweets:}\\
 "JPMorgan Chase|\@jpmorgan|jpmorgan|jpmorgan chase|#jpmorgan|Citigroup Global Markets Inc.|citigroup global markets|citibank|citigroup|\@Citi|\@Bank of America|Bank of America|bank of america|#bankofamerica|\@WellsFargo|Wells Fargo|wells fargo|Goldman Sachs & Co. LLC|GoldmanSachs|Morgan Stanley|\@MorganStanley|\@usbank|us bank|\@Aetna|\@Affiliated_Bank|\@Affiliated_Bank|\@PNCBank|\@PNCNews|\@PNCBank_Help| \@BNYMellon|BNY Mellon|\@MetLife|\@Voya|\@lincolnfingroup|\@principal|\@GNWFinancial|#genworth|\@Ally|\@TheHartford|Hartford financial|\@CapitalOne|\@AskCapitalOne|\@COFInvesting|\@hartfordfunds|Hartford Funds|hartford funds|\$MBI|\@AssociatedBank|Associated Bank|associated bank|\@AssociatedBiz|#associatedbank|\@CNOFinancial|CNO Financial Group|\@CitizensBank|Citizens BankVerified|#citizensbank"
 
 \textbf{String Filter Banken-Tweets:}\\
-'#Grobservations|\$NBG|#NBG|#nbg|\@Eurobank_Group|\@eurobank_group|Eurobank_group|\@Alpha_Bank|aplha bank|Alpha Bank|#alphabank|\@PIRAEUSBank|piraeus bank|Piraeus Bank|piraeus bank|#piraeusbank|\@ecb|ecb|#ezb|European Central Bank|european central bank|\@HSBC_UK|HSBC UK|hsbc uk|hsbc bank|\@bancosantander|Banco Santander|banco santander|#bancosantander|\@BNPParibas|BNP Paribas Group|bnp paribas group|#bnpparibas|\@ING_news|ING Group|ing group|\@ingnl|\@UBSchweiz|UBS Schweiz|ubs schweiz|\@UBS|\@AskLloydsBank|Lloyds Banking Group|\@LBGNews|\@AskHalifaxBank|\@AskBankOfScot|lloyds banking group|#barclay|#hsbc|\@UKFtweets|UK Finance|\@triodosuk|Triodos Bank UK|\@BankofIrelandUK|Bank of Ireland UK|bank of ireland uk|Royal BankVerified account|\@RBS_Help|\@StanChart|Standard Chartered|\@nexgrp|\@OldMutual|Old Mutual plc|\@ParagonBankNC|Paragon Bank|BritishBusinessBankVerified account|\@BritishBBank|\@PIRAEUSBank|piraeus bank|Piraeus Bank|piraeus bank|#piraeusbank|\@SocieteGenerale|Societe Generale|\@CreditAgricole|Credit Agricole|#bnp|\@natixis|Natixis|#natixis|\@AXA|#AXA|AXA|\@bancosantander|bancosatnander|#BancoSantander|Banco Santander|$SAN|\@bbva|\@CajadeAhorrosPA|Caja de AhorrosP|caja de ahorrosP|\@Bankia|Bankia|bankia|\@Bankinter|Bankinter|FDN Colombia|\@FDNcolombia|\@UniCredit_PR|UniCredit Group|\@intesasanpaolo|intesa sanpaolo|\@IntesaSP_Help|#intesasanpaolo|\@BancoBPMSpa|BancoBPM|\@UnipolGroup_PR|Unipol Group PRVerified account|\@UniCredit_PR|\@Rabobank|#Rabobank|rabobank|\@rabobank'
-```{r}
+'#Grobservations|\$NBG|#NBG|#nbg|\@Eurobank_Group|\@eurobank_group|Eurobank_group|\@Alpha_Bank|aplha bank|Alpha Bank|#alphabank|\@PIRAEUSBank|piraeus bank|Piraeus Bank|piraeus bank|#piraeusbank|\@ecb|ecb|#ezb|European Central Bank|european central bank|\@HSBC_UK|HSBC UK|hsbc uk|hsbc bank|\@bancosantander|Banco Santander|banco santander|#bancosantander|\@BNPParibas|BNP Paribas Group|bnp paribas group|#bnpparibas|\@ING_news|ING Group|ing group|\@ingnl|\@UBSchweiz|UBS Schweiz|ubs schweiz|\@UBS|\@AskLloydsBank|Lloyds Banking Group|\@LBGNews|\@AskHalifaxBank|\@AskBankOfScot|lloyds banking group|#barclay|#hsbc|\@UKFtweets|UK Finance|\@triodosuk|Triodos Bank UK|\@BankofIrelandUK|Bank of Ireland UK|bank of ireland uk|Royal BankVerified account|\@RBS_Help|\@StanChart|Standard Chartered|\@nexgrp|\@OldMutual|Old Mutual plc|\@ParagonBankNC|Paragon Bank|BritishBusinessBankVerified account|\@BritishBBank|\@PIRAEUSBank|piraeus bank|Piraeus Bank|piraeus bank|#piraeusbank|\@SocieteGenerale|Societe Generale|\@CreditAgricole|Credit Agricole|#bnp|\@natixis|Natixis|#natixis|\@AXA|#AXA|AXA|\@bancosantander|bancosatnander|#BancoSantander|Banco Santander|$SAN|\@bbva|\@CajadeAhorrosPA|Caja de AhorrosP|caja de ahorrosP|\@Bankia|Bankia|bankia|\@Bankinter|Bankinter|FDN Colombia|\@FDNcolombia|\@UniCredit_PR|UniCredit Group|\@intesasanpaolo|intesa sanpaolo|\@IntesaSP_Help|#intesasanpaolo|\@BancoBPMSpa|BancoBPM|\@UnipolGroup_PR|Unipol Group PRVerified account|\@UniCredit_PR|\@Rabobank|#Rabobank|rabobank|\@rabobank'-->
+```{r, echo=FALSE}
 filter <-'JPMorgan Chase|@jpmorgan|jpmorgan|jpmorgan chase|#jpmorgan|Citigroup Global Markets Inc.|citigroup global markets|citibank|citigroup|@Citi|@Bank of America|Bank of America|bank of america|#bankofamerica|@WellsFargo|Wells Fargo|wells fargo|Goldman Sachs & Co. LLC|GoldmanSachs'
 filterusa<-paste0(filter,'|Morgan Stanley|@MorganStanley|@usbank|us bank|@Aetna|@Affiliated_Bank|@Affiliated_Bank')
 filterusan<-paste0(filterusa,'|@PNCBank|@PNCNews|@PNCBank_Help|@BNYMellon|BNY Mellon|@MetLife|@Voya|@lincolnfingroup|@principal|@GNWFinancial|#genworth|@Ally|@TheHartford|Hartford financial|@CapitalOne|@AskCapitalOne|@COFInvesting|@hartfordfunds|Hartford Funds|hartford funds|$MBI|@AssociatedBank|Associated Bank|associated bank|@AssociatedBiz|#associatedbank|@CNOFinancial|CNO Financial Group|@CitizensBank|Citizens BankVerified|#citizensbank')
@@ -316,6 +316,7 @@ get_sentiments("nrc")
 
 \section{Aufbereitung der Dow Jones Kurs aus 2012}
 \section{Berechnung der Sentimentindizes}
+<<<<<<< HEAD
   Für die Berechnung von Sentimentinidizes wird vorgegangen nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson}. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein kleines Beispiel für einen einfachen Sentimenindex, der positive und negative Wörter für jede Woche zählt soll zuerst kurz vorgestellt werden. Zur Berechnung des Sentimenindex wird der vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe ( \textit{clearing$\_$data}) mit dem Wörterbuch \textit{Bing} gejoint aber die gleichnamige Spalte \textit{word}.Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positive} und \textit{negative}) in der Spalte \textit{Sentiment} gezählt. Für die gezählten Auspr?gungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) positiv oder negativ passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und \text{n}. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet indem die Anzahl, der positiven minus den negativen Wörter berechnet werden ($Sentiment=positiv-negativ$).Der Sentimentindex \textit{Sentiment} als Barplot dargestellt werden, mittels einem ggplots.
 ```{r  eval=FALSE, echo=TRUE}
   source("~/textmining/R-projekt/BeckerSeminar2/Testing/SentimentFunctionChris.R")
@@ -329,6 +330,21 @@ get_sentiments("nrc")
   kalenderwochen_hinzufuegen<-Kalenderwochen(daten_usa)
   daten_doppelt_loeschen<-Distinct(kalenderwochen_hinzufuegen)
   clearing_data<- clearing_dataframe(daten_doppelt_loeschen)
+=======
+Für die Berechnung von Sentimentinidizes wird vorgegangen nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson}. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein kleines Beispiel für einen einfachen Sentimenindex, der positive und negative Wörter für jede Woche zählt soll zuerst kurz vorgestellt werden. Zur Berechnung des Sentimenindex wird der vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe ( \textit{clearing$\_$data}) mit dem Wörterbuch \textit{Bing} gejoint aber die gleichnamige Spalte \textit{word}.Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positive} und \textit{negative}) in der Spalte \textit{Sentiment} gezählt. Für die gezählten Auspr?gungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) positiv oder negativ passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und \text{n}. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet indem die Anzahl, der positiven minus den negativen Wörter berechnet werden ($Sentiment=positiv-negativ$).Der Sentimentindex \textit{Sentiment} als Barplot dargestellt werden, mittels einem ggplots.
+```{r  eval=FALSE, echo=FALSE}
+source("../Testing/SentimentFunctionChris.R")
+#source("varianz.R")
+source("../Testing/functions.R")
+pakete_lade()
+#Aufbereitung der Daten----------------------------------
+ file<-"../Testing/Daten2012usa.csv"
+ daten_usa<-Datei_einlesen(file)
+
+kalenderwochen_hinzufuegen<-Kalenderwochen(daten_usa)
+daten_doppelt_loeschen<-Distinct(kalenderwochen_hinzufuegen)
+clearing_data<- clearing_dataframe(daten_doppelt_loeschen)
+>>>>>>> d88b9fd4770017cd924e3d18b871974a5a6124b3
 ```
 
 ```{r eval=FALSE, echo=TRUE}
@@ -384,7 +400,7 @@ In diesem Abschnitt soll kurz angeriessen werden, welche Methoden und Mitteln ma
  	\includegraphics[width=1\textwidth]{Pictures/worcloud.png}
  	\caption{Wordcloud der am häufigsten vorkommenden positivsten und negativsten Wörter}\label{wordcloud}
 \end{figure}
-```{r eval=FALSE, echo=TRUE}
+```{r eval=FALSE, echo=FALSE}
 
 par(mfrow=c(2,2))
  bing <- get_sentiments("bing")

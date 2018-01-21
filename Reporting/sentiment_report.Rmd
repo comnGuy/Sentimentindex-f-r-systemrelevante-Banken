@@ -292,6 +292,15 @@ Im Folgendem werden nun die einzelnen Schritte für die Aufbereitung der Daten b
 \end{tabular}
 \end{table}
 \end{itemize}
+\subsection{Aufbereitung der Dow Jones Industrial 30 Aktienindex aus 2012}
+Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der älteste noch bestehende Aktienindex der USA und setzt sich heute aus $30$ der größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$ der für die späteren Regressionen verwendet wird, stammt von der Seite \url{http://www.boerse-online.de/index/historisch/dow_jones/1.1.2012_31.12.2012}.
+Die Daten werden in eine Excel-Datei überführt. Anschließen wird die wöchentlichen Veränderungen des Aktenindex in prozent berechnet. In der unteren Grafik ist ein kleiner Auschnitt abgebildet von den aufbereiteten Daten.
+ \begin{figure}[H]
+   	\centering
+  \includegraphics[width=1\textwidth]{Pictures/Dow_jownes.png}
+   	\caption{Ausschnitt des Aufbereiteten \textit{Dow Jones Industrial} $30$ Aktienindexes}
+   	\label{Dow_jones}
+ \end{figure}
 
 \section{Wörterbücher}
 Wenn Personen einen Text lesen, verwenden sie das Verständnis Wörtern zu deuten, um daraus abzuleiten, ob ein Textabschnitt positiv oder negativ ist, oder vielleicht durch andere nuanciertere Emotionnen wie Überraschung oder Ekel gekennzeichnet ist. Die Werkzeuge des Text Mining werden nun genutzt, um den emotionalen Inhalt von Texten zu analysieren. Hierzu benötigen wir Wörterbücher die Wörter kennzeichne als positive/negative oder mit einem Score. In dieser Ausarbeitung nutzen wir zur Berechnung von Sentimentindize die allgemeinen Wörterbücher afinn, bing, nrc und warp.Alle drei dieser Wörterbücher basieren auf Unigrammen, d.h. auf einzelnen Wörtern. Diese Wörterliste enthalten viele englische Wörter und den Wörtern werden Noten für positive/negative Gefühle und möglicherweise auch Emotion wie Freude, Wut, Traurigkeit zugeordnet. 
@@ -311,27 +320,10 @@ Das NRC Emotion Wörterbuch ist eine Liste englischer Wörter und ihrer Assoziat
 library(tidytext)
 get_sentiments("nrc")
 ```
-\subsection{Wötertbuch Warp}
 
-
-\section{Aufbereitung der Dow Jones Kurs aus 2012}
 \section{Berechnung der Sentimentindizes}
 <<<<<<< HEAD
-  Für die Berechnung von Sentimentinidizes wird vorgegangen nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson}. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein kleines Beispiel für einen einfachen Sentimenindex, der positive und negative Wörter für jede Woche zählt soll zuerst kurz vorgestellt werden. Zur Berechnung des Sentimenindex wird der vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe ( \textit{clearing$\_$data}) mit dem Wörterbuch \textit{Bing} gejoint aber die gleichnamige Spalte \textit{word}.Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positive} und \textit{negative}) in der Spalte \textit{Sentiment} gezählt. Für die gezählten Auspr?gungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) positiv oder negativ passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und \text{n}. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet indem die Anzahl, der positiven minus den negativen Wörter berechnet werden ($Sentiment=positiv-negativ$).Der Sentimentindex \textit{Sentiment} als Barplot dargestellt werden, mittels einem ggplots.
-```{r  eval=FALSE, echo=TRUE}
-  source("~/textmining/R-projekt/BeckerSeminar2/Testing/SentimentFunctionChris.R")
-  #source("varianz.R")
-  source("~/textmining/R-projekt/BeckerSeminar2/Testing/functions.R")
-  pakete_lade()
-  #Aufbereitung der Daten----------------------------------
-   file<-"~/textmining/R-projekt/BeckerSeminar2/Testing/Daten2012usa.csv"
-   daten_usa<-Datei_einlesen(file)
-  
-  kalenderwochen_hinzufuegen<-Kalenderwochen(daten_usa)
-  daten_doppelt_loeschen<-Distinct(kalenderwochen_hinzufuegen)
-  clearing_data<- clearing_dataframe(daten_doppelt_loeschen)
-=======
-Für die Berechnung von Sentimentinidizes wird vorgegangen nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson}. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein kleines Beispiel für einen einfachen Sentimenindex, der positive und negative Wörter für jede Woche zählt soll zuerst kurz vorgestellt werden. Zur Berechnung des Sentimenindex wird der vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe ( \textit{clearing$\_$data}) mit dem Wörterbuch \textit{Bing} gejoint aber die gleichnamige Spalte \textit{word}.Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positive} und \textit{negative}) in der Spalte \textit{Sentiment} gezählt. Für die gezählten Auspr?gungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) positiv oder negativ passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und \text{n}. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet indem die Anzahl, der positiven minus den negativen Wörter berechnet werden ($Sentiment=positiv-negativ$).Der Sentimentindex \textit{Sentiment} als Barplot dargestellt werden, mittels einem ggplots.
+  Für die Berechnung von Sentimentindizes wird vorgegangen nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson}. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein kleines Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt soll kurz vorgestellt werden. Zur Berechnung des Sentimenindex wird der vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe ( \textit{clearing$\_$data}) mit dem Wörterbuch \textit{Bing} gejoint mit der gleichnamige Spalte \textit{word}.Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. Für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und \text{n}. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet indem die Anzahl, der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestell, mittels einem ggplots.
 ```{r  eval=FALSE, echo=FALSE}
 source("../Testing/SentimentFunctionChris.R")
 #source("varianz.R")
@@ -369,7 +361,7 @@ ggplot(data= differenz_positive_negative,
    	\caption{Sentimentindex: monatlicher Mittelwert}
  \end{figure}
 
-Es wurde eine viel Zahl von Sentimentindizes berechnet mit den Wörterbüchern, die im Kapitel \textit{Wörterbücher} vorgestellt wurden. In der unteren Liste werden einige Sentimentindizes mit ihren Funktionen aufgeführt, die von uns implementiert wurden in R. Die Funktionen der aufgezählten Sentimentindizes werden in der R-Datei \textit{SentimentFunctionChris.R} zu bereitgestellt. Bei allen Funktionen müssen zwei Parameter übergeben werden, den vorbereitete Dataframe und einen String (\textit{Woche} und \textit{Monat}) der angbit, ob ein Sentiment pro Woche oder pro Monat berechnet wird. 
+In der unteren Liste werden einige Sentimentindizes mit ihren Funktionen aufgeführt, die von uns implementiert wurden in R. Die Funktionen der aufgezählten Sentimentindizes werden in der R-Datei \textit{SentimentFunctionChris.R} bereitgestellt. Bei allen Funktionen müssen zwei Parameter übergeben werden, den vorbereitete Dataframe und einen String (\textit{Woche} und \textit{Monat}) der angbit, ob ein Sentiment pro Woche oder pro Monat berechnet wird. 
 \begin{itemize}
 \item \textit{Wörterbuch Bing:} Einzelene Tweets werden als negative, positive oder als neutral gekennzeichnet. Die Tweets die mehr positive als negative Wörter besitzen, werden als positve makiert anders herum als negative, bei gleichstand als neutral.
  \begin{figure}[H]
@@ -388,7 +380,7 @@ Es wurde eine viel Zahl von Sentimentindizes berechnet mit den Wörterbüchern, 
 
 
 \section{Analysen von Tweets und ihrer Sentimentindizies}
-In diesem Abschnitt soll kurz angeriessen werden, welche Methoden und Mitteln man verwenden kann, um Tweets und Sentimentindizes zu analysieren. Um einen ersten Eindruck von den Tweets zu bekommen ist es von Vorteil, die am häufisten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung kann mittels einer einfachen Wordcloud oder Balkendiagramm stattfinden.
+In diesem Abschnitt soll kurz angerissen werden, welche Methoden und Mitteln man verwenden kann, um Tweets und Sentimentindizes zu analysieren. Um einen ersten Eindruck von den Tweets zu bekommen, ist es von Vorteil, die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung kann mittels einer einfachen Wordcloud oder Balkendiagramm stattfinden.
  \begin{figure}[H]
 \centering
  	\includegraphics[width=1\textwidth]{Pictures/positv_negativ.png}

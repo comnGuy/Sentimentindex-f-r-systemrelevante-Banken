@@ -85,6 +85,7 @@ output:
 <!--- Titelseite ---> \input{Titelblatt2} 
 
 <!--- Inhaltsverzeichnis ---> \tableofcontents\newpage
+\addcontentsline{toc}{section}{Abbildungsverzeichnis}
 <!--- Abbildungsverzeichnis ---> \listoffigures\newpage
 \setlength{\parindent}{0pt} 
 \renewcommand{\footrulewidth}{1pt}
@@ -92,7 +93,7 @@ output:
 
 <!--- Beginn --->
 \section{Ergebnisse} 
-
+Das Ziel dieser Ausarbeitung ist es einen Zusammenhang zwischen der Stimmung (\texit{Sentiment}) in den Tweets aus $2012$ und Aktienindizes nachzuweisen.  
 <!-- In einem Paper vom Herrn Becker stand, dass das Ergebnis direkt zu Begin präsentiert werden sollte -->
 
 
@@ -412,6 +413,7 @@ wordcount %>%
 
 ```
 \input{Woertbuchana}
+\input{Literratur}
 
 
 

@@ -144,11 +144,18 @@ r.p
 
 
 #Regression Bing count-------------------------------------------------------------------
-reg_vorbereitung_bing_dow_jones<-generateLinearRegressionDataFrame(dow_jones_bing_score_simple_count, prediction = 1, columnSizeSentiment = 3, sentimentColumnName = 'n', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'rendite_bing')
-
+reg_vorbereitung_bing_dow_jones<-generateLinearRegressionDataFrame(dow_jones_bing_score_simple_count, prediction = 1, columnSizeSentiment = 3, sentimentColumnName = 'sentiment', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'rendite_bing')
+length(reg_vorbereitung_bing_dow_jones)
 colnames(reg_vorbereitung_bing_dow_jones)<-c("Sentiment1","Sentiment2", "Sentiment3", "Rendite")
 regression_bing_dow_jones<-lm(Rendite~Sentiment1 + Sentiment2 + Sentiment3,data=reg_vorbereitung_bing_dow_jones)
 summary(regression_bing_dow_jones)
+data.new<-data.frame(reg_vorbereitung_bing_dow_jones$Sentiment1,reg_vorbereitung_bing_dow_jones$Sentiment2,reg_vorbereitung_bing_dow_jones$Sentiment3)
+colnames(data.new)<-c("Sentiment1","Sentiment2", "Sentiment3")
+y=predict(regression_bing_dow_jones,data.new)
+length(y)
+x<-seq(1,49,by=1)
+plot(dow_jones$week,dow_jones$Veraenderung, xlab="Wochen", ylab="Rendite")
+lines(x,y,type="l")
 
 #Bing Count---------------------------------------------------------------------
 reg_vorbereitung_bing_dow_jones<-generateLinearRegressionDataFrame(dow_jones_bing_score_simple_count, prediction = 1, columnSizeSentiment = 4, sentimentColumnName = 'n', renditeColumnName = 'Rendite', renditeColumnNameOutput = 'rendite_bing')
@@ -158,6 +165,7 @@ regression_bing_dow_jones<-lm(Rendite~ Sentiment1 + Sentiment2+ Sentiment3+ Sent
 regression_bing_dow_jones
 summary(regression_bing_dow_jones)
 coeftest(regression_afinn_dow_jones, df = Inf, vcov = NeweyWest)
+
 HAC<-vcovHAC(regression_bing_dow_jones)
 #---------------------------------------------------------------------------------------
 reg_vorbereitung_bing_dow_jones<-generateLinearRegressionDataFrame(dow_jones_bing_score_simple_count, prediction = 1, columnSizeSentiment = 3, sentimentColumnName = 'n', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'rendite_bing')

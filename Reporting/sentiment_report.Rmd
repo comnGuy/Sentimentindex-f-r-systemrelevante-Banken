@@ -67,25 +67,29 @@ output:
 
 \pagenumbering{roman}
 
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
 \renewcommand{\headrulewidth}{0.5pt}
+
 \lhead{\nouppercase{\rightmark}}\rhead{}
 <!-- \renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}} -->
 <!-- \onehalfspacing -->
 <!-- \cleardoublepage -->
 
 
-\numberwithin{equation}{section}
-\numberwithin{figure}{section}
+
 
 
 
 
 <!--- Titelseite ---> \input{Titelblatt2} 
+
 <!--- Inhaltsverzeichnis ---> \tableofcontents\newpage
 <!--- Abbildungsverzeichnis ---> \listoffigures\newpage
 \setlength{\parindent}{0pt} 
 \renewcommand{\footrulewidth}{1pt}
 \pagenumbering{arabic}
+
 <!--- Beginn --->
 \section{Ergebnisse} 
 
@@ -161,8 +165,13 @@ TODO
 
 
 
+<<<<<<< HEAD
+\section{Wörterbücher}\label{Woerterbuch}
+Bevor ein Sentimentindex über einem Tweet erstellt werden kann, müssen die Stimmungen aus dem jeweiligen Tweet extrahiert werden. Diese Extraktion passiert im einfachsten Fall mit einem oder mehreren Wörterbüchern.
+=======
 \section{Wörterbücher}
 Ein Mensch ist in der Lage nachdem Lesen eines Textes zu beurteilen welche Stimmung dieser wiederspiegelt. Das Tweetbeispiel "Der Kurs ist gut! #bitcoin" spiegelt eine positive Resonanz bezüglich Bitcoin wieder. Im Textmining ist die Taktik die einzelnen Wörter oder Wortgruppen (n-gramms) zu betrachten und mittels einem Wörterbuch die Stimmung einzuteilen. Bevor ein Sentimentindex (Stimmungsindex) über einem Tweet erstellt wird, müssen die Stimmungen aus dem jeweiligen Tweet mittels ein oder mehreren Wörterbüchern extrahiert werden. 
+>>>>>>> e45235889f4ae171ff02933313fb63df96d58849
 
 Ein Wörterbuch, auch Lexika genannt, besteht aus einer Liste von Wörtern, die von einem oder mehreren Individuen bewertet wurden. Die Bewertung kann 1/0, Negativ/Positive, 0-10, eine Stimmung u. s. w. sein. Die Abbildung \ref{fig:worterbuch} zeigt ein Wörterbuch aus dem R-Package \textit{tidytext}. Die Spalte \textit{word} steht für das bewertende Wort und \textit{sentiment} für deren Bewertung.
 
@@ -231,24 +240,58 @@ TODO "Der Kurs ist nicht schlecht! #bitcoin"
 
 
 \section{Datenaufbereitung}
-Um lokal auf den eigenen Rechnern zur Arbeite, war der erste Schritt die Daten auf den Cuda Rechner auf zu splitten in kleinere Pakete. 
+Um Lokal auf den eigenen Rechner zu arbeiten, war der erste Schritt die Daten auf den Cuda Rechner auf zu splitten in kleinere Pakete. 
 
 Hier Code Einfügen 
 
 
 
+<<<<<<< HEAD
 Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet die mit \textit{eng} gekennzeichnet sind. Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken. Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
 
 Im Folgendem werden nun die einzelnen Schritte für die Aufbereitung der Daten beschrieben, die notwendig sind, um verschiedene Sentimentindizes zu berechnen, auf Basis von Wörterbüchern. Hierzu werden eigens programmierten Funktionen benutzt.
+=======
+Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet, die mit \textit{eng} gekennzeichnet sind im Feld \textit{Language}. Es werden Indizes für Europa und die USA gebaut über die Tweets der Banken.Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
+<!--\textbf{String Filter der US-Banken-Tweets:}\\
+"JPMorgan Chase|\@jpmorgan|jpmorgan|jpmorgan chase|#jpmorgan|Citigroup Global Markets Inc.|citigroup global markets|citibank|citigroup|\@Citi|\@Bank of America|Bank of America|bank of america|#bankofamerica|\@WellsFargo|Wells Fargo|wells fargo|Goldman Sachs & Co. LLC|GoldmanSachs|Morgan Stanley|\@MorganStanley|\@usbank|us bank|\@Aetna|\@Affiliated_Bank|\@Affiliated_Bank|\@PNCBank|\@PNCNews|\@PNCBank_Help| \@BNYMellon|BNY Mellon|\@MetLife|\@Voya|\@lincolnfingroup|\@principal|\@GNWFinancial|#genworth|\@Ally|\@TheHartford|Hartford financial|\@CapitalOne|\@AskCapitalOne|\@COFInvesting|\@hartfordfunds|Hartford Funds|hartford funds|\$MBI|\@AssociatedBank|Associated Bank|associated bank|\@AssociatedBiz|#associatedbank|\@CNOFinancial|CNO Financial Group|\@CitizensBank|Citizens BankVerified|#citizensbank"
+
+\textbf{String Filter Banken-Tweets:}\\
+'#Grobservations|\$NBG|#NBG|#nbg|\@Eurobank_Group|\@eurobank_group|Eurobank_group|\@Alpha_Bank|aplha bank|Alpha Bank|#alphabank|\@PIRAEUSBank|piraeus bank|Piraeus Bank|piraeus bank|#piraeusbank|\@ecb|ecb|#ezb|European Central Bank|european central bank|\@HSBC_UK|HSBC UK|hsbc uk|hsbc bank|\@bancosantander|Banco Santander|banco santander|#bancosantander|\@BNPParibas|BNP Paribas Group|bnp paribas group|#bnpparibas|\@ING_news|ING Group|ing group|\@ingnl|\@UBSchweiz|UBS Schweiz|ubs schweiz|\@UBS|\@AskLloydsBank|Lloyds Banking Group|\@LBGNews|\@AskHalifaxBank|\@AskBankOfScot|lloyds banking group|#barclay|#hsbc|\@UKFtweets|UK Finance|\@triodosuk|Triodos Bank UK|\@BankofIrelandUK|Bank of Ireland UK|bank of ireland uk|Royal BankVerified account|\@RBS_Help|\@StanChart|Standard Chartered|\@nexgrp|\@OldMutual|Old Mutual plc|\@ParagonBankNC|Paragon Bank|BritishBusinessBankVerified account|\@BritishBBank|\@PIRAEUSBank|piraeus bank|Piraeus Bank|piraeus bank|#piraeusbank|\@SocieteGenerale|Societe Generale|\@CreditAgricole|Credit Agricole|#bnp|\@natixis|Natixis|#natixis|\@AXA|#AXA|AXA|\@bancosantander|bancosatnander|#BancoSantander|Banco Santander|$SAN|\@bbva|\@CajadeAhorrosPA|Caja de AhorrosP|caja de ahorrosP|\@Bankia|Bankia|bankia|\@Bankinter|Bankinter|FDN Colombia|\@FDNcolombia|\@UniCredit_PR|UniCredit Group|\@intesasanpaolo|intesa sanpaolo|\@IntesaSP_Help|#intesasanpaolo|\@BancoBPMSpa|BancoBPM|\@UnipolGroup_PR|Unipol Group PRVerified account|\@UniCredit_PR|\@Rabobank|#Rabobank|rabobank|\@rabobank'-->
+```{r, echo=FALSE}
+filter <-'JPMorgan Chase|@jpmorgan|jpmorgan|jpmorgan chase|#jpmorgan|Citigroup Global Markets Inc.|citigroup global markets|citibank|citigroup|@Citi|@Bank of America|Bank of America|bank of america|#bankofamerica|@WellsFargo|Wells Fargo|wells fargo|Goldman Sachs & Co. LLC|GoldmanSachs'
+filterusa<-paste0(filter,'|Morgan Stanley|@MorganStanley|@usbank|us bank|@Aetna|@Affiliated_Bank|@Affiliated_Bank')
+filterusan<-paste0(filterusa,'|@PNCBank|@PNCNews|@PNCBank_Help|@BNYMellon|BNY Mellon|@MetLife|@Voya|@lincolnfingroup|@principal|@GNWFinancial|#genworth|@Ally|@TheHartford|Hartford financial|@CapitalOne|@AskCapitalOne|@COFInvesting|@hartfordfunds|Hartford Funds|hartford funds|$MBI|@AssociatedBank|Associated Bank|associated bank|@AssociatedBiz|#associatedbank|@CNOFinancial|CNO Financial Group|@CitizensBank|Citizens BankVerified|#citizensbank')
+
+filter_griechen <-'#Grobservations|$NBG|#NBG|#nbg|@Eurobank_Group|@eurobank_group|Eurobank_group|@Alpha_Bank|aplha bank|Alpha Bank|#alphabank'
+filter_2griech<-paste0(filter_griechen,'|@PIRAEUSBank|piraeus bank|Piraeus Bank|piraeus bank|#piraeusbank')
+filter_griechen_europa <- paste0(filter_2griech,'|@ecb|ecb|#ezb|European Central Bank|european central bank|@HSBC_UK|HSBC UK|hsbc uk|hsbc bank')
+filter_griechen_europa2<- paste0(filter_griechen_europa,'|@bancosantander|Banco Santander|banco santander|#bancosantander|@BNPParibas|BNP Paribas Group|bnp paribas group|#bnpparibas|@ING_news|ING Group|ing group|@ingnl|')
+filter_ch<-'@UBSchweiz|UBS Schweiz|ubs schweiz|@UBS|'
+filter_gb<-'@AskLloydsBank|Lloyds Banking Group|@LBGNews|@AskHalifaxBank|@AskBankOfScot|lloyds banking group|#barclay|#hsbc|@UKFtweets|UK Finance|@triodosuk|Triodos Bank UK|@BankofIrelandUK|Bank of Ireland UK|bank of ireland uk|Royal BankVerified account|@RBS_Help|@StanChart|Standard Chartered|@nexgrp|@OldMutual|Old Mutual plc|@ParagonBankNC|Paragon Bank|BritishBusinessBankVerified account|@BritishBBank|'
+filter_db <-'@DeutscheBankAG|@DeuBaService|@DeutscheBank|$DB|#deutschebank|@TalkGTB|@DeutscheBankBE|@commerzbank|commerzbank|#commerzbank|@KfW|#kfw|kfw bank|@wuestenrot_de|@spardanuernberg|Sparda-Bank N?rnberg|sparda-bank|oldenburgische landesbank|@comdirect|comdirect bank AG|comdirect bank|#Allianz|alistra office|#DAXIndex|Deutsche B?rse GroupVerifizierter Account|@DES_AG|Deutsche EuroShop AG|#bayernlb|@BremerLB|@LBBW|#landesbank|Landesbank Hessen-Th?ringen|#helaba|@Helaba|@nord_lb|@ING_DiBa_Presse|@INGDiBaAustria|'
+filter_fr <-'@PIRAEUSBank|piraeus bank|Piraeus Bank|piraeus bank|#piraeusbank|@SocieteGenerale|Societe Generale|@CreditAgricole|Credit Agricole|#bnp|@natixis|Natixis|#natixis|@AXA|#AXA|AXA|'
+filter_sp <-'@bancosantander|bancosatnander|#BancoSantander|Banco Santander|$SAN|@bbva|@CajadeAhorrosPA|Caja de AhorrosP|#CaixaCatalu?a|caja de ahorrosP|@Bankia|Bankia|bankia|@Bankinter|Bankinter|FDN Colombia|@FDNcolombia|'
+filter_i <- '@UniCredit_PR|UniCredit Group|@intesasanpaolo|intesa sanpaolo|@IntesaSP_Help|#intesasanpaolo|@BancoBPMSpa|BancoBPM|@UnipolGroup_PR|Unipol Group PRVerified account|@UniCredit_PR|'
+filter_nl <-'@Rabobank|#Rabobank|rabobank|@rabobank'
+filter_europa<- paste0(filter_griechen_europa2,filter_ch)
+filter_europa <-paste0(filter_europa,filter_gb)
+filter_europa <-paste0(filter_europa,filter_db)
+filter_europa <-paste0(filter_europa,filter_fr)
+filter_europa <-paste0(filter_europa,filter_sp)
+filter_europa <-paste0(filter_europa,filter_i)
+filter_europa <-paste0(filter_europa,filter_nl)
+```
+Im Folgendem werden die einzelnen Schritte für die Datenaufbereitung der Daten beschrieben, um verschiedene Sentimentindizes auf Basis von Wörterbüchern zu berechnen. Hierzu werden eigens programmierten Funktionen benutzt, die in der R-Datei \textit{SentimentFunctionChris} enthalten sind.
+>>>>>>> 26dc64e2d237ae3fc2e7679faf6953e7d76e9fd9
 \begin{itemize}
 \item \textbf{Step 1:} Die erzeugten CSV-Datei mit den gefilterten Tweets werden mit der Funktion \textit{Datei$\_$einlesen} eingelesen und in ein Dataframe umgewandelt.
-\item \textbf{Step 2:}Um mit den Daten besser arbeiten zu können, müssen die Tweets mit einer Spalte \textit{Month2} und \textit{week} ergänzt werden. Mit den Spalten \textit{Month2} und \textit{week} können Indizies für Monaten und Wochen berechnet werden, dafür wird die Funktion Kalenderwochen verwendet.
-\item \textbf{Step 3:} Im Anschluss werden die Tweets die mehrfach im Dataframe vorkommen herausgefiltert, mit der Funktion \textit{Distinct}.
-\item \textbf{Step 4:} Mit der Funktion \textit{clearing$\_$dataframe} werden die Texte der Tweets aufgesplittet in ihren Wörtern, somit besteht ein Datensatz aus einem Wort des Tweets und den vorherigen Spalten. Anschließend wird der Dataframe bereinigt von Stopwörtern, die in der Wörterliste \textit{Stopwords} enthalten sind. Das Wörterbuch steht in R schon zur Verfügung. Für weitere Informationen hierfür wird auf die Dokumentation in R verwiesen. Die untere Tabelle zeigt einen Ausschnitt des Dataframe, dass verwendet wird, um die Sentimentindexe zu berechnen. 
+\item \textbf{Step 2:} Um mit den Daten besser arbeiten zu können, müssen die Tweets mit einer Spalte \textit{Month2} und \textit{week} ergänzt werden. Mit den Spalten \textit{Month2} und \textit{week} können Indizies für Monaten und Wochen berechnet werden, dafür wird die Funktion \textit{Kalenderwochen} verwendet.
+\item \textbf{Step 3:} Im Anschluss werden die Tweets, die mehrfach im Dataframe vorkommen, mit der Funktion \textit{Distinct} herausgefiltert.
+\item \textbf{Step 4:} Mit der Funktion \textit{clearing$\_$dataframe} werden die Texte der Tweets aufgesplittet in einzelnen Wörter, somit besteht ein Datensatz aus einem Wort des Tweets und den vorherigen Spalten. Anschließend wird as Dataframe von bereinigt Stopwörtern, die in der Wörterliste \textit{Stopwords} enthalten sind. Das Wörterbuch steht in R zur Verfügung. Im Kaptiel Wörterbuch \ref{Woerterbuch} sind sie nochmals beschrieben. Für weitere Informationen hierfür wird auf die Dokumentation in R verwiesen. Die untere Tabelle zeigt einen Ausschnitt des Dataframe, dass verwendet wird, um die Sentimentindexe zu berechnen. 
 
 \begin{table}[H]
 \centering
-\caption{Aufbereiter Dataframe}
+\caption{Aufbereites Dataframe}
 \label{dataaufbereitung}
 \begin{tabular}{|l|l|l|l|l|l|l|l|}
 \hline
@@ -261,20 +304,19 @@ Im Folgendem werden nun die einzelnen Schritte für die Aufbereitung der Daten b
 \end{tabular}
 \end{table}
 \end{itemize}
-\subsection{Aufbereitung der Dow Jones Industrial 30 Aktienindex aus 2012}
-Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der älteste noch bestehende Aktienindex der USA und setzt sich heute aus $30$ der größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$ der für die späteren Regressionen verwendet wird, stammt von der Seite \url{http://www.boerse-online.de/index/historisch/dow_jones/1.1.2012_31.12.2012}.
-Die Daten werden in eine Excel-Datei überführt. Anschließen wird die wöchentlichen Veränderungen des Aktenindex in prozent berechnet. In der unteren Grafik ist ein kleiner Auschnitt abgebildet von den aufbereiteten Daten.
+\subsection{Aufbereitung des Dow Jones Industrial 30 Aktienindex aus 2012}
+Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der älteste noch bestehende Aktienindex der USA und setzt sich heute aus $30$ den größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \url{http://www.boerse-online.de/index/historisch/dow_jones/1.1.2012_31.12.2012}.
+Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der unteren Grafik ist ein Auschnitt von den aufbereiteten Daten abgebildet.
  \begin{figure}[H]
    	\centering
   \includegraphics[width=1\textwidth]{Pictures/Dow_jownes.png}
-   	\caption{Ausschnitt des Aufbereiteten \textit{Dow Jones Industrial} $30$ Aktienindexes}
+   	\caption{Ausschnitt des aufbereiteten \textit{Dow Jones Industrial} $30$ Aktienindexes}
    	\label{Dow_jones}
  \end{figure}
 
 
 \section{Berechnung der Sentimentindizes}
-<<<<<<< HEAD
-  Für die Berechnung von Sentimentindizes wird vorgegangen nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson}. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein kleines Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt soll kurz vorgestellt werden. Zur Berechnung des Sentimenindex wird der vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe ( \textit{clearing$\_$data}) mit dem Wörterbuch \textit{Bing} gejoint mit der gleichnamige Spalte \textit{word}.Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. Für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und \text{n}. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet indem die Anzahl, der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestell, mittels einem ggplots.
+Für die Berechnung von Sentimentindizes wird nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson} vorgegangen. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt, soll vorgestellt werden. Zur Berechnung des Sentimenindex wird das vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe mit dem Wörterbuch \textit{Bing} gejoint mit der gleichnamige Spalte \textit{word}. Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. Für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und $n$. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet, indem die Anzahl der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestell, mittels einem ggplots.
 ```{r  eval=FALSE, echo=FALSE}
 source("../Testing/SentimentFunctionChris.R")
 #source("varianz.R")
@@ -299,20 +341,23 @@ clearing_data<- clearing_dataframe(daten_doppelt_loeschen)
       count(sentiment) %>%
       spread(sentiment, n)%>%
       mutate(sentiment = positive - negative)
-    
+``` 
+<!--
+```{r eval=FALSE, echo=TRUE}
 differenz_positive_negative    
 ggplot(data= differenz_positive_negative, 
        es(x=week, y=sentiment),fill=sentiment) +geom_col(show.legend = FALSE)
       +geom_bar(stat="identity",  fill="blue",colour="black")
       +xlab("Wochen")+ylab("Sentimentindex")
 ```
+-->
  \begin{figure}[H]
    	\centering
   \includegraphics[width=1\textwidth]{Pictures/sentiment_bing_week.png}
    	\caption{Sentimentindex: monatlicher Mittelwert}
  \end{figure}
 
-In der unteren Liste werden einige Sentimentindizes mit ihren Funktionen aufgeführt, die von uns implementiert wurden in R. Die Funktionen der aufgezählten Sentimentindizes werden in der R-Datei \textit{SentimentFunctionChris.R} bereitgestellt. Bei allen Funktionen müssen zwei Parameter übergeben werden, den vorbereitete Dataframe und einen String (\textit{Woche} und \textit{Monat}) der angbit, ob ein Sentiment pro Woche oder pro Monat berechnet wird. 
+In der unteren Aufzählung werden einige Sentimentindizes berechnet, die von uns in R implementiert wurde. Die Funktionen der aufgezählten Sentimentindizes werden in der R-Datei \textit{SentimentFunctionChris.R} bereitgestellt. Bei allen Funktionen müssen zwei Parameter übergeben werden, den vorbereitete Dataframe und einen String (\textit{Woche} und \textit{Monat}) der angbit, ob ein Sentiment pro Woche oder pro Monat berechnet wird. 
 \begin{itemize}
 \item \textit{Wörterbuch Bing:} Einzelene Tweets werden als negative, positive oder als neutral gekennzeichnet. Die Tweets die mehr positive als negative Wörter besitzen, werden als positve makiert anders herum als negative, bei gleichstand als neutral.
  \begin{figure}[H]
@@ -331,7 +376,7 @@ In der unteren Liste werden einige Sentimentindizes mit ihren Funktionen aufgef�
 
 
 \section{Analysen von Tweets und ihrer Sentimentindizies}
-In diesem Abschnitt soll kurz angerissen werden, welche Methoden und Mitteln man verwenden kann, um Tweets und Sentimentindizes zu analysieren. Um einen ersten Eindruck von den Tweets zu bekommen, ist es von Vorteil, die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung kann mittels einer einfachen Wordcloud oder Balkendiagramm stattfinden.
+In diesem Abschnitt soll  umrissen werden, mit welcher Methoden und Mitteln verwenden kann, um Tweets und Sentimentindizes zu analysieren. Um einen ersten Eindruck von den Tweets zu bekommen, ist es von Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einer einfachen Wordcloud oder Balkendiagramm umgesetzt.
  \begin{figure}[H]
 \centering
  	\includegraphics[width=1\textwidth]{Pictures/positv_negativ.png}

@@ -112,7 +112,6 @@ Eine Sentiment Analyse soll ?ber die Banken von USA und Europa mittels den Twitt
 
 
 <!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
-=======
 \section{Daten}
 Um ein Sentiment zu bilden, werden Daten mit Texten von Nutzern benötigt. Diese Daten wurden aus den zwei Quellen des Twitterarchives und durch die Twitter-API bezogen.
 Weiterhin wurden Daten für den Vergleich mit den Sentiments benötigt, die im Unterkapitel Dividende (TODO) zu finden sind.

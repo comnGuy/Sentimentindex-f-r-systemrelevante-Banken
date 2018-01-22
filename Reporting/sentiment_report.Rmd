@@ -38,6 +38,8 @@ header-includes:
 - \usepackage{listings}
 - \usepackage{fancyhdr}
 - \usepackage{geometry}
+- \usepackage[onehalfspacing]{setspace}
+
 geometry: top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm
 
 output:
@@ -82,14 +84,14 @@ output:
 \numberwithin{figure}{section}
 
 
-\setlength{\parindent}{0pt} 
-\renewcommand{\footrulewidth}{1pt}
-\pagenumbering{arabic}
+
 
 <!--- Titelseite ---> \input{Titelblatt2} 
 <!--- Inhaltsverzeichnis ---> \tableofcontents\newpage
 <!--- Abbildungsverzeichnis ---> \listoffigures\newpage
-
+\setlength{\parindent}{0pt} 
+\renewcommand{\footrulewidth}{1pt}
+\pagenumbering{arabic}
 <!--- Beginn --->
 \section{Ergebnisse} 
 

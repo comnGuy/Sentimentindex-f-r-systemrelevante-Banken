@@ -165,13 +165,13 @@ TODO
 
 
 
-<<<<<<< HEAD
 \section{Wörterbücher}\label{Woerterbuch}
 Bevor ein Sentimentindex über einem Tweet erstellt werden kann, müssen die Stimmungen aus dem jeweiligen Tweet extrahiert werden. Diese Extraktion passiert im einfachsten Fall mit einem oder mehreren Wörterbüchern.
-=======
+
+
 \section{Wörterbücher}
 Ein Mensch ist in der Lage nachdem Lesen eines Textes zu beurteilen welche Stimmung dieser wiederspiegelt. Das Tweetbeispiel "Der Kurs ist gut! #bitcoin" spiegelt eine positive Resonanz bezüglich Bitcoin wieder. Im Textmining ist die Taktik die einzelnen Wörter oder Wortgruppen (n-gramms) zu betrachten und mittels einem Wörterbuch die Stimmung einzuteilen. Bevor ein Sentimentindex (Stimmungsindex) über einem Tweet erstellt wird, müssen die Stimmungen aus dem jeweiligen Tweet mittels ein oder mehreren Wörterbüchern extrahiert werden. 
->>>>>>> e45235889f4ae171ff02933313fb63df96d58849
+
 
 Ein Wörterbuch, auch Lexika genannt, besteht aus einer Liste von Wörtern, die von einem oder mehreren Individuen bewertet wurden. Die Bewertung kann 1/0, Negativ/Positive, 0-10, eine Stimmung u. s. w. sein. Die Abbildung \ref{fig:worterbuch} zeigt ein Wörterbuch aus dem R-Package \textit{tidytext}. Die Spalte \textit{word} steht für das bewertende Wort und \textit{sentiment} für deren Bewertung.
 
@@ -246,11 +246,11 @@ Hier Code Einfügen
 
 
 
-<<<<<<< HEAD
 Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet die mit \textit{eng} gekennzeichnet sind. Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken. Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
 
 Im Folgendem werden nun die einzelnen Schritte für die Aufbereitung der Daten beschrieben, die notwendig sind, um verschiedene Sentimentindizes zu berechnen, auf Basis von Wörterbüchern. Hierzu werden eigens programmierten Funktionen benutzt.
-=======
+
+
 Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet, die mit \textit{eng} gekennzeichnet sind im Feld \textit{Language}. Es werden Indizes für Europa und die USA gebaut über die Tweets der Banken.Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
 <!--\textbf{String Filter der US-Banken-Tweets:}\\
 "JPMorgan Chase|\@jpmorgan|jpmorgan|jpmorgan chase|#jpmorgan|Citigroup Global Markets Inc.|citigroup global markets|citibank|citigroup|\@Citi|\@Bank of America|Bank of America|bank of america|#bankofamerica|\@WellsFargo|Wells Fargo|wells fargo|Goldman Sachs & Co. LLC|GoldmanSachs|Morgan Stanley|\@MorganStanley|\@usbank|us bank|\@Aetna|\@Affiliated_Bank|\@Affiliated_Bank|\@PNCBank|\@PNCNews|\@PNCBank_Help| \@BNYMellon|BNY Mellon|\@MetLife|\@Voya|\@lincolnfingroup|\@principal|\@GNWFinancial|#genworth|\@Ally|\@TheHartford|Hartford financial|\@CapitalOne|\@AskCapitalOne|\@COFInvesting|\@hartfordfunds|Hartford Funds|hartford funds|\$MBI|\@AssociatedBank|Associated Bank|associated bank|\@AssociatedBiz|#associatedbank|\@CNOFinancial|CNO Financial Group|\@CitizensBank|Citizens BankVerified|#citizensbank"
@@ -282,7 +282,7 @@ filter_europa <-paste0(filter_europa,filter_i)
 filter_europa <-paste0(filter_europa,filter_nl)
 ```
 Im Folgendem werden die einzelnen Schritte für die Datenaufbereitung der Daten beschrieben, um verschiedene Sentimentindizes auf Basis von Wörterbüchern zu berechnen. Hierzu werden eigens programmierten Funktionen benutzt, die in der R-Datei \textit{SentimentFunctionChris} enthalten sind.
->>>>>>> 26dc64e2d237ae3fc2e7679faf6953e7d76e9fd9
+
 \begin{itemize}
 \item \textbf{Step 1:} Die erzeugten CSV-Datei mit den gefilterten Tweets werden mit der Funktion \textit{Datei$\_$einlesen} eingelesen und in ein Dataframe umgewandelt.
 \item \textbf{Step 2:} Um mit den Daten besser arbeiten zu können, müssen die Tweets mit einer Spalte \textit{Month2} und \textit{week} ergänzt werden. Mit den Spalten \textit{Month2} und \textit{week} können Indizies für Monaten und Wochen berechnet werden, dafür wird die Funktion \textit{Kalenderwochen} verwendet.
@@ -329,7 +329,6 @@ pakete_lade()
 kalenderwochen_hinzufuegen<-Kalenderwochen(daten_usa)
 daten_doppelt_loeschen<-Distinct(kalenderwochen_hinzufuegen)
 clearing_data<- clearing_dataframe(daten_doppelt_loeschen)
->>>>>>> d88b9fd4770017cd924e3d18b871974a5a6124b3
 ```
 
 ```{r eval=FALSE, echo=TRUE}

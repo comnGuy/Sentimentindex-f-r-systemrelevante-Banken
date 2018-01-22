@@ -232,16 +232,11 @@ In diesem Kapitel wurden 4 verschiedene Wörterbücher und 4 verschiedene Stemmi
 
 Ein weiterer interessanter Ansatz ist das Verwenden mehrere Wörterbücher und deren Ergebnisse durch ein Votum entscheiden zu lassen. Angenommen drei Wörterbücher beurteilen ein Tweet. Zwei Wörterbücher beurteilen den Tweet als negativ und das dritte Wörterbuch als positiv. Im nächsten Schritt wird durch das Votum der Tweet als negativ klassifiziert, da mehr Wörterbücher den Tweet als negativ eingestuft hatten. Eine Verfeinerung des Votums ist durch eine mögliche Gewichtung der Wörterbücher möglich.
 
-TODO "Der Kurs ist nicht schlecht! #bitcoin"
+Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknüpfen. Die Logik könnte in der Lage sein gute Verneinungen zu erkennen, wie "Der Kurs ist nicht schlecht! #bitcoin".
 
 
 
 \section{Datenaufbereitung}
-Um Lokal auf den eigenen Rechner zu arbeiten, war der erste Schritt die Daten auf den Cuda Rechner auf zu splitten in kleinere Pakete. 
-
-Hier Code Einfügen 
-
-
 
 Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet die mit \textit{eng} gekennzeichnet sind. Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken. Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
 
@@ -249,35 +244,7 @@ Im Folgendem werden nun die einzelnen Schritte für die Aufbereitung der Daten b
 
 
 Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet, die mit \textit{eng} gekennzeichnet sind im Feld \textit{Language}. Es werden Indizes für Europa und die USA gebaut über die Tweets der Banken.Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
-<!--\textbf{String Filter der US-Banken-Tweets:}\\
-"JPMorgan Chase|\@jpmorgan|jpmorgan|jpmorgan chase|#jpmorgan|Citigroup Global Markets Inc.|citigroup global markets|citibank|citigroup|\@Citi|\@Bank of America|Bank of America|bank of america|#bankofamerica|\@WellsFargo|Wells Fargo|wells fargo|Goldman Sachs & Co. LLC|GoldmanSachs|Morgan Stanley|\@MorganStanley|\@usbank|us bank|\@Aetna|\@Affiliated_Bank|\@Affiliated_Bank|\@PNCBank|\@PNCNews|\@PNCBank_Help| \@BNYMellon|BNY Mellon|\@MetLife|\@Voya|\@lincolnfingroup|\@principal|\@GNWFinancial|#genworth|\@Ally|\@TheHartford|Hartford financial|\@CapitalOne|\@AskCapitalOne|\@COFInvesting|\@hartfordfunds|Hartford Funds|hartford funds|\$MBI|\@AssociatedBank|Associated Bank|associated bank|\@AssociatedBiz|#associatedbank|\@CNOFinancial|CNO Financial Group|\@CitizensBank|Citizens BankVerified|#citizensbank"
 
-\textbf{String Filter Banken-Tweets:}\\
-'#Grobservations|\$NBG|#NBG|#nbg|\@Eurobank_Group|\@eurobank_group|Eurobank_group|\@Alpha_Bank|aplha bank|Alpha Bank|#alphabank|\@PIRAEUSBank|piraeus bank|Piraeus Bank|piraeus bank|#piraeusbank|\@ecb|ecb|#ezb|European Central Bank|european central bank|\@HSBC_UK|HSBC UK|hsbc uk|hsbc bank|\@bancosantander|Banco Santander|banco santander|#bancosantander|\@BNPParibas|BNP Paribas Group|bnp paribas group|#bnpparibas|\@ING_news|ING Group|ing group|\@ingnl|\@UBSchweiz|UBS Schweiz|ubs schweiz|\@UBS|\@AskLloydsBank|Lloyds Banking Group|\@LBGNews|\@AskHalifaxBank|\@AskBankOfScot|lloyds banking group|#barclay|#hsbc|\@UKFtweets|UK Finance|\@triodosuk|Triodos Bank UK|\@BankofIrelandUK|Bank of Ireland UK|bank of ireland uk|Royal BankVerified account|\@RBS_Help|\@StanChart|Standard Chartered|\@nexgrp|\@OldMutual|Old Mutual plc|\@ParagonBankNC|Paragon Bank|BritishBusinessBankVerified account|\@BritishBBank|\@PIRAEUSBank|piraeus bank|Piraeus Bank|piraeus bank|#piraeusbank|\@SocieteGenerale|Societe Generale|\@CreditAgricole|Credit Agricole|#bnp|\@natixis|Natixis|#natixis|\@AXA|#AXA|AXA|\@bancosantander|bancosatnander|#BancoSantander|Banco Santander|$SAN|\@bbva|\@CajadeAhorrosPA|Caja de AhorrosP|caja de ahorrosP|\@Bankia|Bankia|bankia|\@Bankinter|Bankinter|FDN Colombia|\@FDNcolombia|\@UniCredit_PR|UniCredit Group|\@intesasanpaolo|intesa sanpaolo|\@IntesaSP_Help|#intesasanpaolo|\@BancoBPMSpa|BancoBPM|\@UnipolGroup_PR|Unipol Group PRVerified account|\@UniCredit_PR|\@Rabobank|#Rabobank|rabobank|\@rabobank'-->
-```{r, echo=FALSE}
-filter <-'JPMorgan Chase|@jpmorgan|jpmorgan|jpmorgan chase|#jpmorgan|Citigroup Global Markets Inc.|citigroup global markets|citibank|citigroup|@Citi|@Bank of America|Bank of America|bank of america|#bankofamerica|@WellsFargo|Wells Fargo|wells fargo|Goldman Sachs & Co. LLC|GoldmanSachs'
-filterusa<-paste0(filter,'|Morgan Stanley|@MorganStanley|@usbank|us bank|@Aetna|@Affiliated_Bank|@Affiliated_Bank')
-filterusan<-paste0(filterusa,'|@PNCBank|@PNCNews|@PNCBank_Help|@BNYMellon|BNY Mellon|@MetLife|@Voya|@lincolnfingroup|@principal|@GNWFinancial|#genworth|@Ally|@TheHartford|Hartford financial|@CapitalOne|@AskCapitalOne|@COFInvesting|@hartfordfunds|Hartford Funds|hartford funds|$MBI|@AssociatedBank|Associated Bank|associated bank|@AssociatedBiz|#associatedbank|@CNOFinancial|CNO Financial Group|@CitizensBank|Citizens BankVerified|#citizensbank')
-
-filter_griechen <-'#Grobservations|$NBG|#NBG|#nbg|@Eurobank_Group|@eurobank_group|Eurobank_group|@Alpha_Bank|aplha bank|Alpha Bank|#alphabank'
-filter_2griech<-paste0(filter_griechen,'|@PIRAEUSBank|piraeus bank|Piraeus Bank|piraeus bank|#piraeusbank')
-filter_griechen_europa <- paste0(filter_2griech,'|@ecb|ecb|#ezb|European Central Bank|european central bank|@HSBC_UK|HSBC UK|hsbc uk|hsbc bank')
-filter_griechen_europa2<- paste0(filter_griechen_europa,'|@bancosantander|Banco Santander|banco santander|#bancosantander|@BNPParibas|BNP Paribas Group|bnp paribas group|#bnpparibas|@ING_news|ING Group|ing group|@ingnl|')
-filter_ch<-'@UBSchweiz|UBS Schweiz|ubs schweiz|@UBS|'
-filter_gb<-'@AskLloydsBank|Lloyds Banking Group|@LBGNews|@AskHalifaxBank|@AskBankOfScot|lloyds banking group|#barclay|#hsbc|@UKFtweets|UK Finance|@triodosuk|Triodos Bank UK|@BankofIrelandUK|Bank of Ireland UK|bank of ireland uk|Royal BankVerified account|@RBS_Help|@StanChart|Standard Chartered|@nexgrp|@OldMutual|Old Mutual plc|@ParagonBankNC|Paragon Bank|BritishBusinessBankVerified account|@BritishBBank|'
-filter_db <-'@DeutscheBankAG|@DeuBaService|@DeutscheBank|$DB|#deutschebank|@TalkGTB|@DeutscheBankBE|@commerzbank|commerzbank|#commerzbank|@KfW|#kfw|kfw bank|@wuestenrot_de|@spardanuernberg|Sparda-Bank N?rnberg|sparda-bank|oldenburgische landesbank|@comdirect|comdirect bank AG|comdirect bank|#Allianz|alistra office|#DAXIndex|Deutsche B?rse GroupVerifizierter Account|@DES_AG|Deutsche EuroShop AG|#bayernlb|@BremerLB|@LBBW|#landesbank|Landesbank Hessen-Th?ringen|#helaba|@Helaba|@nord_lb|@ING_DiBa_Presse|@INGDiBaAustria|'
-filter_fr <-'@PIRAEUSBank|piraeus bank|Piraeus Bank|piraeus bank|#piraeusbank|@SocieteGenerale|Societe Generale|@CreditAgricole|Credit Agricole|#bnp|@natixis|Natixis|#natixis|@AXA|#AXA|AXA|'
-filter_sp <-'@bancosantander|bancosatnander|#BancoSantander|Banco Santander|$SAN|@bbva|@CajadeAhorrosPA|Caja de AhorrosP|#CaixaCatalu?a|caja de ahorrosP|@Bankia|Bankia|bankia|@Bankinter|Bankinter|FDN Colombia|@FDNcolombia|'
-filter_i <- '@UniCredit_PR|UniCredit Group|@intesasanpaolo|intesa sanpaolo|@IntesaSP_Help|#intesasanpaolo|@BancoBPMSpa|BancoBPM|@UnipolGroup_PR|Unipol Group PRVerified account|@UniCredit_PR|'
-filter_nl <-'@Rabobank|#Rabobank|rabobank|@rabobank'
-filter_europa<- paste0(filter_griechen_europa2,filter_ch)
-filter_europa <-paste0(filter_europa,filter_gb)
-filter_europa <-paste0(filter_europa,filter_db)
-filter_europa <-paste0(filter_europa,filter_fr)
-filter_europa <-paste0(filter_europa,filter_sp)
-filter_europa <-paste0(filter_europa,filter_i)
-filter_europa <-paste0(filter_europa,filter_nl)
-```
 Im Folgendem werden die einzelnen Schritte für die Datenaufbereitung der Daten beschrieben, um verschiedene Sentimentindizes auf Basis von Wörterbüchern zu berechnen. Hierzu werden eigens programmierten Funktionen benutzt, die in der R-Datei \textit{SentimentFunctionChris} enthalten sind.
 
 \begin{itemize}

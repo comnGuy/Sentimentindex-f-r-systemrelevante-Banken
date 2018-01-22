@@ -162,9 +162,9 @@ TODO
 
 
 \section{Wörterbücher}
-Bevor ein Sentimentindex über einem Tweet erstellt werden kann, müssen die Stimmungen aus dem jeweiligen Tweet extrahiert werden. Diese Extraktion passiert im einfachsten Fall mit einem oder mehreren Wörterbüchern.
+Ein Mensch ist in der Lage nachdem Lesen eines Textes zu beurteilen welche Stimmung dieser wiederspiegelt. Das Tweetbeispiel "Der Kurs ist gut! #bitcoin" spiegelt eine positive Resonanz bezüglich Bitcoin wieder. Im Textmining ist die Taktik die einzelnen Wörter oder Wortgruppen (n-gramms) zu betrachten und mittels einem Wörterbuch die Stimmung einzuteilen. Bevor ein Sentimentindex (Stimmungsindex) über einem Tweet erstellt wird, müssen die Stimmungen aus dem jeweiligen Tweet mittels ein oder mehreren Wörterbüchern extrahiert werden. 
 
-Ein Wörterbuch besteht aus einer Liste von Wörtern, die von einem oder mehreren bewertet wurden. Die Bewertung kann 1/0, Negativ/Positive, 0-10 usw. sein. Die Abbildung \ref{fig:worterbuch} zeigt ein Wörterbuch aus dem R-Package \textit{tidytext}. Die Spalte \textit{word} steht für das bewertende Wort und \textit{sentiment} für deren Bewertung.
+Ein Wörterbuch, auch Lexika genannt, besteht aus einer Liste von Wörtern, die von einem oder mehreren Individuen bewertet wurden. Die Bewertung kann 1/0, Negativ/Positive, 0-10, eine Stimmung u. s. w. sein. Die Abbildung \ref{fig:worterbuch} zeigt ein Wörterbuch aus dem R-Package \textit{tidytext}. Die Spalte \textit{word} steht für das bewertende Wort und \textit{sentiment} für deren Bewertung.
 
 ![Positiv/Negativ Wörterbuch \label{fig:worterbuch}](Pictures/worterbuch.PNG)
 
@@ -176,7 +176,7 @@ Um die \textbf{Güte eines Wörterbuches} beurteilen zu können, werden Tweets b
 
 \subsection{Verwendete Wörterbücher}
 
-In diesem Bericht wurden die Wörterbücher \textit{bing}, \textit{afinn} und \textit{loughran} aus dem R-Package \textit{tidytext} und das vaderSentiment verwendet (TODO verlinken, bzw. in der Referenz erwähnen).
+In diesem Bericht wurden die Wörterbücher \textit{bing}, \textit{afinn} und \textit{loughran} aus dem R-Package \textit{tidytext} und das vaderSentiment verwendet (TODO verlinken, bzw. in der Referenz erwähnen). Diese bestehen aus Unigrammen (einzelne Wörter).
 
 \begin{table}[H]
 \centering
@@ -222,9 +222,11 @@ Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Ab
 
 
 \subsection{Ausblick}
-In diesem Kapitel wurden 4 verschiedene Wörterbücher und 4 verschiedene Stemming-Verfahren, wobei ein Verfahren die Rechtschreibkorrektur ist, verwendet. Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram mit 2-gramme oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut dem [Paper 5 TODO] ist dieser Ansatz sehr vielversprechend.
+In diesem Kapitel wurden 4 verschiedene Wörterbücher und 4 verschiedene Stemming-Verfahren, wobei ein Verfahren die Rechtschreibkorrektur ist, verwendet. Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram (Unigrammen) mit 2-gramme (Bigramme) oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut dem [Paper 5 TODO] ist dieser Ansatz sehr vielversprechend.
 
 Ein weiterer interessanter Ansatz ist das Verwenden mehrere Wörterbücher und deren Ergebnisse durch ein Votum entscheiden zu lassen. Angenommen drei Wörterbücher beurteilen ein Tweet. Zwei Wörterbücher beurteilen den Tweet als negativ und das dritte Wörterbuch als positiv. Im nächsten Schritt wird durch das Votum der Tweet als negativ klassifiziert, da mehr Wörterbücher den Tweet als negativ eingestuft hatten. Eine Verfeinerung des Votums ist durch eine mögliche Gewichtung der Wörterbücher möglich.
+
+TODO "Der Kurs ist nicht schlecht! #bitcoin"
 
 
 
@@ -297,24 +299,6 @@ Die Daten werden in eine Excel-Datei überführt. Anschließen wird die wöchent
    	\label{Dow_jones}
  \end{figure}
 
-\section{Wörterbücher}
-Wenn Personen einen Text lesen, verwenden sie das Verständnis Wörtern zu deuten, um daraus abzuleiten, ob ein Textabschnitt positiv oder negativ ist, oder vielleicht durch andere nuanciertere Emotionnen wie Überraschung oder Ekel gekennzeichnet ist. Die Werkzeuge des Text Mining werden nun genutzt, um den emotionalen Inhalt von Texten zu analysieren. Hierzu benötigen wir Wörterbücher die Wörter kennzeichne als positive/negative oder mit einem Score. In dieser Ausarbeitung nutzen wir zur Berechnung von Sentimentindize die allgemeinen Wörterbücher afinn, bing, nrc und warp.Alle drei dieser Wörterbücher basieren auf Unigrammen, d.h. auf einzelnen Wörtern. Diese Wörterliste enthalten viele englische Wörter und den Wörtern werden Noten für positive/negative Gefühle und möglicherweise auch Emotion wie Freude, Wut, Traurigkeit zugeordnet. 
-
-AFINN ist eine Liste von englischen Wörtern, die für Valenz mit einer ganzen Zahl zwischen minus fünf (negativ) und plus fünf (positiv) bewertet wurden. Die Wörter wurden von Finn ?rup Nielsen in den Jahren $2009-2011$ manuell beschriftet. Die Datei ist tabulatorgetrennt. Die Wortliste wurde erstellt für die Stimmungsanalyse für Microblogs.
-```{r echo=FALSE}
-library(tidytext)
-get_sentiments("afinn")
-```
-Das bing-Wörterbuch von \textit{Bing Liu} and collaborators kategorisiert Wörterbücher in positive und negative Kategorien.
-```{r echo=FALSE}
-library(tidytext)
-get_sentiments("bing")
-```
-Das NRC Emotion Wörterbuch ist eine Liste englischer Wörter und ihrer Assoziationen mit acht grundlegenden Emotionen (ärger, Angst, Erwartung, Vertrauen, überraschung, Traurigkeit, Freude und Ekel) und zwei Gefühlen (negativ und positiv). Die Annotationen wurden manuell per Crowdsourcing vorgenommen. 
-```{r echo=FALSE}
-library(tidytext)
-get_sentiments("nrc")
-```
 
 \section{Berechnung der Sentimentindizes}
 <<<<<<< HEAD

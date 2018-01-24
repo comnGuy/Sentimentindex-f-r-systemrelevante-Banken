@@ -256,7 +256,7 @@ afinn <- clearing_data%>%
     
     bing_and_nrc <- bind_rows(clearing_data%>% 
                                 inner_join(get_sentiments("bing")) %>%
-                                mutate(method = "Bing et al."),
+                                mutate(method = "Bing et al."),clearing_data %>% inner_join(get_sentiments("loughran"))%>% mutate(method="loughran"),
                               clearing_data %>% 
                                 inner_join(get_sentiments("nrc") %>% 
                                              filter(sentiment %in% c("positive","negative"))) %>%
@@ -265,8 +265,9 @@ afinn <- clearing_data%>%
       spread(sentiment, n, fill = 0) %>%
       mutate(sentiment = (positive - negative))
     
+    
 warp_score<-Kalenderwochen(daten_usa_new_sentiment_2_)
-reg_wader_group_wochen<- warp_score %>% group_by(week)%>% summarise(sentiment=sum(Sentiment))%>% mutate(method = "Warp")    
+reg_wader_group_wochen<- warp_score %>% group_by(week)%>% summarise(sentiment=sum(Sentiment))%>% mutate(method = "Wader")    
     
 Ergebniss<-bind_rows( reg_wader_group_wochen,afinn,bing_and_nrc) 
 

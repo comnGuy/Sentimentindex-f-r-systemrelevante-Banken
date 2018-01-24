@@ -172,9 +172,53 @@ Der obige Code zeigt die Abfrage eines Hastags. Die verschiedenen Hashtags werde
 
 Aktuell muss das Skript manuell ausgeführt werden. Dieses Problem haben wir durch ein \textit{Cronjob} gelöst. Ein Cronjob führt in definierten Intervallen oder an definierten Zeitpunkten ein Event, in unserem Fall eine PHP-Datei, aus. An dieser Stelle wurde entschieden die höher frequentierten Tweets auf einem zwei Minuten Intervall und weniger frequentierten Tweets auf einem 15 Minuten Intervall zu setzen.
 
-\subsection{Dividende}
-\label{sub:dividende}
-TODO
+
+
+
+\subsection{Aufbereitung des Dow Jones Industrial 30 Aktienindex aus 2012}
+Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der älteste noch bestehende Aktienindex der USA und setzt sich heute aus $30$ den größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \url{http://www.boerse-online.de/index/historisch/dow_jones/1.1.2012_31.12.2012}.
+Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der unteren Grafik ist ein Auschnitt von den aufbereiteten Daten abgebildet.
+ \begin{figure}[H]
+   	\centering
+  \includegraphics[width=1\textwidth]{Pictures/Dow_jownes.png}
+   	\caption{Ausschnitt des aufbereiteten \textit{Dow Jones Industrial} $30$ Aktienindexes}
+   	\label{Dow_jones}
+ \end{figure}
+
+
+
+\subsection{Datenaufbereitung}
+\label{sub:datenaufbereitung}
+Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet die mit \textit{eng} gekennzeichnet sind. Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken. Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
+
+Im Folgendem werden nun die einzelnen Schritte für die Aufbereitung der Daten beschrieben, die notwendig sind, um verschiedene Sentimentindizes zu berechnen, auf Basis von Wörterbüchern. Hierzu werden eigens programmierten Funktionen benutzt.
+
+
+Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet, die mit \textit{eng} gekennzeichnet sind im Feld \textit{Language}. Es werden Indizes für Europa und die USA gebaut über die Tweets der Banken.Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
+
+Im Folgendem werden die einzelnen Schritte für die Datenaufbereitung der Daten beschrieben, um verschiedene Sentimentindizes auf Basis von Wörterbüchern zu berechnen. Hierzu werden eigens programmierten Funktionen benutzt, die in der R-Datei \textit{SentimentFunctionChris} enthalten sind.
+
+\begin{itemize}
+\item \textbf{1. Schritt:} Die erzeugten CSV-Datei mit den gefilterten Tweets werden mit der Funktion \textit{Datei$\_$einlesen} eingelesen und in ein Dataframe umgewandelt.
+\item \textbf{2. Schritt:} Um mit den Daten besser arbeiten zu können, müssen die Tweets mit einer Spalte \textit{Month2} und \textit{week} ergänzt werden. Mit den Spalten \textit{Month2} und \textit{week} können Indizies für Monaten und Wochen berechnet werden, dafür wird die Funktion \textit{Kalenderwochen} verwendet.
+\item \textbf{3. Schritt:} Im Anschluss werden die Tweets, die mehrfach im Dataframe vorkommen, mit der Funktion \textit{Distinct} herausgefiltert.
+\item \textbf{4. Schritt:} Mit der Funktion \textit{clearing$\_$dataframe} werden die Texte der Tweets aufgesplittet in einzelnen Wörter, somit besteht ein Datensatz aus einem Wort des Tweets und den vorherigen Spalten. Anschließend wird as Dataframe von bereinigt Stopwörtern, die in der Wörterliste \textit{Stopwords} enthalten sind. Das Wörterbuch steht in R zur Verfügung. Im Kaptiel Wörterbuch \ref{Woerterbuch} sind sie nochmals beschrieben. Für weitere Informationen hierfür wird auf die Dokumentation in R verwiesen. Die untere Tabelle zeigt einen Ausschnitt des Dataframe, dass verwendet wird, um die Sentimentindexe zu berechnen. 
+
+\begin{table}[H]
+\centering
+\caption{Aufbereites Dataframe}
+\label{dataaufbereitung}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline
+\textbf{id} & \textbf{X} & \textbf{Language} & \textbf{Follower} & \textbf{favourites\_coun} & \dots & Month2 & week \\ \hline
+2           & 12         & en                & 1114              & 0                         &              & 1      & 1    \\ \hline
+3           & 12         & en                & 114               & 0                         &              & 1      & 1    \\ \hline
+ \vdots           &   \vdots           &  \vdots                  &  \vdots                 &  \vdots                         &  \dots            &  \vdots      &  \vdots    \\ \hline
+12          & 13         & en                & 319               & 0                         &              & 1      & 1    \\ \hline
+13          & 13         & en                & 319               & 0                         &              & 1      & 1    \\ \hline
+\end{tabular}
+\end{table}
+\end{itemize}
 
 
 
@@ -244,47 +288,7 @@ Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Ab
 
 
 
-\section{Datenaufbereitung}
 
-Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet die mit \textit{eng} gekennzeichnet sind. Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken. Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
-
-Im Folgendem werden nun die einzelnen Schritte für die Aufbereitung der Daten beschrieben, die notwendig sind, um verschiedene Sentimentindizes zu berechnen, auf Basis von Wörterbüchern. Hierzu werden eigens programmierten Funktionen benutzt.
-
-
-Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet, die mit \textit{eng} gekennzeichnet sind im Feld \textit{Language}. Es werden Indizes für Europa und die USA gebaut über die Tweets der Banken.Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
-
-Im Folgendem werden die einzelnen Schritte für die Datenaufbereitung der Daten beschrieben, um verschiedene Sentimentindizes auf Basis von Wörterbüchern zu berechnen. Hierzu werden eigens programmierten Funktionen benutzt, die in der R-Datei \textit{SentimentFunctionChris} enthalten sind.
-
-\begin{itemize}
-\item \textbf{Step 1:} Die erzeugten CSV-Datei mit den gefilterten Tweets werden mit der Funktion \textit{Datei$\_$einlesen} eingelesen und in ein Dataframe umgewandelt.
-\item \textbf{Step 2:} Um mit den Daten besser arbeiten zu können, müssen die Tweets mit einer Spalte \textit{Month2} und \textit{week} ergänzt werden. Mit den Spalten \textit{Month2} und \textit{week} können Indizies für Monaten und Wochen berechnet werden, dafür wird die Funktion \textit{Kalenderwochen} verwendet.
-\item \textbf{Step 3:} Im Anschluss werden die Tweets, die mehrfach im Dataframe vorkommen, mit der Funktion \textit{Distinct} herausgefiltert.
-\item \textbf{Step 4:} Mit der Funktion \textit{clearing$\_$dataframe} werden die Texte der Tweets aufgesplittet in einzelnen Wörter, somit besteht ein Datensatz aus einem Wort des Tweets und den vorherigen Spalten. Anschließend wird as Dataframe von bereinigt Stopwörtern, die in der Wörterliste \textit{Stopwords} enthalten sind. Das Wörterbuch steht in R zur Verfügung. Im Kaptiel Wörterbuch \ref{Woerterbuch} sind sie nochmals beschrieben. Für weitere Informationen hierfür wird auf die Dokumentation in R verwiesen. Die untere Tabelle zeigt einen Ausschnitt des Dataframe, dass verwendet wird, um die Sentimentindexe zu berechnen. 
-
-\begin{table}[H]
-\centering
-\caption{Aufbereites Dataframe}
-\label{dataaufbereitung}
-\begin{tabular}{|l|l|l|l|l|l|l|l|}
-\hline
-\textbf{id} & \textbf{X} & \textbf{Language} & \textbf{Follower} & \textbf{favourites\_coun} & \dots & Month2 & week \\ \hline
-2           & 12         & en                & 1114              & 0                         &              & 1      & 1    \\ \hline
-3           & 12         & en                & 114               & 0                         &              & 1      & 1    \\ \hline
- \vdots           &   \vdots           &  \vdots                  &  \vdots                 &  \vdots                         &  \dots            &  \vdots      &  \vdots    \\ \hline
-12          & 13         & en                & 319               & 0                         &              & 1      & 1    \\ \hline
-13          & 13         & en                & 319               & 0                         &              & 1      & 1    \\ \hline
-\end{tabular}
-\end{table}
-\end{itemize}
-\subsection{Aufbereitung des Dow Jones Industrial 30 Aktienindex aus 2012}
-Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der älteste noch bestehende Aktienindex der USA und setzt sich heute aus $30$ den größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \url{http://www.boerse-online.de/index/historisch/dow_jones/1.1.2012_31.12.2012}.
-Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der unteren Grafik ist ein Auschnitt von den aufbereiteten Daten abgebildet.
- \begin{figure}[H]
-   	\centering
-  \includegraphics[width=1\textwidth]{Pictures/Dow_jownes.png}
-   	\caption{Ausschnitt des aufbereiteten \textit{Dow Jones Industrial} $30$ Aktienindexes}
-   	\label{Dow_jones}
- \end{figure}
 
 
 \section{Berechnung der Sentimentindizes}
@@ -347,7 +351,7 @@ In der unteren Aufzählung werden einige Sentimentindizes berechnet, die von uns
 
 
 \section{Analysen von Tweets und ihrer Sentimentindizies}
-In diesem Abschnitt soll  umrissen werden, mit welcher Methoden und Mitteln verwenden kann, um Tweets und Sentimentindizes zu analysieren. Um einen ersten Eindruck von den Tweets zu bekommen, ist es von Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einer einfachen Wordcloud oder Balkendiagramm umgesetzt.
+In diesem Abschnitt soll  umrissen werden, mit welcher Methoden und Mitteln verwenden kann, um Tweets und Sentimentindizes zu analysieren. Um einen ersten Eindruck von den Tweets zu bekommen, ist es von Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einem Balkendiagramm umgesetzt.
  \begin{figure}[H]
 \centering
  	\includegraphics[width=1\textwidth]{Pictures/positv_negativ.png}

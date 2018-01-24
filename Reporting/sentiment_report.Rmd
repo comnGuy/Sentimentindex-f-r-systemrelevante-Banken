@@ -351,7 +351,8 @@ In der unteren Aufzählung werden einige Sentimentindizes berechnet, die von uns
 
 
 \section{Analysen von Tweets und ihrer Sentimentindizies}
-In diesem Abschnitt soll  umrissen werden, mit welcher Methoden und Mitteln verwenden kann, um Tweets und Sentimentindizes zu analysieren. Um einen ersten Eindruck von den Tweets zu bekommen, ist es von Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einem Balkendiagramm umgesetzt.
+<!-- TODO, sollen wir hier nicht vielleicht die Akündigung der Methoden und Mitteln weglassen und direkt einsteigen? -->
+In diesem Abschnitt soll umrissen werden, mit welcher Methoden und Mitteln verwenden kann, um Tweets und Sentimentindizes zu analysieren. Um einen ersten Eindruck von den Tweets zu bekommen, ist es von Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einem Balkendiagramm umgesetzt.
  \begin{figure}[H]
 \centering
  	\includegraphics[width=1\textwidth]{Pictures/positv_negativ.png}

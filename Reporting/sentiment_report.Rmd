@@ -93,7 +93,7 @@ output:
 
 <!--- Beginn --->
 \section{Ergebnisse} 
-Das Ziel dieser Ausarbeitung ist es einen Zusammenhang zwischen der Stimmung (\textit{Sentiment}) in den Banke-Tweets aus $2012$ und Aktienindizes nachzuweisen. Es besteht die Annahme, dass Auf- und Abwärtsbewegungen im Aktienindex einen Einfluss auf die Stimmung in den Tweets besitzen. Eine weitere Annahme wäre, dass die selben wirtschaftlichen Ereignissen sich gleicherweise auf die Banken-Tweets und den Aktienindizes auswirken und somit die Stimmung in den Tweets ein gewisse Voraussetzung besitzen um Aktienindizes vorhersagen zu können. Mittels erzeugten Sentimentindizies aus den Tweets können Zusammenhänge sichtbar gemacht und Regressionen auf Aktienindizes durchgeführt werden.
+Das Ziel dieser Ausarbeitung ist einen Zusammenhang zwischen der Stimmung (\textit{Sentiment}) der Tweets bezüglich Finanzbereich aus $2012$ und Aktienindizes nachzuweisen. Es besteht die Annahme, dass die selben wirtschaftlichen Ereignisse sich gleicherweise auf die Tweets und den Aktienindizes auswirken, somit besitzt die Stimmung in den Tweets ein gewisse Voraussetzung um Aktienindizes vorhersagen zu können. Mittels erzeugten Sentimentindizies aus den Tweets können Zusammenhänge sichtbar gemacht und Regressionen auf Aktienindizes durchgeführt werden.
  \begin{figure}[H]
    	\centering
   \includegraphics[width=1\textwidth]{Pictures/Afinn_plot.png}

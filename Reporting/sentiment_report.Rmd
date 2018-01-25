@@ -96,7 +96,7 @@ output:
 Das Ziel dieser Ausarbeitung ist einen Zusammenhang zwischen der Stimmung (\textit{Sentiment}) der Tweets bezüglich Finanzbereich aus $2012$ und Aktienindizes nachzuweisen. 
 
 Unsere Annahme ist, dass wirtschaftliche Ereignisse sich schneller auf die sozialen Medien verbreiten. Dies nehmen wir als Anhaltspunkt und versuchen Ereignisse am Aktienindex  vorherzusagen.\\
-\textit{BEISPIEL:} Die Grieschenlandkrise im Jahr $2012$    (Grieschenland) TODO 
+\textit{BEISPIEL:}Als Beispiel dient die Griechenlandkrise im Jahr $2012$. Die Tweets      (Grieschenland) TODO 
 
 
 Mittels erzeugten Sentimentindizies aus den Tweets können Zusammenhänge sichtbar gemacht und Regressionen auf Aktienindizes durchgeführt werden. 

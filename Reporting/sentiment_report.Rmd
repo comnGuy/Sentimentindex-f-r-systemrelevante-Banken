@@ -94,18 +94,22 @@ output:
 <!--- Beginn --->
 \section{Ergebnisse} 
 Das Ziel dieser Ausarbeitung ist einen Zusammenhang zwischen der Stimmung (\textit{Sentiment}) der Tweets bezüglich Finanzbereich aus $2012$ und Aktienindizes nachzuweisen. 
+<!-- Wörding wirtschaftliche Ereignisse -->
+Unsere Annahme ist, dass wirtschaftliche Ereignisse sich schneller auf die sozialen Medien verbreiten. Dies nehmen wir als Anhaltspunkt und versuchen Ereignisse am Aktienindex  vorherzusagen.
 
-Unsere Annahme ist, dass wirtschaftliche Ereignisse sich schneller auf die sozialen Medien verbreiten. Dies nehmen wir als Anhaltspunkt und versuchen Ereignisse am Aktienindex  vorherzusagen.\\
-\textit{BEISPIEL:}Als Beispiel dient die Griechenlandkrise im Jahr $2012$. Die Tweets      (Grieschenland) TODO 
+\textit{BEISPIEL:}Als Beispiel dient die Griechenlandkrise im Jahr $2012$. Zu der Zeit der Griechenlandkrise sind viele Hashtags entstanden und die Bürger der EU haben ihre Meinung in Tweets kundgetan. Hashtags die sich auf wichtige politische Entscheidungen im Zusammenhang der Griechenlandkrise sich beziehen, waren zum Beispiel \#Grexit,\#G7, \#Greferendum und \#EuroGipfel. Unter diesen Hashtags haben sich gewisse Informationen schnellverbreit. Diese Information hatten, im späteren einen gewissen Einfluss auf die  Aktienindizes.
+
+Mittels Textmining sollen diese Informationen aus den Tweets in einen Sentimentindex umgewandelt werden. Mit diesem Sentimentindex wird versucht Aktienindizes vorherszusagen, durch Regression. Auf der Grafik \ref{Reg_afinn1} ist eine Regression auf wöchentlichen prozentualen Veränderungen der Aktienindizes abgebildet. 
 
 
-Mittels erzeugten Sentimentindizies aus den Tweets können Zusammenhänge sichtbar gemacht und Regressionen auf Aktienindizes durchgeführt werden. 
+<!--Mittels erzeugten Sentimentindizies aus den Tweets können Zusammenhänge sichtbar gemacht und Regressionen auf Aktienindizes durchgeführt werden.--> 
 
  \begin{figure}[H]
    	\centering
   \includegraphics[width=1\textwidth]{Pictures/Afinn_plot.png}
    	\caption{Multiple Regression mittels Sentimenindex auf einen Aktienindex}\label{Reg_afinn1}
 \end{figure}
+Die nächsten Seiten werden thematische die Aufbereitung der Daten, die richtige Wahl des Wörtberuchs, den Zusammenhang zwischen Aktienindizes und Sentimentindizes und die vorgestellte Regression auf Aktienindizes.
 <!-- In einem Paper vom Herrn Becker stand, dass das Ergebnis direkt zu Begin präsentiert werden sollte -->
 
 
@@ -223,7 +227,7 @@ Im Folgendem werden die einzelnen Schritte für die Datenaufbereitung der Daten 
 
 
 
-\section{Wörterbücher}
+\section{Wörterbücher}\label{Woerterbuch}
 Ein Mensch ist in der Lage nachdem Lesen eines Textes zu beurteilen welche Stimmung dieser wiederspiegelt. Das Tweetbeispiel "Der Kurs ist gut! #bitcoin" spiegelt eine positive Resonanz bezüglich Bitcoin wieder. Im Textmining ist die Taktik die einzelnen Wörter oder Wortgruppen (n-gramms) zu betrachten und mittels einem Wörterbuch die Stimmung einzuteilen. Bevor ein Sentimentindex (Stimmungsindex) über einem Tweet erstellt wird, müssen die Stimmungen aus dem jeweiligen Tweet mittels ein oder mehreren Wörterbüchern extrahiert werden. 
 
 
@@ -392,11 +396,30 @@ wordcount %>%
 
 
 \section{Ausblick}
-In diesem Kapitel wurden 4 verschiedene Wörterbücher und 4 verschiedene Stemming-Verfahren, wobei ein Verfahren die Rechtschreibkorrektur ist, verwendet. Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram (Unigrammen) mit 2-gramme (Bigramme) oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut dem [Paper 5 TODO] ist dieser Ansatz sehr vielversprechend.
+In dem Kapitel \ref{Woerterbuch} wurden 4 verschiedene Wörterbücher und 4 verschiedene Stemming-Verfahren, wobei ein Verfahren die Rechtschreibkorrektur ist, verwendet. Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram (Unigrammen) mit 2-gramme (Bigramme) oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut dem [Paper 5 TODO] ist dieser Ansatz sehr vielversprechend.
+
+Der Abschnitt für den Vergleich der verschiedenen Sentimentindizes hat die Schlussfolgerung, dass die verschiedenen Sentimenindizes der Wörterbücher \textit{Wader}, \textit{Bing}, \textit{loughran}, \textit{nrc} und \textit{Afinn} ein ähnliches Verhalten aufweisen. Das Kapitel \ref{ueberein} wurden Gemeinsamkeiten in den zeitlichen Abläufe zwischen den Sentimentindizes und den Aktienindizes untersucht. In vielen Abschnitten wurde eine ähnliche Tendenz eines ähnlichen Verhaltens efasst. Der nächste Schritt wäre eine Korrelation zwischen den beiden Zeitreihen nachzuweisen und somit die zunächst nur auf visuale Beurteilung zu untermauern.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------
+In dem Kapitel \ref{Woerterbuch} wurden 4 verschiedene Wörterbücher und 4 verschiedene Stemming-Verfahren, wobei ein Verfahren die Rechtschreibkorrektur ist, verwendet. Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram (Unigrammen) mit 2-gramme (Bigramme) oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut dem [Paper 5 TODO] ist dieser Ansatz sehr vielversprechend.
 
 Ein weiterer interessanter Ansatz ist das Verwenden mehrere Wörterbücher und deren Ergebnisse durch ein Votum entscheiden zu lassen. Angenommen drei Wörterbücher beurteilen ein Tweet. Zwei Wörterbücher beurteilen den Tweet als negativ und das dritte Wörterbuch als positiv. Im nächsten Schritt wird durch das Votum der Tweet als negativ klassifiziert, da mehr Wörterbücher den Tweet als negativ eingestuft hatten. Eine Verfeinerung des Votums ist durch eine mögliche Gewichtung der Wörterbücher möglich.
 
-Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknüpfen. Die Logik könnte in der Lage sein gute Verneinungen zu erkennen, wie "Der Kurs ist nicht schlecht! #bitcoin".
+Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknüpfen. Die Logik könnte in der Lage sein gute Verneinungen zu erkennen, wie 	\glqq Der Kurs ist nicht schlecht! #bitcoin\grqq{}. 
 
 
 \input{Literratur}

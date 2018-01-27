@@ -93,13 +93,13 @@ output:
 
 <!--- Beginn --->
 \section{Ergebnisse} 
-Das Ziel dieser Ausarbeitung ist einen Zusammenhang zwischen der Stimmung (\textit{Sentiment}) der Tweets bezüglich Finanzbereich aus $2012$ und Aktienindizes nachzuweisen. 
+Das Ziel dieser Ausarbeitung ist einen Zusammenhang zwischen der Stimmung (\textit{Sentiment}) der Tweets bezüglich dem Finanzbereich aus dem Jahr $2012$ und Aktienindizes nachzuweisen. 
 <!-- Wörding wirtschaftliche Ereignisse -->
-Unsere Annahme ist, dass wirtschaftliche Ereignisse sich schneller auf die sozialen Medien verbreiten. Dies nehmen wir als Anhaltspunkt und versuchen Ereignisse am Aktienindex  vorherzusagen.
+Unsere Annahme ist, dass wirtschaftliche Ereignisse sich schneller auf die sozialen Medien verbreiten. Dies nehmen wir als Anhaltspunkt und versuchen Ereignisse am Aktienindex vorherzusagen.
 
-\textit{BEISPIEL:}Als Beispiel dient die Griechenlandkrise im Jahr $2012$. Zu der Zeit der Griechenlandkrise sind viele Hashtags entstanden und die Bürger der EU haben ihre Meinung in Tweets kundgetan. Hashtags die sich auf wichtige politische Entscheidungen im Zusammenhang der Griechenlandkrise sich beziehen, waren zum Beispiel \#Grexit,\#G7, \#Greferendum und \#EuroGipfel. Unter diesen Hashtags haben sich gewisse Informationen schnellverbreit. Diese Information hatten, im späteren einen gewissen Einfluss auf die  Aktienindizes.
+Als Beispiel dient die Griechenlandkrise im Jahr $2012$. Zu der Zeit der Griechenlandkrise sind viele Hashtags entstanden und die Bürger der EU haben ihre Meinung in Tweets kundgetan. Hashtags die sich auf wichtige politische Entscheidungen im Zusammenhang der Griechenlandkrise sich beziehen, waren zum Beispiel \#Grexit,\#G7, \#Greferendum und \#EuroGipfel. Unter diesen Hashtags haben sich gewisse Informationen schnellverbreit. Diese Information hatten, im späteren einen gewissen Einfluss auf die Aktienindizes.
 
-Mittels Textmining sollen diese Informationen aus den Tweets in einen Sentimentindex umgewandelt werden. Mit diesem Sentimentindex wird versucht Aktienindizes vorherszusagen, durch Regression. Auf der Grafik \ref{Reg_afinn1} ist eine Regression auf wöchentlichen prozentualen Veränderungen der Aktienindizes abgebildet. 
+Mittels Textmining sollen diese Informationen aus den Tweets in einen Sentimentindex umgewandelt werden. Mit diesem Sentimentindex wird versucht Aktienindizes vorherszusagen, durch Regression. Auf der Abbildung \ref{Reg_afinn1} ist eine Regression auf wöchentlichen prozentualen Veränderungen der Aktienindizes dargestellt. 
 
 
 <!--Mittels erzeugten Sentimentindizies aus den Tweets können Zusammenhänge sichtbar gemacht und Regressionen auf Aktienindizes durchgeführt werden.--> 
@@ -109,10 +109,9 @@ Mittels Textmining sollen diese Informationen aus den Tweets in einen Sentimenti
   \includegraphics[width=1\textwidth]{Pictures/Afinn_plot.png}
    	\caption{Multiple Regression mittels Sentimenindex auf einen Aktienindex}\label{Reg_afinn1}
 \end{figure}
-Die nächsten Seiten werden thematische die Aufbereitung der Daten, die richtige Wahl des Wörtberuchs, den Zusammenhang zwischen Aktienindizes und Sentimentindizes und die vorgestellte Regression auf Aktienindizes.
-<!-- In einem Paper vom Herrn Becker stand, dass das Ergebnis direkt zu Begin präsentiert werden sollte -->
+Die nächsten Seiten werden thematisch die Aufbereitung der Daten, die richtige Wahl des Wörtberuchs, den Zusammenhang zwischen Aktienindizes und Sentimentindizes und die vorgestellte Regression auf Aktienindizes.
 
-
+<!-- Würde Einführung und Aufgabenbeschreibung weglassen, da dies ja beides implizit in den Resultaten gesagt wird, oder? BP -->
 \section{Einführung}
 Wenn Leser einen Text analysieren, verwenden sie, dass Verständnis der emotionalen Absicht von Wörtern, um daraus abzuleiten, ob ein Textabschnitt positiv oder negativ ist, oder ob er vielleicht durch eine andere nuanciertere Emotion wie Überraschung oder Ekel gekennzeichnet ist.
 <!-- Sachen wir wir evtl. benötigen, oder soll das weggelassen werden? -->
@@ -131,30 +130,32 @@ Eine Sentiment Analyse soll ?ber die Banken von USA und Europa mittels den Twitt
   \caption{Ein Ausschnitt des DataFrames vom Cuda} \label{tab:example_dataframe_twits}
 \end{table}
 
-
+<!-- Vielleicht irgendwo die Definition eines Sentiments? -->
 <!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
 \section{Daten}
-Um ein Sentiment zu bilden, werden Daten mit Texten von Nutzern benötigt. Diese Daten wurden aus den zwei Quellen des Twitterarchives und durch die Twitter-API bezogen.
-Weiterhin wurden Daten für den Vergleich mit den Sentiments benötigt, die im Unterkapitel Dividende (TODO) zu finden sind.
+Ein Sentiment wird aus Texten, indem Anwender ihre Meinungen wiedergeben, gewonnen. Als Datengrundlage dient uns das Twitterarchive und die Twitter-API, siehe Unterkapitel \ref{sub:twitter_archive} und \ref{sub:scanned_data}. Um die errechneten Sentiments vergleichen zu können, wurde der Dow Jones Industrial 30 Aktienindex aus dem Jahr 2012 verwendet, siehe Unterkapitel \ref{sub:dow_jones_data}.
+
+
 \subsection{Twitterarchive}
-Twitter veröffentlicht monatlich 1 % ihrer gesamten Tweets auf \textit{archive.org}[TODO Referen?]. Auf dem CUDA-Rechner wurde das Twitterarchive aus dem Jahr 2012 in einem R-spezifischen DataFrame aufbereitet und zur Verfügung gestellt. Da diese Twitterdaten alle Tweets enthalten, auch Tweets die nicht benötigt werden, wurde ein Filter gebaut, der die benötigten Daten filtert.
+\label{sub:twitter_archive}
+Twitter veröffentlicht monatlich 1 % ihrer gesamten Tweets auf \textit{archive.org}[TODO Referen?]. Dieses Twitterarchive wurde auf dem hauseigenen CUDA-Rechner aus dem Jahre 2012 in einem R-spezifischen DataFrame aufbereitet und zur Verfügung gestellt. Da diese Archive alle Tweets enthält, auch Tweets die themenfremd sind, wurde ein Filter gebaut, der die benötigten Daten filtert.
 
 ![Filter für grieschiche Banken \label{fig:filter}](Pictures/filter_twitter_archive.PNG)
 
 In Abbildung \ref{fig:filter} ist einer unserer Filter für die grieschichen Banken zu sehen. Die Begriffe, nachdem gefiltert wird, sind in grün zu sehen. Diese sind jeweils durch einem logischen \textit{Oder} getrennt. Wird ein Begriff in einem Tweet gefunden, wurde dieser Tweet in unserem Datenbestand mitaufgenommen. 
 
-Eine große Herausforderung war das Finden sinnvoller Begriffe zum Filtern. Sind die Begriffe nicht wohlwollend gewählt, könnten folgende Fälle eintreten, die sich wiederum negativ auf dem Sentiment auswirken könnten.
+Eine große Herausforderung war das Finden sinnvoller Filter. Ist der Filter nicht wohlwollend gewählt, könnten folgende Fälle eintreten, die sich negativ auf dem Sentiment auswirken könnten.
 
- * Ist ein Begriff zu allgemein gewählt, besteht die Möglichkeit Überschneidungen mit weiteren nicht bezogenen Themen auszuwählen. Z. B. ist der Begriff \textit{Bank} sehr allgemein gewählt, da die Bank im Park oder die Bank im Glücksspiel gemeint sein könnte. An dieser Stelle besteht die Möglichkeit die Anzahl der nicht gewollten Tweets abzuwägen. Sind diese anteilig gering, kann der Begriff als Filter aufgenommen werden.
- * Ist ein Begriff zu speziell gewählt, besteht die Möglichkeit zu wenige Tweets mit einzubeziehen.
+ * Ist ein Filter zu allgemein gewählt, besteht die Möglichkeit in Überschneidungen mit weiteren nicht bezogenen Themen zu laufen. Beispielsweise ist der Filter \textit{Bank} sehr allgemein gewählt, da die Bank im Park oder die Bank im Glücksspiel gemeint sein könnte. An dieser Stelle besteht die Möglichkeit die Anzahl der nicht gewollten Tweets abzuwägen. Sind diese anteilig gering, kann der Filter aufgenommen werden.
+ * Ist ein Filter zu speziell gewählt, besteht die Möglichkeit zu wenige Tweets zu finden.
 
-Die Wahl der Begriffe ist demnach ein Trade-Off zwischen der Noise, die Anzahl der nicht relevanten Themen, und die Anzahl der gesamten Tweets, die nach dem Filtern übrig bleibt. Werden die Begriffe zu allgemein gewählt, werden zwar viele Tweets einbezogen, jedoch könnte dadurch die Noise sehr hoch werden. Werden die Filter zu streng gewählt, besteht die Möglichkeit zu wenige Tweets nach dem Filtern einzubeziehen.
+Die Wahl der Begriffe ist demnach ein Trade-Off zwischen der Noise, die Anzahl der nicht relevanten Themen, und die Anzahl der gesamten Tweets, die nach dem Filtern übrig bleibt. Werden die Begriffe zu allgemein gewählt, werden viele Tweets einbezogen, jedoch könnte dadurch die Noise sehr hoch werden. Werden die Filter zu streng gewählt, besteht die Möglichkeit zu wenige Tweets nach dem Filtern einzubeziehen.
 
-Insgesamt haben wir ca. 17.000 Tweets durch die gewählten Filter über das gesamte Jahre 2012 gefiltert. Da das Sentiment wöchentlich gebildet wird, sind das ca. 325 Tweets pro Woche, die für das Bilden eines Sentiments ausreichen.
+Insgesamt haben wir ca. 17.000 Tweets durch die gewählten Filter über das gesamte Jahre 2012 gefiltert. Da das Sentiment wöchentlich gebildet wird, sind das ca. 325 Tweets pro Woche.
 
 \subsection{Twitter-API}
 \label{sub:scanned_data}
-Zu Beginn war uns nicht klar, ob ausreichend Daten durch das Twitterarchive gewonnen werden können. Dadurch ergab sich die Idee, die Twitter-API zusätzlich zu verwenden. Die Twitter-API erlaubt 450 Anfragen alle 15 Minuten. Der Kern des PHP-Skriptes wird durch folgenden Code erleutert.
+Zu Beginn war uns nicht klar, ob ausreichend Daten durch das Twitterarchive gewonnen werden können. Dadurch ergab sich die Idee, die Twitter-API zusätzlich zu verwenden. Die Twitter-API erlaubt 450 Anfragen alle 15 Minuten. Der Kern des PHP-Skriptes wird durch folgenden Code erleutert. TODO Verlinkung
 
 ```php
 // Query with one Hashtag and a limit up to 100
@@ -178,40 +179,42 @@ Aktuell muss das Skript manuell ausgeführt werden. Dieses Problem haben wir dur
 
 
 
-
+<!-- Link evtl. in die Referenz? -->
+<!-- Anschließend wird die wöchentliche Veränderung berechnet? -->
 \subsection{Aufbereitung des Dow Jones Industrial 30 Aktienindex aus 2012}
+\label{sub:dow_jones_data}
 Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der älteste noch bestehende Aktienindex der USA und setzt sich heute aus $30$ den größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \url{http://www.boerse-online.de/index/historisch/dow_jones/1.1.2012_31.12.2012}.
-Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der unteren Grafik ist ein Auschnitt von den aufbereiteten Daten abgebildet.
+Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der Abbildung \ref{picture:dow_jones} ist ein Auschnitt der aufbereiteten Daten zu sehen.
  \begin{figure}[H]
    	\centering
   \includegraphics[width=1\textwidth]{Pictures/Dow_jownes.png}
    	\caption{Ausschnitt des aufbereiteten \textit{Dow Jones Industrial} $30$ Aktienindexes}
-   	\label{Dow_jones}
+   	\label{picture:dow_jones}
  \end{figure}
 
 
 
 \subsection{Datenaufbereitung}
 \label{sub:datenaufbereitung}
-Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet die mit \textit{eng} gekennzeichnet sind. Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken. Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
+Für die Berechnung der Sentimentindizes werden ausschließlich Tweets betrachtet die mit dem sprachlichen Kürzel \textit{eng} gekennzeichnet sind. <!-- Passt der Satz hier überhaupt ins Kapitel? Bzw. den Filter habe ich ja schon vorher kurz angesprochen TODO -->Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken. Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.
 
-Im Folgendem werden nun die einzelnen Schritte für die Aufbereitung der Daten beschrieben, die notwendig sind, um verschiedene Sentimentindizes zu berechnen, auf Basis von Wörterbüchern. Hierzu werden eigens programmierten Funktionen benutzt.
+<!-- Würde den obigen Text weglassen und dafür ab hier beginnen? TODO -->
+Im Folgendem werden die einzelnen Schritte für die Aufbereitung der Daten beschrieben, die notwendig sind, um verschiedene Sentimentindizes zu berechnen, auf Basis von Wörterbüchern. Hierzu werden eigens programmierten Funktionen benutzt.
 
 
-Für die Berechnung der Sentimentindizes werden nur Tweets betrachtet, die mit \textit{eng} gekennzeichnet sind im Feld \textit{Language}. Es werden Indizes für Europa und die USA gebaut über die Tweets der Banken.Um die Tweets der Banken für Europa und der USA herauszufiltern, wird ein Filter benötigt. Hierzu wird ein langer String mit den Namen von Banken zusammengebaut.\\
+<!--  Um mit den Daten besser arbeiten zu können, müssen die Tweets mit einer Spalte \textit{Month2} und \textit{week} ergänzt werden. Mit den Spalten \textit{Month2} und \textit{week} können Indizies für Monaten und Wochen berechnet werden, dafür wird die Funktion \textit{Kalenderwochen} verwendet. -->
+<!-- Welche erzeugten CSV Dateien? In Was umgewandelt? TODO -->
+\begin{enumerate}
+\item Die erzeugten CSV-Datei mit den gefilterten Tweets werden mit der Funktion \textit{Datei$\_$einlesen} eingelesen und in ein Dataframe umgewandelt.
+\item Um ein Vergleich mit dem Dow Jones aus \ref{sub:dow_jones_data} zu ermöglichen, wurden die Wochen- und Monatsnummer des Twitterarchivs \ref{sub:twitter_archive} berechnet und aufgenommen (\textit{Month2} \& \textit{week}). 
+\item Die doppelten Tweets wurden mittels der Funktion \textit{Distinct} gefiltert.
+\item Mit der Funktion \textit{clearing$\_$dataframe} werden die Texte der Tweets in einzelnen Wörter aufgesplittet. Damit besteht ein Tweet aus mehreren Zeilen und eine Zeile jeweils nur aus einem Wort. Anschließend wird das Dataframe von Stopwörtern bereinigt, die in der Wörterliste \textit{Stopwords} enthalten sind. Das Wörterbuch steht in R zur Verfügung. Im Kapitel Wörterbuch \ref{Woerterbuch} sind diese beschrieben. Die Tabelle \ref{tab:dataaufbereitung} zeigt einen Ausschnitt des aufbereitenden Dataframes. Dieses Dataframe gilt als Grundlage für die nächsten Kapitel. 
 
-Im Folgendem werden die einzelnen Schritte für die Datenaufbereitung der Daten beschrieben, um verschiedene Sentimentindizes auf Basis von Wörterbüchern zu berechnen. Hierzu werden eigens programmierten Funktionen benutzt, die in der R-Datei \textit{SentimentFunctionChris} enthalten sind.
-
-\begin{itemize}
-\item \textbf{1. Schritt:} Die erzeugten CSV-Datei mit den gefilterten Tweets werden mit der Funktion \textit{Datei$\_$einlesen} eingelesen und in ein Dataframe umgewandelt.
-\item \textbf{2. Schritt:} Um mit den Daten besser arbeiten zu können, müssen die Tweets mit einer Spalte \textit{Month2} und \textit{week} ergänzt werden. Mit den Spalten \textit{Month2} und \textit{week} können Indizies für Monaten und Wochen berechnet werden, dafür wird die Funktion \textit{Kalenderwochen} verwendet.
-\item \textbf{3. Schritt:} Im Anschluss werden die Tweets, die mehrfach im Dataframe vorkommen, mit der Funktion \textit{Distinct} herausgefiltert.
-\item \textbf{4. Schritt:} Mit der Funktion \textit{clearing$\_$dataframe} werden die Texte der Tweets aufgesplittet in einzelnen Wörter, somit besteht ein Datensatz aus einem Wort des Tweets und den vorherigen Spalten. Anschließend wird as Dataframe von bereinigt Stopwörtern, die in der Wörterliste \textit{Stopwords} enthalten sind. Das Wörterbuch steht in R zur Verfügung. Im Kaptiel Wörterbuch \ref{Woerterbuch} sind sie nochmals beschrieben. Für weitere Informationen hierfür wird auf die Dokumentation in R verwiesen. Die untere Tabelle zeigt einen Ausschnitt des Dataframe, dass verwendet wird, um die Sentimentindexe zu berechnen. 
 
 \begin{table}[H]
 \centering
 \caption{Aufbereites Dataframe}
-\label{dataaufbereitung}
+\label{tab:dataaufbereitung}
 \begin{tabular}{|l|l|l|l|l|l|l|l|}
 \hline
 \textbf{id} & \textbf{X} & \textbf{Language} & \textbf{Follower} & \textbf{favourites\_coun} & \dots & Month2 & week \\ \hline
@@ -222,12 +225,14 @@ Im Folgendem werden die einzelnen Schritte für die Datenaufbereitung der Daten 
 13          & 13         & en                & 319               & 0                         &              & 1      & 1    \\ \hline
 \end{tabular}
 \end{table}
-\end{itemize}
+\end{enumerate}
+<!-- Evtl. die Kapitel aufzählen TODO -->
+<!-- Die Tabelle vielleicht bis zum Ende führen? TODO -->
 
 
 
-
-\section{Wörterbücher}\label{Woerterbuch}
+\section{Wörterbücher}
+\label{Woerterbuch}
 Ein Mensch ist in der Lage nachdem Lesen eines Textes zu beurteilen welche Stimmung dieser wiederspiegelt. Das Tweetbeispiel "Der Kurs ist gut! #bitcoin" spiegelt eine positive Resonanz bezüglich Bitcoin wieder. Im Textmining ist die Taktik die einzelnen Wörter oder Wortgruppen (n-gramms) zu betrachten und mittels einem Wörterbuch die Stimmung einzuteilen. Bevor ein Sentimentindex (Stimmungsindex) über einem Tweet erstellt wird, müssen die Stimmungen aus dem jeweiligen Tweet mittels ein oder mehreren Wörterbüchern extrahiert werden. 
 
 
@@ -296,7 +301,7 @@ Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Ab
 
 
 \section{Berechnung der Sentimentindizes}
-Für die Berechnung von Sentimentindizes wird nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson} vorgegangen. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt, soll vorgestellt werden. Zur Berechnung des Sentimenindex wird das vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe mit dem Wörterbuch \textit{Bing} gejoint mit der gleichnamige Spalte \textit{word}. Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. Für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und $n$. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet, indem die Anzahl der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestellt.
+Für die Berechnung von Sentimentindizes wird nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson} vorgegangen. <!-- TODO Referenz? --> Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt, soll vorgestellt werden. Zur Berechnung des Sentimenindex wird das vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe mit dem Wörterbuch \textit{Bing} gejoint mit der gleichnamige Spalte \textit{word}. Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. Für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und $n$. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet, indem die Anzahl der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestellt.
 ```{r  eval=FALSE, echo=FALSE}
 source("../Testing/SentimentFunctionChris.R")
 #source("varianz.R")

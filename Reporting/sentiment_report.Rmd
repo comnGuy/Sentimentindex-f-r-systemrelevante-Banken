@@ -233,16 +233,15 @@ Im Folgendem werden die einzelnen Schritte für die Aufbereitung der Daten besch
 
 \section{Wörterbücher}
 \label{Woerterbuch}
-Ein Mensch ist in der Lage nachdem Lesen eines Textes zu beurteilen welche Stimmung dieser wiederspiegelt. Das Tweetbeispiel "Der Kurs ist gut! #bitcoin" spiegelt eine positive Resonanz bezüglich Bitcoin wieder. Im Textmining ist die Taktik die einzelnen Wörter oder Wortgruppen (n-gramms) zu betrachten und mittels einem Wörterbuch die Stimmung einzuteilen. Bevor ein Sentimentindex (Stimmungsindex) über einem Tweet erstellt wird, müssen die Stimmungen aus dem jeweiligen Tweet mittels ein oder mehreren Wörterbüchern extrahiert werden. 
-
+Ein Mensch ist in der Lage nachdem Lesen eines Textes zu beurteilen welche Stimmung dieser wiederspiegelt. Das Tweetbeispiel: "Der Kurs ist gut! #bitcoin", spiegelt eine positive Resonanz bezüglich Bitcoin wieder. Eine Variante, wie mittels Text Mining ein Sentiment gebildert werden kann, ist die einzelnen Wörter oder Wortgruppen (n-gramms) mittels einem Wörterbuch zu bewerten. Wird bezüglich unseren Beispiel das Wort gut betrachtet, wird dieser wahrscheinlich positiv bewertet.
 
 Ein Wörterbuch, auch Lexika genannt, besteht aus einer Liste von Wörtern, die von einem oder mehreren Individuen bewertet wurden. Die Bewertung kann 1/0, Negativ/Positive, 0-10, eine Stimmung u. s. w. sein. Die Abbildung \ref{fig:worterbuch} zeigt ein Wörterbuch aus dem R-Package \textit{tidytext}. Die Spalte \textit{word} steht für das bewertende Wort und \textit{sentiment} für deren Bewertung.
 
 ![Positiv/Negativ Wörterbuch \label{fig:worterbuch}](Pictures/worterbuch.PNG)
 
-Ein \textbf{Hononym} ist der Begriff für die Doppeldeutigkeit eines Wortes, zum Beispiel \textit{Bank}. Wird ein Wort für ein Wörterbuch bewertet, muss der Kontext in dem sich das Wörterbuch befindet, beachtet werden. Angenommen es existieren zwei Wörterbücher, wobei jeweils eins für die Natur und  eins für den Immobiliensektor abgestimmt ist. Das Wort \textit{Bank} kann in diesem Fall zwei unterschiedliche Bewertung erhalten. In der Natur könnte eine Bank eher als positiv bewertet werden, wohingegen die Bank für den Immobiliensektor eher negativ ausgelegt werden könnte.
+Ein \textbf{Hononym} ist der Begriff für die Doppeldeutigkeit eines Wortes, zum Beispiel \textit{Bank}. Wird ein Wort für ein Wörterbuch bewertet, muss der Kontext in dem sich das Wörterbuch befindet, beachtet werden. Angenommen es existieren zwei Wörterbücher, wobei jeweils eins für die Natur und eins für den Immobiliensektor abgestimmt ist. Das Wort \textit{Bank} kann in diesem Fall zwei unterschiedliche Bewertung pro Wörterbuch erhalten. In der Natur könnte eine Bank eher als positiv bewertet werden, wohingegen die Bank für den Immobiliensektor eher negativ ausgelegt werden könnte.
 
-Um die \textbf{Güte eines Wörterbuches} beurteilen zu können, werden Tweets benötigt, die in irgendeiner Art und Weise eine Bewertung beinhalten. Der gegebene Datensatz aus Kapitel \ref{sub:scanned_data} von Tweets erhielt kein Merkmal, welches auf eine Stimmung hinweisen könnte. Die Konsequenz war Teile des Datensatzes manuell und subjektiv zu bewerten. In der Abbilung \ref{fig:testdata_bewertet} sind die Bewertungungen mit \textit{sentimentOriginal}, den Tweettext mit \textit{full\_text} und die Nummerierung mit \textit{X} zu sehen.
+Um die \textbf{Güte eines Wörterbuches} beurteilen zu können, werden Tweets benötigt, die in irgendeiner Art und Weise durch eine Bewertung markiert sind. Der gegebene Datensatz aus Kapitel \ref{sub:scanned_data} von Tweets erhielt kein Merkmal, welches auf eine Stimmung hinweisen könnte. Die Konsequenz war Teile des Datensatzes manuell und subjektiv zu bewerten. In Abbilung \ref{fig:testdata_bewertet} sind die Bewertungungen mit \textit{sentimentOriginal}, den Tweettext mit \textit{full\_text} und die Nummerierung mit \textit{X} zu sehen.
 
 ![Manuell bewertetes Wörterbuch \label{fig:testdata_bewertet}](Pictures/testdata_bewertet.PNG)
 
@@ -264,16 +263,16 @@ In diesem Bericht wurden die Wörterbücher \textit{bing}, \textit{afinn} und \t
 \label{tab:used_wordbooks}
 \end{table}
 
-In Tabelle \ref{tab:used_wordbooks} sind die verwendeten Wörterbücher mit deren Bewertungsart, ob eine Intelligenz verfügbar und in welcher Programmiersprache dieses Wörterbuch ursprünglich vorhanden war, aufgelistet. Die Wörterbücher "bing" und "loughran" arbeiten mit positiven und negativen Bewertungen, "afinn" arbeitet mit einer Bewertungsreichweite von -5 bis 5, wobei -5 die negativste- und 5 die positivste Stimmung wiederspiegelt. Das Wörterbuch "vaderSentiment" wurde von 10 unabhängigen Menschen manuell mit der Reichweite -4 bis 4 bewertet und davon der Durchschnitt und die Standardabweichung berechnet. Weiterhin wurde eine Logik von den Machern hinterlegt, die Verneinung, Satzzeiten, groß geschriebene Wörter u. v. m. bei der Berechnung des Sentiments beachtet.
+In Tabelle \ref{tab:used_wordbooks} sind die verwendeten Wörterbücher mit deren Bewertungsart, ob eine Intelligenz verfügbar und in welcher Programmiersprache dieses Wörterbuch ursprünglich vorhanden war, aufgelistet. Die Wörterbücher "bing" und "loughran" arbeiten mit positiven und negativen Bewertungen, "afinn" arbeitet mit einer Bewertungsreichweite von -5 bis 5, wobei -5 die negativste- und 5 die positivste Stimmung wiederspiegelt. Das Wörterbuch "vaderSentiment" wurde von 10 unabhängigen Menschen manuell mit der Reichweite -4 bis 4 bewertet und davon der Durchschnitt und die Standardabweichung berechnet. Weiterhin wurde eine Logik von den Machern hinterlegt, die Verneinung, Satzzeiten, groß geschriebene Wörter u. v. m. bei der Berechnung des Sentiments beachtet. Die Logik wurde in Python umgesetzt.
 
 
 Zu Beginn wurden mittels den vier Wörterbüchern ein Sentiment über den Testdatensatz berechnet. Diese Berechnung wurde mittels der Abbildung \ref{fig:ubereinstimmung_nothing} visualisiert. Jeder Block entspricht ein Wörterbuch und jeder Balken spiegelt die Anzahl der Treffer wieder. 
 
  * Die \textit{Hits} sind die Anzahl der gesamten Treffer.
  * Die \textit{noHits} spiegelt die Anzahl der keinen Treffer wieder.
- * Die \textit{negativen} Treffer sind ausschließlich die Anzahl der negativen Treffer
- * Die \textit{positiven} Treffer sind ausschließlich die Anzahl der positiven Treffer
- * Die \textit{neutralen} Treffer sind ausschließlich die Anzahl der neutralen Treffer
+ * Die \textit{negativen} Treffer sind ausschließlich die Anzahl der negativen Treffer.
+ * Die \textit{positiven} Treffer sind ausschließlich die Anzahl der positiven Treffer.
+ * Die \textit{neutralen} Treffer sind ausschließlich die Anzahl der neutralen Treffer.
 
 ![Anzahl der Übereinstimmungen der vorhergesagten und der manuel eingepflegten Sentiments\label{fig:ubereinstimmung_nothing}](Pictures/ubereinstimmung_nothing.PNG)
 
@@ -283,14 +282,13 @@ Die Wörterbücher "bing" und "afinn" liegen können insgesamt um die 70 Überei
 
 Die Idee hinter Stemming ist das Reduzieren einer Wortvariante auf seinem Wortstamm. Zum Beispiel werden die Worte "Häuser" und "Häusern" zu deren Wortstamm "Haus" reduziert.
 
-Um das Stemming durchzuführen, wurde das R-Package \textit{corpus} verwendet. Die folgenden Varianten des Stemmings wurden durchgeführt.
+Um das Stemming durchzuführen, wurde das R-Package \textit{corpus} verwendet <!-- Verlinken TODO -->. Die folgenden Varianten des Stemmings wurden durchgeführt. textit{corpus} unterstützt vom Haus aus 17 unterschiedliche Sprachen, um ein Wortstamm zu bilden. Da der gegebene Datensatz aus englischen Texten besteht, wurde nur die englische Sprache des Standard-Packetes betrachtet. Die folgenden Stemmer und Rechtschreibkorrekturen wurden betrachtet.
 
- * Corpus unterstützt vom Haus aus 17 unterschiedliche Sprachen, um ein Wortstamm zu bilden. Da der gegebene Datensazu nur englische Texte enthält, wurde nur die englische Sprache betrachtet des Standard-Packetes betrachtet.
  * Der \textit{Hunspell stemmer} soll prezisere Stämme bilden.
- * Der \textit{Dictionary stemmer} wird on-the-fly von lexoconista.com als Tupels von (Wörter, Stamm) geladen und danach mittels einer Funtkion den corpus-Package übergeben.
- * Hunspell liefert eine \textit{Rechtschreibkorrektur} mit. Zu Beginn wird geprüft, ob das Wort im Hunspell-Stemming-Wörterbuch existiert. Falls das Wort existiert, wird der Wortstamm zurück gegeben. Falls das Wort im Hunspell-Stemming-Wörterbuch nicht existiert, wird versucht ähnliche Wörter mittels der bereits existierten Funktion zu finden.
+ * Der \textit{Dictionary stemmer} wird on-the-fly von lexoconista.com als Tupels von (Wörter, Stamm) geladen und mittels einer Funtkion den corpus-Package übergeben.
+ * Hunspell liefert eine \textit{Rechtschreibkorrektur} mit. Zu Beginn wird geprüft, ob das Wort im Hunspell-Stemming-Wörterbuch existiert. Falls das Wort existiert, wird der Wortstamm zurück gegeben. Falls das Wort im Hunspell-Stemming-Wörterbuch nicht existiert, werden versucht ähnliche Wörter mittels der bereits existierten Funktion zu finden.
  
-Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Abbildung \ref{fig:ubereinstimmung_nothing} zu sehen ist. Dabei verschlechterten alle Stemming-Verfahren den Score. Die einzige Ausnahme gilt der Rechtschreibkorrektur, die insgesamt zwei Tweets mehr erkennt.
+Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Abbildung \ref{fig:ubereinstimmung_nothing} zu sehen ist. Dabei verschlechterten alle Stemming-Verfahren das Ergebnis. Die einzige Ausnahme gilt der Rechtschreibkorrektur, die insgesamt zwei Tweets mehr erkennt.
 
 
 
@@ -301,7 +299,7 @@ Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Ab
 
 
 \section{Berechnung der Sentimentindizes}
-Für die Berechnung von Sentimentindizes wird nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson} vorgegangen. <!-- TODO Referenz? --> Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt, soll vorgestellt werden. Zur Berechnung des Sentimenindex wird das vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe mit dem Wörterbuch \textit{Bing} gejoint mit der gleichnamige Spalte \textit{word}. Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. Für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und $n$. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet, indem die Anzahl der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestellt.
+Für die Berechnung der Sentimentindizes wird nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson} vorgegangen. <!-- TODO Referenz? --> Im Buch werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt, soll vorgestellt werden. Zur Berechnung des Sentimenindex wird das vorbereitete Dataframe aus dem Kapitel \textit{Datenaufbereitung \ref{sub:datenaufbereitung}} benutzt. Zuerst wird der vorbereitete Dataframe mit dem Wörterbuch \textit{Bing} gejoint <!-- Vielleicht join nochmal beschreiben oder eindeutiger hinschreiben --> mit der gleichnamige Spalte \textit{word}. Im Anschluss wird das Dataframe nach Wochen gruppiert und dabei werden die verschiedene Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. Für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woche zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche aus den Spalten \textit{Sentiment} und $n$ erzeugt. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet, indem die Anzahl der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestellt.
 ```{r  eval=FALSE, echo=FALSE}
 source("../Testing/SentimentFunctionChris.R")
 #source("varianz.R")
@@ -340,6 +338,7 @@ ggplot(data= differenz_positive_negative,
   \includegraphics[width=1\textwidth]{Pictures/sentiment_bing_week.png}
    	\caption{Sentimentindex: monatlicher Mittelwert TODO}
  \end{figure}
+ <!-- Ist das nicht der wöchentliche Mittelwert? TODO -->
 
 In der unteren Aufzählung werden einige Sentimentindizes berechnet, die von uns in R implementiert wurde. Die Funktionen der aufgezählten Sentimentindizes werden in der R-Datei \textit{SentimentFunctionChris.R} bereitgestellt. Bei allen Funktionen müssen zwei Parameter übergeben werden, den vorbereitete Dataframe und einen String (\textit{Woche} und \textit{Monat}) der angbit, ob ein Sentiment pro Woche oder pro Monat berechnet wird. 
 \begin{itemize}
@@ -360,13 +359,16 @@ In der unteren Aufzählung werden einige Sentimentindizes berechnet, die von uns
 
 
 \section{Analysen von Tweets und ihrer Sentimentindizies}
-<!-- TODO, sollen wir hier nicht vielleicht die Akündigung der Methoden und Mitteln weglassen und direkt einsteigen? -->
-In diesem Abschnitt soll umrissen werden, mit welcher Methoden und Mitteln verwenden kann, um Tweets und Sentimentindizes zu analysieren. Um einen ersten Eindruck von den Tweets zu bekommen, ist es von Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einem Balkendiagramm umgesetzt.
+<!-- Methoden => Verfahren? TODO -->
+In diesem Abschnitt werden Methoden angerissen, die die Möglichkeit bieten, Tweets und Sentimentindizes zu analysieren. Um einen ersten Eindruck von den Tweets zu erhalten, ist es vom Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einem Balkendiagramm umgesetzt.
+<!-- Ist der obige Absatz so korrekt? -->
+<!-- Balkendiagramm auf deutsch TODO -->
  \begin{figure}[H]
 \centering
  	\includegraphics[width=1\textwidth]{Pictures/positv_negativ.png}
  	\caption{Barplot der 10 am häufigsten vorkommenden positivsten und negativsten Wörter} \label{barplot}
 \end{figure}
+<!-- Den obigen Teil könnte man auch weglassen, oder? TODO -->
 ```{r eval=FALSE, echo=FALSE}
 
 par(mfrow=c(2,2))

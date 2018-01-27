@@ -42,12 +42,12 @@ In den Grafiken \ref{usasent} und \ref{usadiff} der Tweets der US-Banken  ist ab
  \begin{figure}[H]
  \begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
  	\includegraphics[width=1\textwidth]{Pictures/EuroxStoxx.png}
- 	\caption{Euro Stoxx $50$ Aktienkurs $2012$} \label{eustoxx}
+ 	\caption{Euro Stoxx $50$ Aktienkurs $2012$ \cite{stoxx}} \label{eustoxx}
  \end{minipage}
  \hspace{.1\linewidth}% Abstand zwischen Bilder
  \begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
  	\includegraphics[width=1\textwidth]{Pictures/DowJones2012.png}
- 	\caption{Dow Jones Aktienkurs $2012$}\label{dowjones}
+ 	\caption{Dow Jones Aktienkurs 30 Industrial $2012$ \cite{Dow}}\label{dowjones}
  \end{minipage}
 \end{figure}
 Der \textit{Euro Stoxx} $50$ Aktienkurs Chart $2012$ zeigt in den Monaten Mai und Juni einen Kurssturz an und im August erholt. Diese Informationen stimmen mit den Sentiments in den Tweets überein. In der Phase des Aktiensturzes, die sich im Mai abzeichnet, existiert einen starken anstieg an negativen Tweets. Im Juni ist der Tiefstand erreicht und der Aktienkurs steigt wieder an. Die Anzahl der negativen Wörtern ist leicht zurückgegangen und die Anzahl der positiven Wörtern angestiegen. Im August ist ein Aktieneinbruch zu erkennen. Dieser wirkt sich negativ auf den Sentiment im August aus. Es existieren gering mehr negative als positive Wörter im Monat August. Dies lässt erahnen, dass dieser kurze Aktieneinsturz im August eine erhebliche Reaktion an negativen Tweets auslöste. In der Grafik \ref{eustoxx} zeichnet sich weiterhin im September eine Trendphase ungefähr bis Oktober ab. Dieser Trend scheint auch in den Tweets sichtbar zu werden, da es mehr positive als negative Wörter im Monat September vorhanden sind. Auch der Aktienkurs vom Dow Jones (\ref{dowjones}) und der Sentimentindex der Tweets der US-Banken (\ref{usadiff}) aus $2012$. Im März und im April steigen die Anzahl von negativen Wörtern stark an, wie in der Grafik \ref{usadiff} zuerkennen ist und nehmen nach Mai verstärkt wieder ab. Dieser Effekt stimmt mit dem Verhalten des Aktienkurs des Dow Jones überein. Im März und Mai gibt es einen Einbruch und anschließend einen Trend. Es kann festgehalten werden, dass das Zählen von positiven und negativen Wörtern pro Monat, die Stimmung in der Finanzwelt grob erfassen kann. Im nächsten Abschnitt wird mittels verschiedener Sentimentindizes von mehreren Wochen eine multiple Regression auf wöchentliche Renditen durchgeführt.
@@ -75,7 +75,6 @@ Im Folgendem wird nun versucht mit verschiedenen Sentimentindizes auf den \texti
 \\
 Dies kann nur empirisch ermittelt werden. In unserem Fall gehen wir von der Hypothese aus, dass drei bis vier Wochen ein erster vernünftiger Startpunkt ist. Im nächsten Schritt wird eine Regression mit den Sentimentindizes der letzten drei Wochen werden. Hierzu muss mit der Funktion \textit{generateLinearRegressionDataFrame} unseres Dataframes in die richtige Form transformiert. In der R Ausgabe sind die Ergebnisse Regression zu sehen. Auf den ersten Blick fällt auf, dass nach dem T-Test alle $H_{0}$ Hypothesen für die Regressionskoeffizienten nicht verworfen werden können, da alle $\alpha>0.05$ sind, wie in der Tabelle \textit{Coefficients} in der Spalte $Pr(>|t|)$ zu sehen ist. Die Sentimentinidizes der letzen drei Wochen besitzen keinen Einfluss auf die Renditen (wöchentliche Veränderung pro Woche)  des \textit{Dow Jones Industrial} $30$. Diese Ergebnisse sind nicht ungewöhnlich, da wir uns nicht mehr in der normalen multiplen Regression bewegen, sondern im Bereich der Zeitreihenanalyse, da zeitliche Ereignisse betrachtet werden. Das $R^2$ trägt $1,3$ \% für die Erklärung der Rendite dazu. 
 
-\textbf{Afinn-Score}
  \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{Pictures/afinn_summary.png}

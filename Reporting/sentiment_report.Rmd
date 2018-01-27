@@ -296,81 +296,6 @@ Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Ab
 
 
 
-
-
-
-
-\section{Berechnung der Sentimentindizes}
-Für die Berechnung der Sentimentindizes wird nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson} vorgegangen. <!-- TODO Referenz? --> Im Buch werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt, soll vorgestellt werden. Zur Berechnung des Sentimenindex wird das vorbereitete Dataframe aus dem Kapitel \textit{Datenaufbereitung \ref{sub:datenaufbereitung}} benutzt. Zuerst wird der vorbereitete Dataframe mit dem Wörterbuch \textit{Bing} gejoint <!-- Vielleicht join nochmal beschreiben oder eindeutiger hinschreiben --> mit der gleichnamige Spalte \textit{word}. Im Anschluss wird das Dataframe nach Wochen gruppiert und dabei werden die verschiedene Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. Für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woche zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche aus den Spalten \textit{Sentiment} und $n$ erzeugt. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet, indem die Anzahl der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestellt.
-```{r  eval=FALSE, echo=FALSE}
-source("../Testing/SentimentFunctionChris.R")
-#source("varianz.R")
-source("../Testing/functions.R")
-pakete_lade()
-#Aufbereitung der Daten----------------------------------
- file<-"../Testing/Daten2012usa.csv"
- daten_usa<-Datei_einlesen(file)
-
-kalenderwochen_hinzufuegen<-Kalenderwochen(daten_usa)
-daten_doppelt_loeschen<-Distinct(kalenderwochen_hinzufuegen)
-clearing_data<- clearing_dataframe(daten_doppelt_loeschen)
-```
-
-```{r eval=FALSE, echo=TRUE}
-
-  bing <- get_sentiments("bing")
-    differenz_positive_negative<-  clearing_data  %>%
-      inner_join(bing) %>%
-      group_by(week)%>%
-      count(sentiment) %>%
-      spread(sentiment, n)%>%
-      mutate(sentiment = positive - negative)
-``` 
-
-```{r eval=FALSE, echo=TRUE}
-differenz_positive_negative    
-ggplot(data= differenz_positive_negative, 
-       es(x=week, y=sentiment),fill=sentiment) +geom_col(show.legend = FALSE)
-      +geom_bar(stat="identity",  fill="blue",colour="black")
-      +xlab("Wochen")+ylab("Sentimentindex")
-```
-
- \begin{figure}[H]
-   	\centering
-  \includegraphics[width=1\textwidth]{Pictures/sentiment_bing_week.png}
-   	\caption{Sentimentindex: monatlicher Mittelwert TODO}
- \end{figure}
- <!-- Ist das nicht der wöchentliche Mittelwert? TODO -->
-
-In der unteren Aufzählung werden einige Sentimentindizes berechnet, die von uns in R implementiert wurde. Die Funktionen der aufgezählten Sentimentindizes werden in der R-Datei \textit{SentimentFunctionChris.R} bereitgestellt. Bei allen Funktionen müssen zwei Parameter übergeben werden, den vorbereitete Dataframe und einen String (\textit{Woche} und \textit{Monat}) der angbit, ob ein Sentiment pro Woche oder pro Monat berechnet wird. 
-\begin{itemize}
-\item \textit{Wörterbuch Bing:} Einzelene Tweets werden als negative, positive oder als neutral gekennzeichnet. Die Tweets die mehr positive als negative Wörter besitzen, werden als positve makiert anders herum als negative, bei gleichstand als neutral.
- \begin{figure}[H]
-\centering
- 	\includegraphics[width=1\textwidth]{Pictures/tweetebene.png}
- 	\caption{Sentimentindex auf Tweetebene}
-\end{figure}
-
-\item \textit{Wörterbuch AFINN:} Die Funktion \textit{afinn$\_$score$\_$wert} bildet den Mittelwert pro Woche und Monat.
- \begin{figure}[H]
-\centering
- 	\includegraphics[width=1\textwidth]{Pictures/afinn_mittelwert.png}
- 	\caption{Sentimentindex auf Tweetebene}
-\end{figure}
-\end{itemize}
-
--->
-
-```{r eval=FALSE, echo=TRUE}
-
-  bing <- get_sentiments("bing")
-    differenz_positive_negative<-  clearing_data  %>%
-      inner_join(bing) %>%
-      group_by(week)%>%
-      count(sentiment) %>%
-      spread(sentiment, n)%>%
-      mutate(sentiment = positive - negative)
-``` 
 \section{Analysen von Tweets und ihrer Sentimentindizies}
 
 <!-- Methoden => Verfahren? TODO -->
@@ -439,6 +364,7 @@ In dem Kapitel \ref{Woerterbuch} wurden 4 verschiedene Wörterbücher und 4 vers
 Ein weiterer interessanter Ansatz ist das Verwenden mehrere Wörterbücher und deren Ergebnisse durch ein Votum entscheiden zu lassen. Angenommen drei Wörterbücher beurteilen ein Tweet. Zwei Wörterbücher beurteilen den Tweet als negativ und das dritte Wörterbuch als positiv. Im nächsten Schritt wird durch das Votum der Tweet als negativ klassifiziert, da mehr Wörterbücher den Tweet als negativ eingestuft hatten. Eine Verfeinerung des Votums ist durch eine mögliche Gewichtung der Wörterbücher möglich.
 
 Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknüpfen. Die Logik könnte in der Lage sein gute Ve
+<!-- TODO hier ist was abgeschnitten -->
 \begin{appendix}
 \section{Berechnung der Sentimentindizes}
 für die Berechnung von Sentimentindizes wird nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson} vorgegangen. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt, soll vorgestellt werden. Zur Berechnung des Sentimenindex wird das vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe mit dem Wörterbuch \textit{Bing} gejoint mit der gleichnamige Spalte \textit{word}. Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und $n$. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet, indem die Anzahl der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestellt.
@@ -465,15 +391,7 @@ clearing_data<- clearing_dataframe(daten_doppelt_loeschen)
       spread(sentiment, n)%>%
       mutate(sentiment = positive - negative)
 ``` 
-<!--
-```{r eval=FALSE, echo=FALSE}
-differenz_positive_negative    
-ggplot(data= differenz_positive_negative, 
-       es(x=week, y=sentiment),fill=sentiment) +geom_col(show.legend = FALSE)
-      +geom_bar(stat="identity",  fill="blue",colour="black")
-      +xlab("Wochen")+ylab("Sentimentindex")
-```
--->
+
  \begin{figure}[H]
    	\centering
   \includegraphics[width=1\textwidth]{Pictures/sentiment_bing_week.png}

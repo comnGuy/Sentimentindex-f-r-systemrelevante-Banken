@@ -158,5 +158,11 @@ stemmedTestResultsDFSCHUN <- rbind(stemmedTestResultsDFSCHUN, compareSentiments(
 # Plot the results
 ggplot(data=stemmedTestResultsDFSCHUN, aes(x=names, y=results, fill = names)) +
   geom_bar(stat="identity", position="dodge") +
-  facet_grid(. ~ sentimentBookC)
+  facet_grid(sentimentBookC ~ .) +
+  coord_flip() + 
+  scale_fill_manual(values=c("#00bfc4", "#f8766d")) +
+  xlab("Kategorien") +
+  ylab("Übereinstimmungen") +
+  guides(fill=guide_legend(title="Kategorien"))
+#ggtitle("Anzahl der Übereinstimmungen der vorgesagten und der manuel eingepflegten Sentiments")
 

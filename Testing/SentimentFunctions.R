@@ -13,9 +13,9 @@ compareSentiments <- function(sentimentTest, sentimentOriginal, sentimentBook) {
   negative <- count(mergedSentiments[mergedSentiments$sentiment == mergedSentiments$sentimentOriginal & mergedSentiments$sentimentOriginal == -1,])
   neutral <- count(mergedSentiments[mergedSentiments$sentiment == mergedSentiments$sentimentOriginal & mergedSentiments$sentimentOriginal == 0,])
   
-  results <- c(positive$n, negative$n, neutral$n, Hits$n, noHits$n)
-  names <- c("Positive", "Negative", "Neutral", "Hits", "noHits")
-  sentimentBookC <- c(sentimentBook, sentimentBook, sentimentBook, sentimentBook, sentimentBook)
+  results <- c(Hits$n, noHits$n)
+  names <- c("Hits", "noHits")
+  sentimentBookC <- c(sentimentBook, sentimentBook)
   data.frame(results, names, sentimentBookC)
 }
 

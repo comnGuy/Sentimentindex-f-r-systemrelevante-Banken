@@ -117,32 +117,15 @@ Die nächsten Seiten werden thematisch die Aufbereitung der Daten, die korrekte 
 <!-- W?rde Einf?hrung und Aufgabenbeschreibung weglassen, da dies ja beides implizit in den Resultaten gesagt wird, oder? BP -->
 <!--\section{Einf?hrung}
 Wenn Leser einen Text analysieren, verwenden sie, dass Verständnis der emotionalen Absicht von Wörtern, um daraus abzuleiten, ob ein Textabschnitt positiv oder negativ ist, oder ob er vielleicht durch eine andere nuanciertere Emotion wie überraschung oder Ekel gekennzeichnet ist.-->
-<!-- Sachen wir wir evtl. ben?tigen, oder soll das weggelassen werden? -->
-\section{Aufgabenbeschreibung} 
-Eine Sentiment Analyse soll über die Banken von USA und Europa mittels den Twitterdaten auf dem Cuda erstellt werden. Die Twitterdaten liegen als R-Dataframe vor. Die Tabelle zeigt den Aufbau des DataFrames und die benötigten Daten. 
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{lrrrr}
-	Tweets & Follower			& favourites\_count			& friends\_count			& ... \\
-    \hline
-    My twit pic is sexy	& 81	& 101	& 3523	& 85 \\
-    I am I really this tired	& 233	& 517	& 23542	& 99 \\
-    F5 Copy	& 181	& 345	& 2672	& 99 \\
-  \end{tabular}
-  \caption{Ein Ausschnitt des DataFrames vom Cuda} \label{tab:example_dataframe_twits}
-\end{table}
-
 <!-- Vielleicht irgendwo die Definition eines Sentiments? -->
 <!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
 \section{Daten}
-Der Sentiment ist die Stimmung bzw. die Emotion des Schreibers die der Textbeinhaltet.
-Ein Sentiment wird aus Texten, indem Anwender ihre Meinungen wiedergeben, gewonnen. Als Datengrundlage dient uns das Twitterarchive und die Twitter-API, siehe Unterkapitel \ref{sub:twitter_archive} und \ref{sub:scanned_data}. Um die errechneten Sentiments vergleichen zu können, wurde der Dow Jones Industrial 30 Aktienindex aus dem Jahr 2012 verwendet, siehe Unterkapitel \ref{sub:dow_jones_data}.
+Ein Sentiment ist die Stimmung bzw. die Emotion des Schreibers, die der Text beinhaltet. Als Datengrundlage dient uns das Twitterarchive und die Twitter-API, siehe Unterkapitel \ref{sub:twitter_archive} und \ref{sub:scanned_data}. Um die errechneten Sentiments vergleichen zu können, wurde der Dow Jones Industrial 30 Aktienindex aus dem Jahr 2012 verwendet, siehe Unterkapitel \ref{sub:dow_jones_data}.
 
 
 \subsection{Twitterarchive}
 \label{sub:twitter_archive}
-Twitter veröffentlicht monatlich $1$ \% ihrer gesamten Tweets auf \textit{archive.org}[TODO Referen?]. Dieses Twitterarchive wurde auf dem hauseigenen CUDA-Rechner aus dem Jahre $2012$ in einem R-spezifischen DataFrame aufbereitet und zur Verfügung gestellt. Da diese Archive alle Tweets enthält, auch Tweets die themenfremd sind, wurde ein Filter gebaut, der die benötigten Daten filtert.
+Twitter veröffentlicht monatlich $1$ \% ihrer gesamten Tweets auf \textit{archive.org} [TODO Referen?]. Dieses Twitterarchive wurde auf dem hauseigenen CUDA-Rechner aus dem Jahre $2012$ in einem R-spezifischen DataFrame aufbereitet und zur Verfügung gestellt. Da diese Archive alle Tweets enthält, auch Tweets die themenfremd sind, wurde ein Filter gebaut, der die benötigten Daten filtert.
 
 ![Filter für grieschiche Banken \label{fig:filter}](Pictures/filter_twitter_archive.PNG)
 
@@ -161,7 +144,7 @@ Insgesamt haben wir ca. $17.000$ Tweets durch die gewählten Filter über das ge
 \label{sub:scanned_data}
 Zu Beginn war uns nicht klar, ob ausreichend Daten durch das Twitterarchive gewonnen werden können. Dadurch ergab sich die Idee, die Twitter-API zusätzlich zu verwenden. Die Twitter-API erlaubt $450$ Anfragen alle $15$ Minuten. Der Kern des PHP-Skriptes wird durch folgenden Code erleutert. TODO Verlinkung
 
-```php
+```{php testphp}
 // Query with one Hashtag and a limit up to 100
 // GET call
 $getfield = '?q=' . $hastag . '&
@@ -177,7 +160,7 @@ $data = $twitter->setGetfield($getfield)
                 ->buildOauth($this->url, $this->requestMethod)
                 ->performRequest();
 ```
-Der obige Code zeigt die Abfrage eines Hastags. Die verschiedenen Hashtags werden mittels einer Schleife iteriert. Der Abruf (GET) wird mit einem URL Aufruf realisiert, der mit unterschiedlichen Einstellungen, wie Anzahl der maximalen Tweets (\textit{100}), welcher Typ (\textit{recent}) und in welchen Mode (\textit{extended}) werden die Tweets zurück gegeben, aufgerufen werden kann. Als nächstes werden die Settings übergeben. Die Twitter-spezifischen Settings werden nach der Registration im Entwicklungsbereich auf deren Webseite von generiert. Danach wird die Abfrage mittels der Twitter-Klasse realisiert. Die Rückgabe enthält ein Array im JSON-Format mit den letzten 100 Tweets. Zum Speichern werden die Tweets aufbereitet und als JSON-Format gespeichert.
+Der obige Code zeigt die Abfrage eines Hastags. Die verschiedenen Hashtags werden mittels einer Schleife iteriert. Der Abruf (GET) wird mit einem URL-Aufruf realisiert, der mit verschiedenen Einstellungen, wie Anzahl der maximalen Tweets (\textit{100}), welcher Typ (\textit{recent}) und in welchen Mode (\textit{extended}) werden die Tweets zurück gegeben, aufgerufen werden kann. Als nächstes werden die Settings übergeben. Die Twitter-spezifischen Settings werden nach der Registration im Entwicklungsbereich auf deren Webseite von generiert. Danach wird die Abfrage mittels der Twitter-Klasse realisiert. Die Rückgabe enthält ein Array im JSON-Format mit den letzten 100 Tweets. Zum Speichern werden die Tweets aufbereitet und als JSON-Format gespeichert.
 
 Aktuell muss das Skript manuell ausgeführt werden. Dieses Problem haben wir durch ein \textit{Cronjob} gelöst. Ein Cronjob führt in definierten Intervallen oder an definierten Zeitpunkten ein Event, in unserem Fall eine PHP-Datei, aus. An dieser Stelle wurde entschieden die höher frequentierten Tweets auf einem zwei Minuten Intervall und weniger frequentierten Tweets auf einem 15 Minuten Intervall zu setzen.
 
@@ -187,7 +170,7 @@ Aktuell muss das Skript manuell ausgeführt werden. Dieses Problem haben wir dur
 <!-- Anschließend wird die wöchentliche Veränderung berechnet? -->
 \subsection{Aufbereitung des Dow Jones Industrial 30 Aktienindex aus 2012}
 \label{sub:dow_jones_data}
-Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der älteste noch bestehende Aktienindex der USA und setzt sich heute aus $30$ den größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \url{http://www.boerse-online.de/index/historisch/dow_jones/1.1.2012_31.12.2012}.
+Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der ältesten noch bestehenden Aktienindex der USA und setzt sich heute aus den $30$ größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \url{http://www.boerse-online.de/index/historisch/dow_jones/1.1.2012_31.12.2012}.
 Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der Abbildung \ref{picture:dow_jones} ist ein Auschnitt der aufbereiteten Daten zu sehen.
  \begin{figure}[H]
    	\centering
@@ -200,7 +183,7 @@ Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchen
 
 \subsection{Datenaufbereitung}
 \label{sub:datenaufbereitung}
-für die Berechnung der Sentimentindizes werden ausschließlich Tweets betrachtet die mit dem sprachlichen Kürzel \textit{eng} gekennzeichnet sind. <!-- Passt der Satz hier überhaupt ins Kapitel? Bzw. den Filter habe ich ja schon vorher kurz angesprochen TODO -->Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken.
+Für die Berechnung der Sentimentindizes werden ausschließlich Tweets betrachtet die mit dem sprachlichen Kürzel \textit{eng} gekennzeichnet sind. <!-- Passt der Satz hier überhaupt ins Kapitel? Bzw. den Filter habe ich ja schon vorher kurz angesprochen TODO -->Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken.
 
 <!-- W?rde den obigen Text weglassen und dafür ab hier beginnen? TODO -->
 Im Folgendem werden die einzelnen Schritte für die Aufbereitung der Daten beschrieben, die notwendig sind, um verschiedene Sentimentindizes zu berechnen, auf Basis von Wörterbüchern. Hierzu werden eigens programmierten Funktionen benutzt.
@@ -267,28 +250,25 @@ In diesem Bericht wurden die Wörterbücher \textit{bing}, \textit{afinn} und \t
 \label{tab:used_wordbooks}
 \end{table}
 
-In Tabelle \ref{tab:used_wordbooks} sind die verwendeten Wörterbücher mit deren Bewertungsart, ob eine Intelligenz verfügbar und in welcher Programmiersprache dieses Wörterbuch ursprünglich vorhanden war, aufgelistet. Die Wörterbücher "bing" und "loughran" arbeiten mit positiven und negativen Bewertungen, "afinn" arbeitet mit einer Bewertungsreichweite von -5 bis 5, wobei -5 die negativste- und 5 die positivste Stimmung wiederspiegelt. Das Wörterbuch "vaderSentiment" wurde von 10 unabhängigen Menschen manuell mit der Reichweite -4 bis 4 bewertet und davon der Durchschnitt und die Standardabweichung berechnet. Weiterhin wurde eine Logik von den Machern hinterlegt, die Verneinung, Satzzeiten, groß geschriebene Wörter u. v. m. bei der Berechnung des Sentiments beachtet. Die Logik wurde in Python umgesetzt.
+In Tabelle \ref{tab:used_wordbooks} sind die verwendeten Wörterbücher mit deren Bewertungsart, ob eine Intelligenz verfügbar und in welcher Programmiersprache dieses Wörterbuch ursprünglich vorhanden war, aufgelistet. Die Wörterbücher \textit{bing} und \textit{loughran} arbeiten mit positiven und negativen Bewertungen. \textit{afinn} arbeitet mit einer Bewertungsreichweite von -5 bis 5, wobei -5 die negativste- und 5 die positivste Stimmung wiederspiegelt. Das Wörterbuch \textit{vaderSentiment} wurde von 10 unabhängigen Menschen manuell mit der Bewertungsreichweite -4 bis 4 bewertet und der Durchschnitt und die Standardabweichung berechnet. Weiterhin wurde eine Logik von den Machern hinterlegt, die Verneinung, Satzzeiten, groß geschriebene Wörter u. v. m. bei der Berechnung des Sentiments beachtet. Die Logik wurde in Python umgesetzt.
 
 
 Zu Beginn wurden mittels den vier Wörterbüchern ein Sentiment über den Testdatensatz berechnet. Diese Berechnung wurde mittels der Abbildung \ref{fig:ubereinstimmung_nothing} visualisiert. Jeder Block entspricht ein Wörterbuch und jeder Balken spiegelt die Anzahl der Treffer wieder. 
 
  * Die \textit{Hits} sind die Anzahl der gesamten Treffer.
  * Die \textit{noHits} spiegelt die Anzahl der keinen Treffer wieder.
- * Die \textit{negativen} Treffer sind ausschließlich die Anzahl der negativen Treffer.
- * Die \textit{positiven} Treffer sind ausschließlich die Anzahl der positiven Treffer.
- * Die \textit{neutralen} Treffer sind ausschließlich die Anzahl der neutralen Treffer.
 
-![Anzahl der übereinstimmungen der vorhergesagten und der manuel eingepflegten Sentiments\label{fig:ubereinstimmung_nothing}](Pictures/ubereinstimmung_nothing.PNG)
+![Anzahl der übereinstimmungen der vorhergesagten und der manuel eingepflegten Sentiments\label{fig:ubereinstimmung_nothing}](Pictures/ubereinstimmung_nothing_new.PNG)
 
-Die Wörterbücher "bing" und "afinn" liegen können insgesamt um die 70 übereinstimmungen aufweisen, wohingegen "loughren" knapp über 50 vorweisen kann. Das beste Wörterbuch ist "vader" mit ca. 120 übereinstimmmungen. Eine weitere Auffälligkeit bezüglich "bing", "afinn" und "vader" sind die Anzahl der übereinstimmungen im Bereich der positiv bewertenden Tweets. Jedoch punktet "vader" bei den neutralen Tweets, wo er mit ca. 30 übereinstimmungen die beste Performance liefert.
+Die Wörterbücher "bing" und "afinn" liegen können insgesamt um die 70 übereinstimmungen aufweisen, wohingegen "loughren" knapp über 50 vorweisen kann. Das erfolgreichste Wörterbuch ist "vader" mit ca. 120 übereinstimmmungen. 
 
 \subsection{Stemming}
 
 Die Idee hinter Stemming ist das Reduzieren einer Wortvariante auf seinem Wortstamm. Zum Beispiel werden die Worte "Häuser" und "Häusern" zu deren Wortstamm "Haus" reduziert.
 
-Um das Stemming durchzuführen, wurde das R-Package \textit{corpus} verwendet <!-- Verlinken TODO -->. Die folgenden Varianten des Stemmings wurden durchgeführt. textit{corpus} unterstützt vom Haus aus 17 unterschiedliche Sprachen, um ein Wortstamm zu bilden. Da der gegebene Datensatz aus englischen Texten besteht, wurde nur die englische Sprache des Standard-Packetes betrachtet. Die folgenden Stemmer und Rechtschreibkorrekturen wurden betrachtet.
+Um das Stemming durchzuführen, wurde das R-Package \textit{corpus} verwendet <!-- Verlinken TODO -->. Die folgenden Varianten des Stemmings wurden durchgeführt. \textit{corpus} unterstützt vom Haus aus 17 unterschiedliche Sprachen, um ein Wortstamm zu bilden. Da der gegebene Datensatz aus englischen Texten besteht, wurde nur die englische Sprache des Standard-Packetes betrachtet. Die folgenden Stemmer und Rechtschreibkorrekturen wurden betrachtet.
 
- * Der \textit{Hunspell stemmer} soll prezisere Stämme bilden.
+ * Der \textit{Hunspell stemmer} soll prezise Stämme bilden.
  * Der \textit{Dictionary stemmer} wird on-the-fly von lexoconista.com als Tupels von (Wörter, Stamm) geladen und mittels einer Funtkion den corpus-Package übergeben.
  * Hunspell liefert eine \textit{Rechtschreibkorrektur} mit. Zu Beginn wird geprüft, ob das Wort im Hunspell-Stemming-Wörterbuch existiert. Falls das Wort existiert, wird der Wortstamm zurück gegeben. Falls das Wort im Hunspell-Stemming-Wörterbuch nicht existiert, werden versucht ähnliche Wörter mittels der bereits existierten Funktion zu finden.
  
@@ -301,7 +281,7 @@ Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Ab
 \section{Analysen von Tweets und ihrer Sentimentindizies}
 
 <!-- Methoden => Verfahren? TODO -->
-In diesem Abschnitt werden Methoden angerissen, die die Möglichkeit bieten, Tweets und Sentimentindizes zu analysieren. Um einen ersten Eindruck von den Tweets zu erhalten, ist es vom Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einem Balkendiagramm umgesetzt.
+In diesem Abschnitt werden Methoden angerissen, die Tweets und Sentimentindizes analysieren. Um einen ersten Eindruck von den Tweets zu erhalten, ist es vom Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einem Balkendiagramm umgesetzt.
 <!-- Ist der obige Absatz so korrekt? -->
 <!-- Balkendiagramm auf deutsch TODO -->
  \begin{figure}[H]
@@ -357,16 +337,8 @@ Ein weiterer interessanter Ansatz, um die Stimmung in den Tweets zu messen, ist 
 
 Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknüpfen. Die Logik könnte in der Lage sein gute Verneinungen zu erkennen, wie 	\glqq Der Kurs ist nicht schlecht! #bitcoin\grqq{}. Um den Zusammenhang zwischen den Sentimentindizes und den Aktienindizes besser zu Beurteilen zu können, wäre es nötig sich $2-3$ Jahre die Sentimenindizes und den Aktienindizes an zu sehen und zu analysieren. Außerdem kann bei der multiplen Regression noch verschiedenste Ansätze ausprobiert werden, wie zum Beispiel nicht lineare Regression oder auch die variantion der Regressoren. Ein Ansatz um die Targets (Aktienindizes) besser anhand der Sentimenindizes zu erklären ware die Zeitreihenanalyse. Bei der Zeitreihenanalyse werden eine zeitabhängige Folge von Datenpunkten betrachtet. 
 
+\newpage
 
-
-
--------------------------------------------------------------------------------------
-In dem Kapitel \ref{Woerterbuch} wurden 4 verschiedene Wörterbücher und 4 verschiedene Stemming-Verfahren, wobei ein Verfahren die Rechtschreibkorrektur ist, verwendet. Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram (Unigrammen) mit 2-gramme (Bigramme) oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut dem [Paper 5 TODO] ist dieser Ansatz sehr vielversprechend.
-
-Ein weiterer interessanter Ansatz ist das Verwenden mehrere Wörterbücher und deren Ergebnisse durch ein Votum entscheiden zu lassen. Angenommen drei Wörterbücher beurteilen ein Tweet. Zwei Wörterbücher beurteilen den Tweet als negativ und das dritte Wörterbuch als positiv. Im nächsten Schritt wird durch das Votum der Tweet als negativ klassifiziert, da mehr Wörterbücher den Tweet als negativ eingestuft hatten. Eine Verfeinerung des Votums ist durch eine mögliche Gewichtung der Wörterbücher möglich.
-
-Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknüpfen. Die Logik könnte in der Lage sein gute Ve
-<!-- TODO hier ist was abgeschnitten -->
 \begin{appendix}
 \section{Berechnung der Sentimentindizes}
 für die Berechnung von Sentimentindizes wird nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson} vorgegangen. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt, soll vorgestellt werden. Zur Berechnung des Sentimenindex wird das vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe mit dem Wörterbuch \textit{Bing} gejoint mit der gleichnamige Spalte \textit{word}. Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und $n$. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet, indem die Anzahl der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestellt.

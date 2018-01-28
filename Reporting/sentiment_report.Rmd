@@ -34,16 +34,12 @@ header-includes:
 - \usepackage{fancyhdr}
 - \usepackage{geometry}
 - \usepackage[onehalfspacing]{setspace}
-
 geometry: top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm
 
 output:
   pdf_document:
     number_sections: yes
 ---
-
-
-
 
 \newcommand{\mybox}[1]{%
   \tikz[baseline=(text.base)]
@@ -83,7 +79,13 @@ output:
 
 
 <!--- Titelseite ---> \input{Titelblatt2} 
-
+\pagestyle{fancy} 
+\fancyhf{}
+\fancyhead[R]{} 
+\fancyhead[L]{\leftmark} 
+\renewcommand{\headrulewidth}{0.4pt} 
+\fancyfoot[C]{\thepage} 
+\renewcommand{\footrulewidth}{0.4pt} 
 <!--- Inhaltsverzeichnis ---> \tableofcontents\newpage
 \addcontentsline{toc}{section}{Abbildungsverzeichnis}
 <!--- Abbildungsverzeichnis ---> \listoffigures\newpage

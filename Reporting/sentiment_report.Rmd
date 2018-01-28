@@ -112,13 +112,9 @@ Mittels Textmining sollen diese Informationen aus den Tweets in einen Sentimenti
   \includegraphics[width=1\textwidth]{Pictures/Afinn_plot.png}
    	\caption{Multiple Regression mittels Sentimenindex auf einen Aktienindex}\label{Reg_afinn1}
 \end{figure}
-Die nächsten Seiten werden thematisch die Aufbereitung der Daten, die korrekte Wahl des Wörterbuches, den Zusammenhang zwischen Aktienindizes und Sentimentindizes und die vorgestellte Regression auf Aktienindizes.
 
-<!-- W?rde Einf?hrung und Aufgabenbeschreibung weglassen, da dies ja beides implizit in den Resultaten gesagt wird, oder? BP -->
-<!--\section{Einf?hrung}
-Wenn Leser einen Text analysieren, verwenden sie, dass Verständnis der emotionalen Absicht von Wörtern, um daraus abzuleiten, ob ein Textabschnitt positiv oder negativ ist, oder ob er vielleicht durch eine andere nuanciertere Emotion wie überraschung oder Ekel gekennzeichnet ist.-->
-<!-- Vielleicht irgendwo die Definition eines Sentiments? -->
-<!-- Wo kommen die Daten her? Welches Format hatten die Daten? Welches Format benutzen wird? -->
+In diesem Paper wird die thematische die Aufbereitung der Daten, die korrekte Wahl des Wörterbuches, den Zusammenhang zwischen Aktienindizes und Sentimentindizes und die vorgestellte Regression auf Aktienindizes besprochen.
+
 \section{Daten}
 Ein Sentiment ist die Stimmung bzw. die Emotion des Schreibers, die der Text beinhaltet. Als Datengrundlage dient uns das Twitterarchive und die Twitter-API, siehe Unterkapitel \ref{sub:twitter_archive} und \ref{sub:scanned_data}. Um die errechneten Sentiments vergleichen zu können, wurde der Dow Jones Industrial 30 Aktienindex aus dem Jahr 2012 verwendet, siehe Unterkapitel \ref{sub:dow_jones_data}.
 

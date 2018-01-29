@@ -1,64 +1,55 @@
 
 Auf Anhang verweisen.
 
-Mit mehreren Optionen für Sentiment Wörterbücher, ist es erforderlich mehr Informationen über diese Wörterbücher zu bekommen. Es werden alle vier Stimmungswörterbücher aus dem Kapitel \ref{Woerterbuch} verwendet und untersucht, wie sich die Stimmung über die Wochen hinweg verändert. Für die Wörterbücher \textit{Bing} und \textit{NRC} werden die positven und negativen Wörter pro Woche gezählt und miteinander verrechnet um einen Sentimentindex zu bilden. Die Wörterbücher \textit{NRC} und \textit{Warp} besitzen einen Score bereits.
+Mit mehreren Optionen für Sentiment Wörterbücher, ist es erforderlich mehr Informationen über diese Wörterbücher zu bekommen. Im Kapitel \ref{Woerterbuch} wurden die Tweets auf der Tweetebene berechnet. Diese Berechnungen werden jetzt auf eine Wochenebene angehoben. Für die Wörterbücher \textit{Bing} und \textit{NRC} werden die positven und negativen Wörter pro Woche gezählt und miteinander verrechnet um einen Sentimentindex zu bilden. Die Wörterbücher \textit{NRC} und \textit{Warp} besitzen einen Score bereits.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{Pictures/Woertbuch.png}
 	\caption{Vergleich von Sentimentindizes der Wörterbücher \textit{Bing}, \textit{NRC}, \textit{Wader} und \textit{Afinn}, \textit{Loughran}}
 	\label{senti}
 \end{figure}
-% wader => vader TODO
-% Grafik deutsch? TODO
-Die Abbildung \ref{senti} stellt die Wörterbücher gegenüber und diese zeigen ähnliche Schwankungen zu entsprechenden Zeitpunkten. Das \textit{AFINN}$\-$ und \textit{Vader} Wörterbuch geben die größten absoluten Werte mit hohen positiven Werten an. Das Wörterbuch von \textit{Bing} und \textit{loughran} berechneten die niedrigsten Absolutwerte. Die \textit{NRC} und \textit{Vader
-}$\-$Ergebnisse sind im Vergleich zu den anderen in der Höhe verschoben, wodurch der Text positivere Werte verzeichnet, aber ähnliche relative Veränderungen im Text erkannt werden. Wir finden ähnliche Unterschiede zwischen den Methoden, wenn andere Tweets betrachtet werden. Das \textit{NRC}$\-$Sentiment weist hoche Absolutwerte vor, wohingegen das \textit{AFINN}$\-$Sentiment mehr Varianz ausweist. \textit{Vader} hat ein ähnliches Verhalten, wie das \textit{NRC}$\-$Sentiment. Der \textit{Bing} und \textit{loughran} Sentimentindex scheinen Wochen, die nahe bei einander liegen, ähnlichen zu bewerten. Alle fünf Wörterbücher weisen unabhängig von ihren Sentimentindizes eine ähnliche Tendenz auf.
+Die Abbildung \ref{senti} stellt die gegebenen Wörterbücher gegenüber und diese zeigen ähnliche Schwankungen zu entsprechenden Zeitpunkten. Das \textit{AFINN}$\-$ und \textit{Vader} Wörterbuch geben die größten absoluten Werte mit hohen positiven Werten an. Das Wörterbuch \textit{Bing} und \textit{loughran} berechnen die niedrigsten Absolutwerte. Die \textit{NRC} und \textit{Vader
+}-Ergebnisse sind im Vergleich zu den anderen in der Höhe verschoben, wodurch der Text positivere Werte verzeichnet, aber ähnliche relative Veränderungen im Text erkannt werden. Wir finden geringfügige Unterschiede zwischen den Methoden, wenn andere Tweets betrachtet werden. Das \textit{NRC}-Sentiment weist hoche Absolutwerte vor, wohingegen das \textit{AFINN}-Sentiment mehr Varianz aufweist. \textit{Vader} hat ein ähnliches Verhalten, wie das \textit{NRC}-Sentiment. Die \textit{Bing} und \textit{loughran} Sentimentindizes scheinen Wochen, die nahe bei einander liegen, ähnlichen zu bewerten. Alle fünf Wörterbücher weisen unabhängig von ihren Sentimentindizes eine ähnliche Tendenz auf.
 
 % Ist die Frage wichtig für unser Paper? TODO
-An dieser Stelle haben wir uns gefragt, warum das Ergebnis für das \textit{NRC} im Vergleich zum \textit{Bing et al.} eine positivere Stimmung aufweist? Diesbezüglich wird geprüft, wie viele positive und negative Wörter in diesen Wörterbüchern enthalten sind. Das Wörterbuch \textit{NRC} besitzt $3324$ negative und $2312$ positive Wörter. Im Gegensatz beträgt das Wörterbuch \textit{Bing} $4782$ negative und $2006$ positive Wörter, damit besitzt die Wörterliste \textit{Bing} eine größere Anzahl von positiven Wörter. 
+An dieser Stelle haben wir uns gefragt, warum das Ergebnis für das \textit{NRC} im Vergleich zum \textit{Bing} eine positivere Stimmung aufweist? Diesbezüglich wird geprüft, wie viele positive und negative Wörter in diesen Wörterbüchern enthalten sind. Das Wörterbuch \textit{NRC} besitzt $3324$ negative und $2312$ positive Wörter. Im Gegensatz dazu beträgt das Wörterbuch \textit{Bing} $4782$ negative und $2006$ positive Wörter, damit besitzt die Wörterliste \textit{Bing} eine größere Anzahl von positiven Wörter. Diese unausgeglichenen Daten können zu Problemen führen. 
 
 \subsection{Übereinstimmungen von Sentimentindizes mit Aktienindizes}\label{ueberein}
-In diesem Abschnitt wird ein Resume gezogen, in wie weit der Sentimentsindex der Bankentweets aus $2012$ in der USA und der EU mit der wirtschaftlichen Situation in $2012$ übereinstimmt. Für den Vergleich der wirtschaftlichen Situation in der EU, wird der \textit{EURO-STOXX} $50$ herangezogen. Der \textit{EURO-STOXX} $50$ ist ein Aktienindex, der sich aus $50$ großen, börsennotierten Unternehmen des Euro-Währungsgebiets zusammensetzt. Er gilt als eines der führenden Börsenbarometer Europas und enthält die Aktien von $50$ Unternehmen aus Euroländern. Der Dow Jones wird für die US-Banken-Tweets genommen.
+In diesem Abschnitt wird ein Resume gezogen, in wie weit sich der Sentimentsindex der Bankentweets aus $2012$ in der USA und der EU mit der wirtschaftlichen Situation in $2012$ übereinstimmt. Für den Vergleich der wirtschaftlichen Situation in der EU, wird der \textit{EURO-STOXX} $50$ herangezogen. Der \textit{EURO-STOXX} $50$ ist ein Aktienindex, der sich aus den $50$ größten, börsennotierten Unternehmen des Euro-Währungsgebiets zusammensetzt. Der Dow Jones wird für die US-Banken-Tweets genommen.
 
 Um ein Bild der Stimmung in den Tweets zu erhalten, sollen die Anzahl der positiven und negativen Wörter pro Monat gezählt werden und die Differenz genommen werden, dazu wird das Wörterbuch \textit{Bing} verwendet.
 \begin{figure}[H]
 	\begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
-		\includegraphics[width=1\textwidth]{Pictures/EUpostneg.png}
-		\caption{Sentimentindex EU-Banken positve und negative Wörter pro Monat} \label{eusent}
-	\end{minipage}
-	\hspace{.1\linewidth}% Abstand zwischen Bilder
-	\begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
-		\includegraphics[width=1\textwidth]{Pictures/USApostneg.png}
-		\caption{Sentimentindex USA-Bankenbpositve und negative Wörter pro Monat}\label{usasent}
-	\end{minipage}
-
-	\begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
-	\includegraphics[width=1\textwidth]{Pictures/Monateu.png}
-	\caption{Sentimentindex EU-Banken differenz  zwischen positve und negative Wörter pro Monat}\label{eudiff}
+	\includegraphics[width=1\textwidth]{Pictures/Monatusa.png}
+	\caption{Sentimentindex USA-Banken differenz  zwischen positve und negativen Wörter pro Monat}\label{usadiff}
+	
 \end{minipage}
 	\hspace{.2\linewidth}
 \begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
-	\includegraphics[width=1\textwidth]{Pictures/Monatusa.png}
-	\caption{Sentimentindex USA-Banken differenz  zwischen positve und negativen Wörter pro Monat}\label{usadiff}
+	\includegraphics[width=1\textwidth]{Pictures/Monateu.png}
+	\caption{Sentimentindex EU-Banken differenz  zwischen positve und negative Wörter pro Monat}\label{eudiff}
 \end{minipage}
 \end{figure}
-In den Grafiken \ref{usasent} und \ref{usadiff} der Tweets der US-Banken  ist abzulesen, dass es mehr negative als positive Wörter gibt, in den Monaten Januar bis November. Die Sentiments in den Plots \ref{eusent} und \ref{eudiff} der Tweets der EU-Banken sind sehr wechselhaft. Die Monaten Mai, Juni, August, Oktober und November besitzen mehr negative als positive Wörter. Es werden die Hoch und tiefst der obigen Grafiken mit dem Aktienkurs des \textit{Dow Jones} und \textit{Euro Stoxx} $50$ aus $2012$ auf Gemeinsamkeiten untersucht. 
+In Abbildung \ref{usadiff} ist die Differenz der Sentiments auf Montatsebene zu sehen. Dabei fällt auf, dass die Monate von Januar bis November durchgehend negativ ausfallen. Die Sentiments des Balkendiagrammes \ref{eudiff} der Tweets der EU-Banken sind sehr wechselhaft. Die Monaten Mai, Juni, August, Oktober und November besitzen mehr negative als positive Wörter. Es werden die Höhen und Tiefen mit dem Aktienkurs des \textit{Dow Jones} und \textit{Euro Stoxx} $50$ aus $2012$ auf Gemeinsamkeiten untersucht. 
  \begin{figure}[H]
- \begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
- 	\includegraphics[width=1\textwidth]{Pictures/EuroxStoxx.png}
- 	\caption{Euro Stoxx $50$ Aktienkurs $2012$ \cite{stoxx}} \label{eustoxx}
- \end{minipage}
- \hspace{.1\linewidth}% Abstand zwischen Bilder
  \begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
  	\includegraphics[width=1\textwidth]{Pictures/DowJones2012.png}
  	\caption{Dow Jones Aktienkurs 30 Industrial $2012$ \cite{Dow}}\label{dowjones}
  \end{minipage}
+ \hspace{.2\linewidth}% Abstand zwischen Bilder
+ \begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
+ 	\includegraphics[width=1\textwidth]{Pictures/EuroxStoxx.png}
+ 	\caption{Euro Stoxx $50$ Aktienkurs $2012$ \cite{stoxx}} \label{eustoxx}
+ \end{minipage}
 \end{figure}
-Der \textit{Euro Stoxx} $50$ Aktienkurs Chart $2012$ zeigt in den Monaten Mai und Juni einen Kurssturz an und im August erholt. Diese Informationen stimmen mit den Sentiments in den Tweets überein. In der Phase des Aktiensturzes, die sich im Mai abzeichnet, existiert einen starken anstieg an negativen Tweets. Im Juni ist der Tiefstand erreicht und der Aktienkurs steigt wieder an. Die Anzahl der negativen Wörtern ist leicht zurückgegangen und die Anzahl der positiven Wörtern angestiegen. Im August ist ein Aktieneinbruch zu erkennen. Dieser wirkt sich negativ auf den Sentiment im August aus. Es existieren gering mehr negative als positive Wörter im Monat August. Dies lässt erahnen, dass dieser kurze Aktieneinsturz im August eine erhebliche Reaktion an negativen Tweets auslöste. In der Grafik \ref{eustoxx} zeichnet sich weiterhin im September eine Trendphase ungefähr bis Oktober ab. Dieser Trend scheint auch in den Tweets sichtbar zu werden, da es mehr positive als negative Wörter im Monat September vorhanden sind. Auch der Aktienkurs vom Dow Jones (\ref{dowjones}) und der Sentimentindex der Tweets der US-Banken (\ref{usadiff}) aus $2012$. Im März und im April steigen die Anzahl von negativen Wörtern stark an, wie in der Grafik \ref{usadiff} zuerkennen ist und nehmen nach Mai verstärkt wieder ab. Dieser Effekt stimmt mit dem Verhalten des Aktienkurs des Dow Jones überein. Im März und Mai gibt es einen Einbruch und anschließend einen Trend. Es kann festgehalten werden, dass das Zählen von positiven und negativen Wörtern pro Monat, die Stimmung in der Finanzwelt grob erfassen kann. Im nächsten Abschnitt wird mittels verschiedener Sentimentindizes von mehreren Wochen eine multiple Regression auf wöchentliche Renditen durchgeführt.
+Der \textbf{Euro Stoxx} Chart zeigt in den Monaten Mai und Juni einen Kurssturz an und im August eine Erholung. Diese Informationen stimmen mit den Sentiments der Tweets überein. In der Phase des Aktiensturzes, die sich im Mai abzeichnet, existiert ein starker Anstieg an negativen Tweets. Im Juni ist der Tiefstand erreicht und der Aktienkurs steigt wieder an. Die Anzahl der negativen Wörtern ist leicht zurückgegangen und die Anzahl der positiven Wörtern angestiegen. Im August ist ein Aktieneinbruch zu erkennen. Dieser Effekt spiegelt sich auch in unseren Sentiments wieder. Es existieren gering mehr negative als positive Wörter im Monat August. Dies lässt erahnen, dass dieser kurze Aktieneinsturz im August eine erhebliche Reaktion an negativen Tweets auslöste. In der Grafik \ref{eustoxx} zeichnet sich weiterhin im September eine Trendphase ungefähr bis Oktober ab. Dieser Trend scheint auch in den Tweets sichtbar zu werden, da es mehr positive als negative Wörter im Monat September vorhanden sind. 
+
+Auch der Aktienkurs vom Dow Jones (\ref{dowjones}) und der Sentimentindex der Tweets der \textbf{US-Banken} (\ref{usadiff}) aus $2012$. Im März und im April seigt die Anzahl von negativen Wörtern stark an, wie in der Grafik \ref{usadiff} zu erkennen ist und nimmt nach Mai verstärkt wieder ab. Dieser Effekt stimmt mit dem Verhalten des Aktienkurs des Dow Jones überein. Im März und Mai gibt es einen Einbruch und anschließend einen Trend. Es kann festgehalten werden, dass das Zählen von positiven und negativen Wörtern pro Monat, die Stimmung in der Finanzwelt grob erfassen kann. Im nächsten Abschnitt wird mittels verschiedener Sentimentindizes von mehreren Wochen eine multiple Regression auf wöchentliche Renditen durchgeführt.
 
 \section{Modell}\label{Model}
 Dieses Kaptiel setzt statistische Grundlagen voraus, die im Bachelor der Angewandte Mathematik in \textit{Statistik 1} und \textit{Statistik 2} behandelt wurden. 
  
-Im Rahmen der empirischen Untersuchung wird die klassische multiple Regression verwendet. Ziel der multiplen Regression auf wöchentliche Renditen von Aktienkursen ist es, die Kursentwicklung einer Aktie durch die Entwicklung eines zugehörigen Sentimentindexes zu erklären und vorherzusagen. Mithilfe historischer Zeitreihen/Kursen wird versucht ein Zusammenhang zwischen der Rendite eines einzelnen Wertpapiers und einem Sentimentindex zu ermitteln, um mit Hilfe des gewonnenen Zusammenhangs zukünftige Renditen des Wertpapiers zu schätzen. \\
+Im Rahmen der empirischen Untersuchung wird die klassische multiple Regression verwendet. Ziel der multiplen Regression auf wöchentliche Renditen von Aktienkursen ist es, die Kursentwicklung einer Aktie durch die Entwicklung eines zugehörigen Sentimentindexes zu erklären und vorherzusagen. Mithilfe historischen Kursen wird versucht ein Zusammenhang zwischen der Rendite eines einzelnen Wertpapiers und einem Sentimentindex zu ermitteln. Mit Hilfe des gewonnenen Zusammenhangs können zukünftige Renditen des Wertpapiers geschätzt werden. \\
 
 Die künftigen Renditen der Aktienkurse werden ausschließlich
 durch den linearen Zusammenhang zu den Sentimentindizes der letzten Wochen geschätzt. Mit Hilfe einer multiplen linearen Einfachregression wird eine Schätzung für zukünftige Renditen des Aktienkurses erstellt, da ein linearer Zusammenhang zwischen der Rendite des einzelnen Wertpapiers und der Sentimentindizes vorausgesetzt wird. Einen gewissen Zusammenhang wurde zwischen einem einfachen Sentimentindex, der positive und negative Wörter zählt und als Score die Differenz nimmt, und der Rendite des Aktienkurses  Dow Jones aufgezeigt, im  vorherigen Abschnitt beschrieben. Es ergibt sich folgende lineare Regressionsgleichung:
@@ -67,21 +58,21 @@ r_{t}=\alpha_{t}+ \sum_{k=1}^{K} \beta_{k,t} S_{k,t}+\varepsilon_{t}
 \end{equation}
 mit:
 \begin{itemize}
-	\item  $R_{t}$ sind die wöchentlichen Renditen bzw. prozentuale Veränderung des Aktienkurses
-	\item $S_{k}$ ist der Sentimentindex der letzten $k$ Wochen und $\beta_{k}$ ist der dazugehörige Betakoeffizent
+	\item  $r_{t}$ sind die wöchentlichen Renditen bzw. prozentuale Veränderung des Aktienkurses.
+	\item $S_{k,t}$ ist der Sentimentindex der letzten $k$ Wochen und $\beta_{k}$ ist der dazugehörige Betakoeffizent.
 	\item $\varepsilon_{t}$ für  Fehlerterm 
 \end{itemize}
-Im Folgendem wird nun versucht mit verschiedenen Sentimentindizes auf den \textit{Dow Jones Industrial} $30$ Renditen vorherzusagen. Da es den Rahmen dieser Ausarbeitung sprengen würde alle Ergebnisse der verschiedenen Regressionsansätzen aufzuzeigen und zu interpretieren, beschränkt sich dieser Abschnitt auf eine Regressionen. Zu Beginn verwenden wir als Sentimentindex für die multiple Regression den Mittelwert der Socres für positive und negative Wörter wöchentlich der US-Banken-Tweets. Das Dataframe mit den Indizes muss nun mit dem Dataframe der Renditen  des \textit{Dow Jones Inustrial} $30$ gejoint  über das Feld \textit{week} werden. Für die Modellierung der Regressionsgleichung ist es erforderlich, sich zu überlegen, inwieweit der linearen Zusammenhang der Rendite zu den Sentimentindizes der letzten Wochen sinnvoll ist.\\
+Im Folgendem wird versucht mit verschiedenen Sentimentindizes auf den \textit{Dow Jones Industrial} $30$ Renditen vorherzusagen. Da es den Rahmen dieser Ausarbeitung sprengen würde alle Ergebnisse der verschiedenen Regressionsansätzen aufzuzeigen und zu interpretieren, beschränkt sich dieser Abschnitt auf eine Regressionen. Zu Beginn verwenden wir als Sentimentindex für die multiple Regression den Mittelwert der Scores für positive und negative Wörter wöchentlich der US-Banken-Tweets. Das Dataframe mit den Indizes muss mit dem Dataframe der Renditen des \textit{Dow Jones Inustrial} $30$  über das Feld \textit{week} gejoint werden. Für die Modellierung der Regressionsgleichung ist es erforderlich, sich zu überlegen, inwieweit der linearen Zusammenhang der Rendite zu den Sentimentindizes der letzten Wochen sinnvoll ist.\\
 \\
-\textbf{Wie viel Wochen der Vergangenheit von Zeitpunkt heute muss mitgenommen werden, damit keine wichtigen Informationen verloren gehen?} 
+\textbf{Wie viel Wochen der Vergangenheit vom heutigen Zeitpunkt müssen in die Analyse einfließen, damit keine wichtigen Informationen verloren gehen?} 
 \\
 \\
-Dies kann nur empirisch ermittelt werden. In unserem Fall gehen wir von der Hypothese aus, dass drei bis vier Wochen ein erster vernünftiger Startpunkt ist. Im nächsten Schritt wird eine Regression mit den Sentimentindizes der letzten drei Wochen werden. Hierzu muss mit der Funktion \textit{generateLinearRegressionDataFrame} unseres Dataframes in die richtige Form transformiert. In der R Ausgabe sind die Ergebnisse Regression zu sehen. Auf den ersten Blick fällt auf, dass nach dem T-Test alle $H_{0}$ Hypothesen für die Regressionskoeffizienten nicht verworfen werden können, da alle $\alpha>0.05$ sind, wie in der Tabelle \textit{Coefficients} in der Spalte $Pr(>|t|)$ zu sehen ist. Die Sentimentinidizes der letzen drei Wochen besitzen keinen Einfluss auf die Renditen (wöchentliche Veränderung pro Woche)  des \textit{Dow Jones Industrial} $30$. Diese Ergebnisse sind nicht ungewöhnlich, da wir uns nicht mehr in der normalen multiplen Regression bewegen, sondern im Bereich der Zeitreihenanalyse, da zeitliche Ereignisse betrachtet werden. Das $R^2$ trägt $1,3$ \% für die Erklärung der Rendite dazu. 
+Dies kann empirisch ermittelt werden. In unserem Fall gehen wir von der Hypothese aus, dass wir ein Zeitfenster von drei bis vier Wochen verwenden. Im nächsten Schritt wird eine Regression mit den Sentimentindizes der letzten drei Wochen durchgeführt. Hierzu muss das Dataframe dementsprechend transformiert werden. In Abbildung \ref{Afinn_summary} sind die Ergebnisse der Regression zu sehen. Auf den ersten Blick fällt auf, dass nach dem T-Test alle $H_{0}$ Hypothesen für die Regressionskoeffizienten nicht verworfen werden können, da alle $\alpha>0.05$ sind, wie in der Tabelle \textit{Coefficients} in der Spalte $Pr(>|t|)$ zu sehen ist. Die Sentimentinidizes der letzen drei Wochen besitzen keinen Einfluss auf die Renditen (wöchentliche Veränderung pro Woche)  des \textit{Dow Jones Industrial} $30$. Diese Ergebnisse sind nicht ungewöhnlich, da wir uns nicht mehr in der normalen multiplen Regression bewegen, sondern im Bereich der Zeitreihenanalyse, da zeitliche Ereignisse betrachtet werden. Das $R^2$ trägt $1,3$ \% für die Erklärung der Rendite dazu. 
 
  \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{Pictures/afinn_summary.png}
-	\caption{Summary der Regression mittels des Sentimentindex mit dem Wörterbuch \textit{Afinn} }
+	\caption{Zusammenfassung der Regression mittels des Sentimentindex mit dem Wörterbuch \textit{Afinn} }
 	\label{Afinn_summary}
 \end{figure} 
 \begin{figure}[H]
@@ -90,5 +81,5 @@ Dies kann nur empirisch ermittelt werden. In unserem Fall gehen wir von der Hypo
 	\caption{Regressions Plot des Sentimentindexes mit dem Wörterbuch \textit{Afinn} }
 	\label{Afinn_plot_regression}
 \end{figure} 
-Im Weiteren wurden noch einige verschiedenste Regressionen durchgeführt. Einige von ihnen besitzen einen nicht linearen Ansatz, diese werden als Code im Anhang mitgeführt.  
+Im Weiteren wurden noch einige verschiedene Ansätzer der Regressionen durchgeführt. Einige von ihnen besitzen einen nicht linearen Ansatz, diese werden als Code im Anhang mitgeführt.  
 

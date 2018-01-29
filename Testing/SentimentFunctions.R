@@ -48,5 +48,13 @@ generateSentiment <- function(dataFrame, columnText = 'full_text', ColumnWords =
       spread(sentiment, n, fill = 0) %>%
       mutate(sentiment = positive - negative)
   }
+  if(sentimentBook == 'nrc') {
+    sentiments <- tidy_books %>%
+      inner_join(get_sentiments(sentimentBook)) %>%
+      filter(sentiment %in% c('positive', 'negative')) %>%
+      count(X, index = X %/% 80, sentiment) %>%
+      spread(sentiment, n, fill = 0) %>%
+      mutate(sentiment = positive - negative)
+  }
   sentiments
 }

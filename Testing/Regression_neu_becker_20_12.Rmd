@@ -18,6 +18,15 @@ daten_doppelt_loeschen<-Distinct(kalenderwochen_hinzufuegen)
 clearing_data<- clearing_dataframe(daten_doppelt_loeschen)
 clearing_data
 
+
+
+kalenderwochen_hinzufuegen_eu<-Kalenderwochen(daten_europa)
+daten_doppelt_loeschen_eu<-Distinct(kalenderwochen_hinzufuegen_eu)
+clearing_data_eu<- clearing_dataframe(daten_doppelt_loeschen_eu)
+clearing_data_eu
+
+
+
 wochen="Wochen"
 #Verschiedene-Indexe berechnen Wörterbücher afinn und Bing------------------------------
 usa_afinn_score_week<-afinn_score_wert(clearing_data,"week")
@@ -256,7 +265,7 @@ afinn <- clearing_data%>%
     
     bing_and_nrc <- bind_rows(clearing_data%>% 
                                 inner_join(get_sentiments("bing")) %>%
-                                mutate(method = "Bing et al."),clearing_data %>% inner_join(get_sentiments("loughran"))%>% mutate(method="loughran"),
+                                mutate(method = "Bing"),clearing_data %>% inner_join(get_sentiments("loughran"))%>% mutate(method="loughran"),
                               clearing_data %>% 
                                 inner_join(get_sentiments("nrc") %>% 
                                              filter(sentiment %in% c("positive","negative"))) %>%
@@ -267,7 +276,7 @@ afinn <- clearing_data%>%
     
     
 warp_score<-Kalenderwochen(daten_usa_new_sentiment_2_)
-reg_wader_group_wochen<- warp_score %>% group_by(week)%>% summarise(sentiment=sum(Sentiment))%>% mutate(method = "Wader")    
+reg_wader_group_wochen<- warp_score %>% group_by(week)%>% summarise(sentiment=sum(Sentiment))%>% mutate(method = "Vader")    
     
 Ergebniss<-bind_rows( reg_wader_group_wochen,afinn,bing_and_nrc) 
 
@@ -276,7 +285,7 @@ Ergebniss<-bind_rows( reg_wader_group_wochen,afinn,bing_and_nrc)
     Ergebniss %>%
     ggplot(aes(week, sentiment, fill = method)) +
     geom_col(show.legend = FALSE) +
-    facet_wrap(~method, ncol = 1, scales = "free_y")
+    facet_wrap(~method, ncol = 1, scales = "free_y")+xlab("Wochen")+ylab("Sentimentindex")
 
     
     
@@ -313,6 +322,10 @@ ggplot(data= differenz_positive_negative_eu, aes(x=week, y=sentiment),fill=senti
 #----------------------------
  Plot_Sentiment_bing_postive_und_negative_month(clearing_data_eu,"Monat")
  Plot_Sentiment_bing_postive_und_negative_month(clearing_data,"Monat")
+ source("~/textmining/R-projekt/BeckerSeminar2/Testing/SentimentFunctionChris.R")
+Plot_Sentiment_bing_positiv_minus_negativ_socre(clearing_data_eu,"Monat","red")
+Plot_Sentiment_bing_positiv_minus_negativ_socre(clearing_data,"Monat","blue")
+ einfacher_wordcount_plott(clearing_data)
 ```
 
 

@@ -18,12 +18,11 @@ generateSentiment <- function(dataFrame, columnText = 'full_text', ColumnWords =
 
 pakete_lade<-function()
 {
-  require(ggplot2)
+  library(ggplot2)
   library(tidyr)
   library(tidytext)
   library(dplyr)
   library(lubridate)
-  library(reshape2)
   library(wordcloud)
   library(stringr)
   library(readxl)
@@ -142,7 +141,7 @@ clearing_dataframe<-function(wochen_distinct){
 }
 
 
-Plot_Sentiment_bing_postive_und_negative_month<-function(clearing_dataframe_und_tokens, Zeit){
+Plot_Sentiment_bing_positiv_und_negativ_month<-function(clearing_dataframe_und_tokens, Zeit){
   
  
   if(Zeit=="Monat"){
@@ -153,7 +152,7 @@ Plot_Sentiment_bing_postive_und_negative_month<-function(clearing_dataframe_und_
     count(sentiment) 
   
   ggplot(data=Sentiment_Bing, aes(x=Month2, y=n, fill=sentiment)) + geom_col(show.legend = FALSE)+
-    geom_bar(stat="identity") + facet_wrap(~sentiment, ncol = 2, scales = "free_x")+xlab("Monat")+ylab("Sentiment")
+    geom_bar(stat="identity") + facet_wrap(~sentiment, ncol = 2, scales = "free_x")+xlab("Monate")+ylab("Sentiment")
   }
   else if(Zeit=="Wochen"){
     bing <- get_sentiments("bing")
@@ -163,7 +162,7 @@ Plot_Sentiment_bing_postive_und_negative_month<-function(clearing_dataframe_und_
       count(sentiment) 
     
     ggplot(data=Sentiment_Bing, aes(x=week, y=n, fill=sentiment)) + geom_col(show.legend = FALSE)+
-      geom_bar(stat="identity") + facet_wrap(~sentiment, ncol = 2, scales = "free_x")+xlab("Monat")+ylab("Sentiment")
+      geom_bar(stat="identity") + facet_wrap(~sentiment, ncol = 2, scales = "free_x")+xlab("Monate")+ylab("Sentiment")
     
   }
   else{
@@ -229,7 +228,7 @@ Plot_Sentiment_tweet<-function(clearing_dataframe_und_tokens,Zeit){
 }
 
 #-----------------------------------------------------------------------------------------------
-Plot_Sentiment_bing_postive_minus_negative_socre<-function(clearing_dataframe_und_tokens,Zeit){
+Plot_Sentiment_bing_positiv_minus_negativ_socre<-function(clearing_dataframe_und_tokens,Zeit, farbe){
   if(Zeit=="Monat"){
   bing <- get_sentiments("bing")
   differenz_positive_negative<-  clearing_dataframe_und_tokens  %>%
@@ -240,7 +239,7 @@ Plot_Sentiment_bing_postive_minus_negative_socre<-function(clearing_dataframe_un
     mutate(sentiment = positive - negative)
   
   ggplot(data= differenz_positive_negative, aes(x=Month2, y=sentiment),fill=sentiment) + geom_col(show.legend = FALSE)+
-    geom_bar(stat="identity")
+    geom_bar(stat="identity", fill=farbe, colour="black")+xlab("Monate")+ylab("Sentiment")+scale_x_continuous(breaks = seq(0, 13, 1), lim = c(0, 13))
  
   }else{
     
@@ -253,7 +252,7 @@ Plot_Sentiment_bing_postive_minus_negative_socre<-function(clearing_dataframe_un
       mutate(sentiment = positive - negative)
     
     ggplot(data= differenz_positive_negative, aes(x=week, y=sentiment),fill=sentiment) + geom_col(show.legend = FALSE)+
-      geom_bar(stat="identity")
+      geom_bar(stat="identity",fill=farbe, colour="black")+xlab("Monate")+ylab("Sentiment")+scale_x_continuous(breaks = seq(0, 13, 1), lim = c(0, 13))
     
   }
  
@@ -327,8 +326,8 @@ wordcount %>%
   ggplot(aes(word, n, fill = sentiment)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(~sentiment, scales = "free_y") +
-  labs(y = "Contribution to sentiment",
-       x = NULL) +
+  labs(y = "Verteilung der Sentiments",
+       x = "Wörter") +
   coord_flip()
 }
 

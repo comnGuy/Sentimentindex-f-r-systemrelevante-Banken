@@ -102,7 +102,7 @@ Unsere Annahme ist, dass Events im Finanzsektor sich in Tweets früher abzeichen
 
 <!--sich schneller auf die sozialen Medien verbreiten. Dies nehmen wir als Anhaltspunkt und versuchen Ereignisse am Aktienindex vorherzusagen. -->
 
-Als Beispiel dient die Griechenlandkrise im Jahr $2012$. Zu der Zeit der Griechenlandkrise sind viele Hashtags entstanden und die Bürger der EU haben ihre Meinung in Tweets kundgetan. Hashtags die sich auf wichtige politische Entscheidungen im Zusammenhang der Griechenlandkrise sich beziehen, waren zum Beispiel \#Grexit,\#G7, \#Greferendum und \#EuroGipfel. Unter diesen Hashtags haben sich gewisse Informationen schnellverbreit. Diese Information hatten, im späteren einen gewissen Einfluss auf die Aktienindizes.
+Als Beispiel dient die Griechenlandkrise im Jahr $2012$. Zu der Zeit der Griechenlandkrise sind viele Hashtags entstanden und die Bürger der EU haben ihre Meinung in Tweets kundgetan. Hashtags die sich auf wichtige politische Entscheidungen im Zusammenhang der Griechenlandkrise sich beziehen, waren zum Beispiel \#Grexit,\#G7, \#Greferendum und \#EuroGipfel. Unter diesen Hashtags haben sich gewisse Informationen schnellverbreit. Diese Informationen hatten, im späteren einen gewissen Einfluss auf die Aktienindizes.
 
 Mittels Textmining sollen diese Informationen aus den Tweets in einen Sentimentindex umgewandelt werden. Mit diesem Sentimentindex wird versucht Aktienindizes vorherszusagen, durch Regression. Auf der Abbildung \ref{Reg_afinn1} ist eine Regression auf wöchentlichen prozentualen Veränderungen der Aktienindizes dargestellt. 
 
@@ -277,7 +277,7 @@ Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Ab
 
 
 
-\section{Analysen von Tweets und ihrer Sentimentindizies}
+\section{Explorative Analysen von Sentimentindizies}
 
 <!-- Methoden => Verfahren? TODO -->
 In diesem Abschnitt werden Methoden angerissen, die Tweets und Sentimentindizes analysieren. Um einen ersten Eindruck von den Tweets zu erhalten, ist es vom Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einem Balkendiagramm umgesetzt.
@@ -303,9 +303,9 @@ Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknü
 
 \newpage
 
-\begin{appendix}
 
-\section{Anzahl der Wörter}
+\addcontentsline{toc}{section}{A Anzahl der Wörter}
+\section*{A Anzahl der Wörter}
  \begin{figure}[H]
 \centering
  	\includegraphics[width=1\textwidth]{Pictures/positv_negativ.png}
@@ -315,10 +315,10 @@ Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknü
 Ein Schritt für die Erstellung eines Sentimentindizes ist die Wahl des richtigen Wörterbuchs, siehe Kapitel \ref{Woerterbuch}. Durch eine erste Visualisierung \ref{barplot} kann festgestellt werden, wie gut das ausgewählte Wörterbuch zur Fragestellung bzw. zum Anfangsproblem passt. Bei Betrachtung der Grafiken passen einige Wörter sehr gut, wie fraud, stress, strike, win, support, top oder free und andere weniger gut, wie zum Beispiel fans, wow, die oder auch hate, zur Ausgangssituation einen Sentimentindex für Banken zubauen. In unseren Fall passt das ausgesuchte Wörterbuch \textit{Bing} nicht optimal, aber insgesamt ganz gut.
 
 
-
-\section{Berechnung der Sentimentindizes}
+\addcontentsline{toc}{section}{B Berechnung der Sentimentindizes}
+\section*{Berechnung der Sentimentindizes}
 für die Berechnung von Sentimentindizes wird nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson} vorgegangen. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt, soll vorgestellt werden. Zur Berechnung des Sentimenindex wird das vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe mit dem Wörterbuch \textit{Bing} gejoint mit der gleichnamige Spalte \textit{word}. Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und $n$. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet, indem die Anzahl der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestellt.
-```{r  eval=FALSE, echo=FALSE}
+```{r  eval=FALSE, echo=TRUE}
 source("../Testing/SentimentFunctionChris.R")
 #source("varianz.R")
 source("../Testing/functions.R")
@@ -332,7 +332,7 @@ daten_doppelt_loeschen<-Distinct(kalenderwochen_hinzufuegen)
 clearing_data<- clearing_dataframe(daten_doppelt_loeschen)
 ```
 
-```{r eval=FALSE, echo=FALSE}
+```{r eval=FALSE, echo=TRUE}
    bing <- get_sentiments("bing")
     differenz_positive_negative<-  clearing_data  %>%
       inner_join(bing) %>%
@@ -345,7 +345,7 @@ clearing_data<- clearing_dataframe(daten_doppelt_loeschen)
  \begin{figure}[H]
    	\centering
   \includegraphics[width=1\textwidth]{Pictures/sentiment_bing_week.png}
-   	\caption{Sentimentindex: monatlicher Mittelwert TODO}
+   	\caption{Sentimentindex der Differenz positiver und negativer Wörter}
  \end{figure}
 
 In der unteren Aufzählung werden einige Sentimentindizes berechnet, die von uns in R implementiert wurde. Die Funktionen der aufgezählten Sentimentindizes werden in der R-Datei \textit{SentimentFunctionChris.R} bereitgestellt. Bei allen Funktionen müssen zwei Parameter übergeben werden, den vorbereitete Dataframe und einen String (\textit{Woche} und \textit{Monat}) der angbit, ob ein Sentiment pro Woche oder pro Monat berechnet wird. 
@@ -365,7 +365,7 @@ In der unteren Aufzählung werden einige Sentimentindizes berechnet, die von uns
 \end{figure}
 \end{itemize}
 
-\end{appendix}
+
 
 \input{Literratur}
 

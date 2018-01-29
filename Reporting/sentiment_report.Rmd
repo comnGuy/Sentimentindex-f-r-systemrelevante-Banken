@@ -165,22 +165,11 @@ Aktuell muss das Skript manuell ausgeführt werden. Dieses Problem haben wir dur
 
 
 
-<!-- Link evtl. in die Referenz? -->
-<!-- Anschließend wird die wöchentliche Veränderung berechnet? -->
-\subsection{Aufbereitung des Dow Jones Industrial 30 Aktienindex aus 2012}
-\label{sub:dow_jones_data}
-Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der ältesten noch bestehenden Aktienindex der USA und setzt sich heute aus den $30$ größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \url{http://www.boerse-online.de/index/historisch/dow_jones/1.1.2012_31.12.2012}.
-Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der Abbildung \ref{picture:dow_jones} ist ein Auschnitt der aufbereiteten Daten zu sehen.
- \begin{figure}[H]
-   	\centering
-  \includegraphics[width=1\textwidth]{Pictures/Dow_jownes.png}
-   	\caption{Ausschnitt des aufbereiteten \textit{Dow Jones Industrial} $30$ Aktienindexes}
-   	\label{picture:dow_jones}
- \end{figure}
 
 
 
-\subsection{Datenaufbereitung}
+
+\section{Preprocessing}
 \label{sub:datenaufbereitung}
 Für die Berechnung der Sentimentindizes werden ausschließlich Tweets betrachtet die mit dem sprachlichen Kürzel \textit{eng} gekennzeichnet sind. <!-- Passt der Satz hier überhaupt ins Kapitel? Bzw. den Filter habe ich ja schon vorher kurz angesprochen TODO -->Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken.
 
@@ -215,6 +204,20 @@ Im Folgendem werden die einzelnen Schritte für die Aufbereitung der Daten besch
 <!-- Evtl. die Kapitel aufz?hlen TODO -->
 <!-- Die Tabelle vielleicht bis zum Ende f?hren? TODO -->
 
+<!-- Link evtl. in die Referenz? -->
+<!-- Anschließend wird die wöchentliche Veränderung berechnet? -->
+\subsection{Dow Jones Industrial 30 Aktienindex aus 2012}
+\label{sub:dow_jones_data}
+Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der ältesten noch bestehenden Aktienindex der USA und setzt sich heute aus den $30$ größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \url{http://www.boerse-online.de/index/historisch/dow_jones/1.1.2012_31.12.2012}.
+Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der Abbildung \ref{picture:dow_jones} ist ein Auschnitt der aufbereiteten Daten zu sehen.
+ \begin{figure}[H]
+   	\centering
+  \includegraphics[width=1\textwidth]{Pictures/Dow_jownes.png}
+   	\caption{Ausschnitt des aufbereiteten \textit{Dow Jones Industrial} $30$ Aktienindexes}
+   	\label{picture:dow_jones}
+ \end{figure}
+
+
 
 
 \section{Wörterbücher}
@@ -233,7 +236,7 @@ Um die \textbf{Güte eines Wörterbuches} beurteilen zu können, werden Tweets b
 
 \subsection{Verwendete Wörterbücher}
 
-In diesem Bericht wurden die Wörterbücher \textit{bing}, \textit{afinn} und \textit{loughran} aus dem R-Package \textit{tidytext} und das vaderSentiment verwendet (TODO verlinken, bzw. in der Referenz erwähnen). Diese bestehen aus Unigrammen (einzelne Wörter).
+In diesem Bericht wurden die Wörterbücher \textit{bing}, \textit{afinn}, \textit{loughran} und \textit{nrc} aus dem R-Package \textit{tidytext} und das vaderSentiment \cite{vader} verwendet, siehe. Diese bestehen aus Unigrammen (einzelne Wörter).
 
 \begin{table}[H]
 \centering
@@ -243,16 +246,17 @@ In diesem Bericht wurden die Wörterbücher \textit{bing}, \textit{afinn} und \t
 \textbf{bing}           & Positiv/Negativ                            & -                                        & R                                               \\
 \textbf{afinn}          & -5 bis 5                                   & -                                        & R                                               \\
 \textbf{loughran}       & Positiv/Negativ                            & -                                        & R                                               \\
+\textbf{nrc}            & Emotionen                                  & -                                        & R                                               \\
 \textbf{vaderSentiment} & -4 bis 4                                   & vaderSentiment                           & Python                                         
 \end{tabular}
 \caption{Übersicht der verwendeten Wörterbücher}
 \label{tab:used_wordbooks}
 \end{table}
 
-In Tabelle \ref{tab:used_wordbooks} sind die verwendeten Wörterbücher mit deren Bewertungsart, ob eine Intelligenz verfügbar und in welcher Programmiersprache dieses Wörterbuch ursprünglich vorhanden war, aufgelistet. Die Wörterbücher \textit{bing} und \textit{loughran} arbeiten mit positiven und negativen Bewertungen. \textit{afinn} arbeitet mit einer Bewertungsreichweite von -5 bis 5, wobei -5 die negativste- und 5 die positivste Stimmung wiederspiegelt. Das Wörterbuch \textit{vaderSentiment} wurde von 10 unabhängigen Menschen manuell mit der Bewertungsreichweite -4 bis 4 bewertet und der Durchschnitt und die Standardabweichung berechnet. Weiterhin wurde eine Logik von den Machern hinterlegt, die Verneinung, Satzzeiten, groß geschriebene Wörter u. v. m. bei der Berechnung des Sentiments beachtet. Die Logik wurde in Python umgesetzt.
+In Tabelle \ref{tab:used_wordbooks} sind die verwendeten Wörterbücher mit deren Bewertungsart, ob eine Intelligenz verfügbar und in welcher Programmiersprache dieses Wörterbuch ursprünglich vorhanden war, aufgelistet. Die Wörterbücher \textit{bing} und \textit{loughran} arbeiten mit positiven und negativen Bewertungen. \textit{afinn} arbeitet mit einer Bewertungsreichweite von -5 bis 5, wobei -5 die negativste- und 5 die positivste Stimmung wiederspiegelt. \textit{nrc} arbeitet als Ergebnis mit Emotionen, die zur Vergleichbarkeit ebenfalls in Positiv/Negativ umgewandelt werden. Das Wörterbuch \textit{vaderSentiment} wurde von 10 unabhängigen Menschen manuell mit der Bewertungsreichweite -4 bis 4 bewertet und der Durchschnitt und die Standardabweichung berechnet. Weiterhin wurde eine Logik von den Machern hinterlegt, die Verneinung, Satzzeiten, groß geschriebene Wörter u. v. m. bei der Berechnung des Sentiments beachtet. Die Logik wurde in Python umgesetzt.
 
 
-Zu Beginn wurden mittels den vier Wörterbüchern ein Sentiment über den Testdatensatz berechnet. Diese Berechnung wurde mittels der Abbildung \ref{fig:ubereinstimmung_nothing} visualisiert. Jeder Block entspricht ein Wörterbuch und jeder Balken spiegelt die Anzahl der Treffer wieder. 
+Zu Beginn wurden mittels den fünf Wörterbüchern ein Sentiment über den Testdatensatz auf Tweetebene berechnet. Diese Berechnung wurde mittels der Abbildung \ref{fig:ubereinstimmung_nothing} visualisiert. Jeder Block entspricht ein Wörterbuch und jeder Balken spiegelt die Anzahl der Treffer wieder. 
 
  * Die \textit{Hits} sind die Anzahl der gesamten Treffer.
  * Die \textit{noHits} spiegelt die Anzahl der keinen Treffer wieder.
@@ -288,18 +292,23 @@ In diesem Abschnitt werden Methoden angerissen, die Tweets und Sentimentindizes 
 
 
 \section{Fazit}
-In dem Kapitel \ref{Woerterbuch} wurden 4 verschiedene Wörterbücher und 4 verschiedene Stemming-Verfahren, wobei ein Verfahren die Rechtschreibkorrektur ist, verwendet. Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram (Unigrammen) mit 2-gramme (Bigramme) oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut dem [Paper 5 TODO] ist dieser Ansatz sehr vielversprechend.
 
-Der Abschnitt für den Vergleich der verschiedenen Sentimentindizes hat die Schlussfolgerung, dass die verschiedenen Sentimenindizes der Wörterbücher \textit{Wader}, \textit{Bing}, \textit{loughran}, \textit{nrc} und \textit{Afinn} ein ähnliches Verhalten aufweisen. Das Kapitel \ref{ueberein} wurden Gemeinsamkeiten in den zeitlichen Abläufe zwischen den Sentimentindizes und den Aktienindizes untersucht. In vielen Abschnitten wurde eine ähnliche Tendenz eines ähnlichen Verhaltens efasst. Der nächste Schritt wäre eine Korrelation zwischen den beiden Zeitreihen nachzuweisen und somit die zunächst nur auf visuale Beurteilung zu untermauern.
+Zu Beginn wurde das Twitter-Archive bereitgestellt. Aus diesem haben wir versucht sinnvolles Tweets bezüglich der Finanzbranche zu extrahieren. Vor der Extraktion war uns nicht klar, ob genügend Tweets extrahiert werden können, weswegen eine zweite Quelle, die Twitter-API \ref{sub:scanned_data} hinzugezogen wurde. Danach wurde im Kapitel \ref{sub:datenaufbereitung} die Daten aufbereitet und erweitert. Als nächstens haben wir die mehrere Wörterbücher und Stemming-Verfahren verglichen, siehe Kapitel \ref{Woerterbuch}. 
+
+![Übersicht der gesamten Ausarbeitung \label{fig:ubersicht}](Pictures/ubersicht.PNG)
+
+Der Abschnitt für den Vergleich der verschiedenen Sentimentindizes hat die Schlussfolgerung, dass die verschiedenen Sentimenindizes der Wörterbücher \textit{Vader}, \textit{Bing}, \textit{loughran}, \textit{nrc} und \textit{Afinn} ein ähnliches Verhalten aufweisen. Das Kapitel \ref{ueberein} wurden Gemeinsamkeiten in den zeitlichen Abläufe zwischen den Sentimentindizes und den Aktienindizes untersucht. In vielen Abschnitten wurde eine ähnliche Tendenz eines ähnlichen Verhaltens efasst. Der nächste Schritt wäre eine Korrelation zwischen den beiden Zeitreihen nachzuweisen und somit die zunächst nur auf visuale Beurteilung zu untermauern.
 
 Die Ergebnisse aus dem Kapitel \textit{Model} zeigen, dass Sie  geringefüge neue Informationen liefern um die wöchentliche prozentuale Veränderung des Aktienindiexes zu erklären. Dieses Ergebniss ist nicht ungewähnlich. Es wird davon ausgegangen, dass die Sentimentindizes und der Aktienidex sehr stark korrelieren müssten, da Sie von den gleichen Faktoren beeinflusst werden. Daher ist es umso erstaunlicher, dass überhaupt ein erster Hinweis erbracht werden konnte, dass die Sentimentindizes noch Informationen beinhalten, die die Aktienindizes erklären können.
 
 \section{Ausblick}
 Der nachstehende Text soll einen kurzen Ausblick über weitere Vorgehensweise geben.
 
+Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram (Unigrammen) mit 2-gramme (Bigramme) oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut dem [Paper 5 TODO] ist dieser Ansatz sehr vielversprechend.
+
 Ein weiterer interessanter Ansatz, um die Stimmung in den Tweets zu messen, ist das Verwenden mehrere Wörterbücher und deren Ergebnisse durch ein Votum entscheiden zu lassen. Angenommen drei Wörterbücher beurteilen ein Tweet. Zwei Wörterbücher beurteilen den Tweet als negativ und das dritte Wörterbuch als positiv. Im nächsten Schritt wird durch das Votum der Tweet als negativ klassifiziert, da mehr Wörterbücher den Tweet als negativ eingestuft hatten. Eine Verfeinerung des Votums ist durch eine mögliche Gewichtung der Wörterbücher möglich.
 
-Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknüpfen. Die Logik könnte in der Lage sein gute Verneinungen zu erkennen, wie 	\glqq Der Kurs ist nicht schlecht! #bitcoin\grqq{}. Um den Zusammenhang zwischen den Sentimentindizes und den Aktienindizes besser zu Beurteilen zu können, wäre es nötig sich $2-3$ Jahre die Sentimenindizes und den Aktienindizes an zu sehen und zu analysieren. Außerdem kann bei der multiplen Regression noch verschiedenste Ansätze ausprobiert werden, wie zum Beispiel nicht lineare Regression oder auch die variantion der Regressoren. Ein Ansatz um die Targets (Aktienindizes) besser anhand der Sentimenindizes zu erklären ware die Zeitreihenanalyse. Bei der Zeitreihenanalyse werden eine zeitabhängige Folge von Datenpunkten betrachtet. 
+Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknüpfen. Die Logik könnte in der Lage sein gute Verneinungen zu erkennen, wie \glqq Der Kurs ist nicht schlecht! #bitcoin\grqq{}. Um den Zusammenhang zwischen den Sentimentindizes und den Aktienindizes besser zu Beurteilen zu können, wäre es nötig sich $2-3$ Jahre die Sentimenindizes und den Aktienindizes an zu sehen und zu analysieren. Außerdem kann bei der multiplen Regression noch verschiedenste Ansätze ausprobiert werden, wie zum Beispiel nicht lineare Regression oder auch die variantion der Regressoren. Ein Ansatz um die Targets (Aktienindizes) besser anhand der Sentimenindizes zu erklären ware die Zeitreihenanalyse. Bei der Zeitreihenanalyse werden eine zeitabhängige Folge von Datenpunkten betrachtet. 
 
 \newpage
 

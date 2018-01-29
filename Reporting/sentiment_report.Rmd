@@ -95,10 +95,12 @@ output:
 
 <!--- Beginn --->
 \section{Ergebnisse} 
-Wenn Leser einen Text analysieren, verwenden sie, dass Verständnis der emotionalen Absicht von Wörtern, um daraus abzuleiten, ob ein Textabschnitt positiv oder negativ ist.
+Die Analye von Wörter auf emotionale Ebene liefern wichtige Information über Texte. Mit diesen Informationen kann methodisch erkannt werden, ob ein Textabschnitt positiv oder negativ ist bzw. die Stimmung einfangen.
 Das Ziel dieser Ausarbeitung ist einen Zusammenhang zwischen dieser Stimmung (\textit{Sentiment}) der Tweets bezüglich dem Finanzbereich aus dem Jahr $2012$ und Aktienindizes nachzuweisen. 
 <!-- W?rding wirtschaftliche Ereignisse -->
-Unsere Annahme ist, dass wirtschaftliche Ereignisse sich schneller auf die sozialen Medien verbreiten. Dies nehmen wir als Anhaltspunkt und versuchen Ereignisse am Aktienindex vorherzusagen.
+Unsere Annahme ist, dass Events im Finanzsektor sich in Tweets früher abzeichenen, als in Aktienindizes.
+
+<!--sich schneller auf die sozialen Medien verbreiten. Dies nehmen wir als Anhaltspunkt und versuchen Ereignisse am Aktienindex vorherzusagen. -->
 
 Als Beispiel dient die Griechenlandkrise im Jahr $2012$. Zu der Zeit der Griechenlandkrise sind viele Hashtags entstanden und die Bürger der EU haben ihre Meinung in Tweets kundgetan. Hashtags die sich auf wichtige politische Entscheidungen im Zusammenhang der Griechenlandkrise sich beziehen, waren zum Beispiel \#Grexit,\#G7, \#Greferendum und \#EuroGipfel. Unter diesen Hashtags haben sich gewisse Informationen schnellverbreit. Diese Information hatten, im späteren einen gewissen Einfluss auf die Aktienindizes.
 
@@ -192,7 +194,7 @@ Im Folgendem werden die einzelnen Schritte für die Aufbereitung der Daten besch
 \item Die erzeugten CSV-Datei mit den gefilterten Tweets werden mit der Funktion \textit{Datei$\_$einlesen} eingelesen und in ein Dataframe umgewandelt.
 \item Um ein Vergleich mit dem Dow Jones aus \ref{sub:dow_jones_data} zu ermöglichen, wurden die Wochen- und Monatsnummer des Twitterarchivs \ref{sub:twitter_archive} berechnet und aufgenommen (\textit{Month2} \& \textit{week}). 
 \item Die doppelten Tweets wurden mittels der Funktion \textit{Distinct} gefiltert.
-\item Mit der Funktion \textit{clearing$\_$dataframe} werden die Texte der Tweets in einzelnen Wörter aufgesplittet. Damit besteht ein Tweet aus mehreren Zeilen und eine Zeile jeweils nur aus einem Wort. Anschließend wird das Dataframe von StopWörtern bereinigt, die in der Wörterliste \textit{Stopwords} enthalten sind. Das Wörterbuch steht in R zur Verfügung. Im Kapitel Wörterbuch \ref{Woerterbuch} sind diese beschrieben. Die Tabelle \ref{tab:dataaufbereitung} zeigt einen Ausschnitt des aufbereitenden Dataframes. Dieses Dataframe gilt als Grundlage für die nächsten Kapitel. 
+\item Mit der Funktion \textit{clearing$\_$dataframe} werden die Texte der Tweets in einzelnen Wörter aufgesplittet. Damit besteht ein Tweet aus mehreren Zeilen und eine Zeile jeweils nur aus einem Wort. Anschließend wird das Dataframe von StopWörtern bereinigt, die in der Wörterliste \textit{Stopwords} enthalten sind. Das Wörterbuch steht in R zur Verfügung. Im Kapitel Wörterbuch \ref{Woerterbuch} sind diese beschrieben. Die Tabelle \ref{tab:dataaufbereitung} zeigt einen Ausschnitt des aufbereitenden Dataframes. Es werden in der Grafik \ref{tab:dataaufbereitung} die ersten Tweets der ersten Woche angezeigt.Die Spalte \textit{X} gibt die ID des jeweiligen Tweets an zu dem das Wort gehört. Dieses Dataframe gilt als Grundlage für die nächsten Kapitel. 
 
 
 \begin{table}[H]

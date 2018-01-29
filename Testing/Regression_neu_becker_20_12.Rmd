@@ -115,20 +115,6 @@ regression_afinn_dow_jones<-lm(Rendite~ Sentiment1+Sentiment2 + Sentiment3+ Sent
 summary(regression_afinn_dow_jones)
 plot(regression_afinn_dow_jones)
 coeftest(regression_afinn_dow_jones, df = Inf, vcov = NeweyWest)
-#Bootstrap---------------------------------------------------------
-rsq <- function(formula, data, indices) {
-  d <- data[indices,] # allows boot to select sample 
-  fit <- lm(formula, data=d)
-  return(summary(fit)$r.square)
-} 
-results <- boot(data=regression_afinn_dow_jones_kursabschluss, statistic=rsq,
-  	R=1000, formula=Abschlusskurs~ Sentiment1+Sentiment2 + Sentiment3+ Sentiment4+Sentiment5+ Sentiment6)
-results
-# view results-------------------------------------------------------------------
-
-results<-rlm(Rendite~ Sentiment1+Sentiment2 + Sentiment3+ Sentiment4+Sentiment5+ Sentiment6, data=regression_afinn_dow_jones_kursabschluss)
-summary(results) 
-plot(results)
 
 #HAC berücksichtigen---------------------------------------------
 regression_afinn_dow_jones_kursabschluss<-generateLinearRegressionDataFrame(dow_jones_afinn_score, 
@@ -167,7 +153,7 @@ plot(dow_jones$week,dow_jones$Veraenderung, xlab="Wochen", ylab="Rendite")
 lines(x,y,type="l")
 
 #Bing Count---------------------------------------------------------------------
-reg_vorbereitung_bing_dow_jones<-generateLinearRegressionDataFrame(dow_jones_bing_score_simple_count, prediction = 1, columnSizeSentiment = 4, sentimentColumnName = 'n', renditeColumnName = 'Rendite', renditeColumnNameOutput = 'rendite_bing')
+reg_vorbereitung_bing_dow_jones<-generateLinearRegressionDataFrame(dow_jones_bing_score_simple_count, prediction = 1, columnSizeSentiment = 4, sentimentColumnName = 'sentiment', renditeColumnName = 'Rendite', renditeColumnNameOutput = 'rendite_bing')
 
 colnames(reg_vorbereitung_bing_dow_jones)<-c("Sentiment1","Sentiment2","Sentiment3","Sentiment4", "Rendite")
 regression_bing_dow_jones<-lm(Rendite~ Sentiment1 + Sentiment2+ Sentiment3+ Sentiment4,data=reg_vorbereitung_bing_dow_jones)
@@ -177,20 +163,13 @@ coeftest(regression_afinn_dow_jones, df = Inf, vcov = NeweyWest)
 
 HAC<-vcovHAC(regression_bing_dow_jones)
 #---------------------------------------------------------------------------------------
-reg_vorbereitung_bing_dow_jones<-generateLinearRegressionDataFrame(dow_jones_bing_score_simple_count, prediction = 1, columnSizeSentiment = 3, sentimentColumnName = 'n', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'rendite_bing')
+reg_vorbereitung_bing_dow_jones<-generateLinearRegressionDataFrame(dow_jones_bing_score_simple_count, prediction = 1, columnSizeSentiment = 3, sentimentColumnName = 'sentiment', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'rendite_bing')
 
 colnames(reg_vorbereitung_bing_dow_jones)<-c("Sentiment1","Sentiment2", "Sentiment3", "Rendite")
 regression_bing_dow_jones<-lm(Rendite~Sentiment1 + Sentiment2 + Sentiment3,data=reg_vorbereitung_bing_dow_jones)
 summary(regression_bing_dow_jones)
 
 coeftest(regression_afinn_dow_jones, df = Inf, vcov = NeweyWest)
-
-#tweetebene----------------------------------------------
-reg_vorbereitung_bing_dow_jones_tweet<-generateLinearRegressionDataFrame(dow_jones_bing_tweet_ebene, prediction = 1, columnSizeSentiment = 6, sentimentColumnName = 'n', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'rendite_bing')
-
-colnames(reg_vorbereitung_bing_dow_jones_tweet)<-c("Sentiment1","Sentiment2", "Sentiment3", "Rendite")
-regression_bing_dow_jones<-lm(Rendite~Sentiment1 + Sentiment2 + Sentiment3,data=reg_vorbereitung_bing_dow_jones_tweet)
-summary(regression_bing_dow_jones)
 
 #nls-------------------------------------------------------
 b1=1
@@ -204,12 +183,15 @@ nlo<-nls(Schlusskurs ~ b1*Sentiment1 + b2*Sentiment2 + b3*Sentiment3,data=reg_vo
 summary(nlo)
 
 
-#------------------------------------------------------------------------
-daten_usa_new_sentiment_2_ <- read_delim("~/textmining/R-projekt/BeckerSeminar2/Daten/daten_usa_new_sentiment (3).csv",";", escape_double = FALSE, trim_ws = TRUE)
-kalenderwochen_hinzufuegen<-Kalenderwochen(daten_usa_new_sentiment_2_)
-reg_wader_group_wochen<- kalenderwochen_hinzufuegen %>% group_by(week)%>% summarise(score=sum(Sentiment))
-reg_wader_group_wochen<-reg_wader_group_wochen %>% inner_join(dow_jones)
-reg_vorbereitung_wader<-generateLinearRegressionDataFrame(reg_wader_group_wochen,prediction = 1, columnSizeSentiment = 3, sentimentColumnName = 'score', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'Veränderung')
+#Regression mit Vader Wörterbuch---------------------------------------------------------
+library(readr)
+daten_usa_new_sentiment_2_vader <-read_delim("~/textmining/R-projekt/BeckerSeminar2/Daten/daten_usa_new_sentiment (3).csv",";", escape_double = FALSE, trim_ws = TRUE)
+kalenderwochen_hinzufuegen<-Kalenderwochen(daten_usa_new_sentiment_2_vader)
+reg_vader_group_wochen<- kalenderwochen_hinzufuegen %>% group_by(week)%>% summarise(score=sum(Sentiment))
+
+
+reg_vader_group_wochen<-reg_vader_group_wochen %>% inner_join(dow_jones)
+reg_vorbereitung_vader<-generateLinearRegressionDataFrame(reg_vader_group_wochen,prediction = 1, columnSizeSentiment = 3, sentimentColumnName = 'score', renditeColumnName = 'Veraenderung', renditeColumnNameOutput = 'Veränderung')
 
 colnames(reg_vorbereitung_wader)<-c("Sentiment1","Sentiment2", "Sentiment3","Rendite")
 regression_wader<-lm(Rendite~ Sentiment1+Sentiment2+Sentiment3,data=reg_vorbereitung_wader)
@@ -254,7 +236,7 @@ summary(polynome)
 polynome<-lm(Schlusskurs~ Sentiment1+I(Sentiment1^2*Sentiment2*Sentiment3),data=reg_vorbereitung_wader)
 
 summary(polynome)
-#--------------------------------------------------------------------------
+#Vergleich von Wörterbücher Vader, Bing, NRC--------------------------------------------------------------
 source("~/textmining/R-projekt/BeckerSeminar2/Testing/SentimentFunctionChris.R")
 
 afinn <- clearing_data%>% 
@@ -319,9 +301,8 @@ differenz_positive_negative_eu<-  clearing_data_eu  %>%
    
 ggplot(data= differenz_positive_negative_eu, aes(x=week, y=sentiment),fill=sentiment) + geom_col(show.legend = FALSE)+
       geom_bar(stat="identity",  fill="red", colour="black")+xlab("Monate")+ylab("Sentimentindex EU")
-#----------------------------
- Plot_Sentiment_bing_postive_und_negative_month(clearing_data_eu,"Monat")
- Plot_Sentiment_bing_postive_und_negative_month(clearing_data,"Monat")
+
+#Plots ----------------------------
  source("~/textmining/R-projekt/BeckerSeminar2/Testing/SentimentFunctionChris.R")
 Plot_Sentiment_bing_positiv_minus_negativ_socre(clearing_data_eu,"Monat","red")
 Plot_Sentiment_bing_positiv_minus_negativ_socre(clearing_data,"Monat","blue")

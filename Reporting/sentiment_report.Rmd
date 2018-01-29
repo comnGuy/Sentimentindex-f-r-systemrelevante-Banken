@@ -350,7 +350,7 @@ clearing_data<- clearing_dataframe(daten_doppelt_loeschen)
 
 In der unteren Aufzählung werden einige Sentimentindizes berechnet, die von uns in R implementiert wurde. Die Funktionen der aufgezählten Sentimentindizes werden in der R-Datei \textit{SentimentFunctionChris.R} bereitgestellt. Bei allen Funktionen müssen zwei Parameter übergeben werden, den vorbereitete Dataframe und einen String (\textit{Woche} und \textit{Monat}) der angbit, ob ein Sentiment pro Woche oder pro Monat berechnet wird. 
 \begin{itemize}
-\item \textit{Wörterbuch Bing:} Einzelene Tweets werden als negative, positive oder als neutral gekennzeichnet. Die Tweets die mehr positive als negative Wörter besitzen, werden als positve makiert anders herum als negative, bei gleichstand als neutral.
+\item \textit{Wörterbuch Bing:} Einzelene Tweets werden als negative, positive oder als neutral gekennzeichnet. Die Tweets die mehr positive als negative Wörter besitzen, werden als positve makiert anders herum als negative, bei gleichstand als neutral.   
  \begin{figure}[H]
 \centering
  	\includegraphics[width=1\textwidth]{Pictures/tweetebene.png}

@@ -49,7 +49,7 @@ Auch der Aktienkurs vom Dow Jones (\ref{dowjones}) und der Sentimentindex der Tw
 \section{Modell}\label{Model}
 Dieses Kaptiel setzt statistische Grundlagen voraus, die im Bachelor der Angewandte Mathematik in \textit{Statistik 1} und \textit{Statistik 2} behandelt wurden. 
  
-Im Rahmen der empirischen Untersuchung wird die klassische multiple Regression verwendet. Ziel der multiplen Regression auf wöchentliche Renditen von Aktienkursen ist es, die Kursentwicklung einer Aktie durch die Entwicklung eines zugehörigen Sentimentindexes zu erklären und vorherzusagen. Mithilfe historischer Zeitreihen/Kursen wird versucht ein Zusammenhang zwischen der Rendite eines einzelnen Wertpapiers und einem Sentimentindex zu ermitteln, um mit Hilfe des gewonnenen Zusammenhangs zukünftige Renditen des Wertpapiers zu schätzen. \\
+Im Rahmen der empirischen Untersuchung wird die klassische multiple Regression verwendet. Ziel der multiplen Regression auf wöchentliche Renditen von Aktienkursen ist es, die Kursentwicklung einer Aktie durch die Entwicklung eines zugehörigen Sentimentindexes zu erklären und vorherzusagen. Mithilfe historischen Kursen wird versucht ein Zusammenhang zwischen der Rendite eines einzelnen Wertpapiers und einem Sentimentindex zu ermitteln. Mit Hilfe des gewonnenen Zusammenhangs können zukünftige Renditen des Wertpapiers geschätzt werden. \\
 
 Die künftigen Renditen der Aktienkurse werden ausschließlich
 durch den linearen Zusammenhang zu den Sentimentindizes der letzten Wochen geschätzt. Mit Hilfe einer multiplen linearen Einfachregression wird eine Schätzung für zukünftige Renditen des Aktienkurses erstellt, da ein linearer Zusammenhang zwischen der Rendite des einzelnen Wertpapiers und der Sentimentindizes vorausgesetzt wird. Einen gewissen Zusammenhang wurde zwischen einem einfachen Sentimentindex, der positive und negative Wörter zählt und als Score die Differenz nimmt, und der Rendite des Aktienkurses  Dow Jones aufgezeigt, im  vorherigen Abschnitt beschrieben. Es ergibt sich folgende lineare Regressionsgleichung:
@@ -62,17 +62,17 @@ mit:
 	\item $S_{k,t}$ ist der Sentimentindex der letzten $k$ Wochen und $\beta_{k}$ ist der dazugehörige Betakoeffizent.
 	\item $\varepsilon_{t}$ für  Fehlerterm 
 \end{itemize}
-Im Folgendem wird versucht mit verschiedenen Sentimentindizes auf den \textit{Dow Jones Industrial} $30$ Renditen vorherzusagen. Da es den Rahmen dieser Ausarbeitung sprengen würde alle Ergebnisse der verschiedenen Regressionsansätzen aufzuzeigen und zu interpretieren, beschränkt sich dieser Abschnitt auf eine Regressionen. Zu Beginn verwenden wir als Sentimentindex für die multiple Regression den Mittelwert der Socres für positive und negative Wörter wöchentlich der US-Banken-Tweets. Das Dataframe mit den Indizes muss mit dem Dataframe der Renditen des \textit{Dow Jones Inustrial} $30$ gejoint  über das Feld \textit{week} werden. Für die Modellierung der Regressionsgleichung ist es erforderlich, sich zu überlegen, inwieweit der linearen Zusammenhang der Rendite zu den Sentimentindizes der letzten Wochen sinnvoll ist.\\
+Im Folgendem wird versucht mit verschiedenen Sentimentindizes auf den \textit{Dow Jones Industrial} $30$ Renditen vorherzusagen. Da es den Rahmen dieser Ausarbeitung sprengen würde alle Ergebnisse der verschiedenen Regressionsansätzen aufzuzeigen und zu interpretieren, beschränkt sich dieser Abschnitt auf eine Regressionen. Zu Beginn verwenden wir als Sentimentindex für die multiple Regression den Mittelwert der Scores für positive und negative Wörter wöchentlich der US-Banken-Tweets. Das Dataframe mit den Indizes muss mit dem Dataframe der Renditen des \textit{Dow Jones Inustrial} $30$  über das Feld \textit{week} gejoint werden. Für die Modellierung der Regressionsgleichung ist es erforderlich, sich zu überlegen, inwieweit der linearen Zusammenhang der Rendite zu den Sentimentindizes der letzten Wochen sinnvoll ist.\\
 \\
-\textbf{Wie viel Wochen der Vergangenheit von Zeitpunkt heute muss mitgenommen werden, damit keine wichtigen Informationen verloren gehen?} 
+\textbf{Wie viel Wochen der Vergangenheit vom heutigen Zeitpunkt müssen in die Analyse einfließen, damit keine wichtigen Informationen verloren gehen?} 
 \\
 \\
-Dies kann nur empirisch ermittelt werden. In unserem Fall gehen wir von der Hypothese aus, dass drei bis vier Wochen ein erster vernünftiger Startpunkt ist. Im nächsten Schritt wird eine Regression mit den Sentimentindizes der letzten drei Wochen werden. Hierzu muss mit der Funktion \textit{generateLinearRegressionDataFrame} unseres Dataframes in die richtige Form transformiert. In der R Ausgabe sind die Ergebnisse Regression zu sehen. Auf den ersten Blick fällt auf, dass nach dem T-Test alle $H_{0}$ Hypothesen für die Regressionskoeffizienten nicht verworfen werden können, da alle $\alpha>0.05$ sind, wie in der Tabelle \textit{Coefficients} in der Spalte $Pr(>|t|)$ zu sehen ist. Die Sentimentinidizes der letzen drei Wochen besitzen keinen Einfluss auf die Renditen (wöchentliche Veränderung pro Woche)  des \textit{Dow Jones Industrial} $30$. Diese Ergebnisse sind nicht ungewöhnlich, da wir uns nicht mehr in der normalen multiplen Regression bewegen, sondern im Bereich der Zeitreihenanalyse, da zeitliche Ereignisse betrachtet werden. Das $R^2$ trägt $1,3$ \% für die Erklärung der Rendite dazu. 
+Dies kann empirisch ermittelt werden. In unserem Fall gehen wir von der Hypothese aus, dass wir ein Zeitfenster von drei bis vier Wochen verwenden. Im nächsten Schritt wird eine Regression mit den Sentimentindizes der letzten drei Wochen durchgeführt. Hierzu muss das Dataframe dementsprechend transformiert werden. In Abbildung \ref{Afinn_summary} sind die Ergebnisse der Regression zu sehen. Auf den ersten Blick fällt auf, dass nach dem T-Test alle $H_{0}$ Hypothesen für die Regressionskoeffizienten nicht verworfen werden können, da alle $\alpha>0.05$ sind, wie in der Tabelle \textit{Coefficients} in der Spalte $Pr(>|t|)$ zu sehen ist. Die Sentimentinidizes der letzen drei Wochen besitzen keinen Einfluss auf die Renditen (wöchentliche Veränderung pro Woche)  des \textit{Dow Jones Industrial} $30$. Diese Ergebnisse sind nicht ungewöhnlich, da wir uns nicht mehr in der normalen multiplen Regression bewegen, sondern im Bereich der Zeitreihenanalyse, da zeitliche Ereignisse betrachtet werden. Das $R^2$ trägt $1,3$ \% für die Erklärung der Rendite dazu. 
 
  \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{Pictures/afinn_summary.png}
-	\caption{Summary der Regression mittels des Sentimentindex mit dem Wörterbuch \textit{Afinn} }
+	\caption{Zusammenfassung der Regression mittels des Sentimentindex mit dem Wörterbuch \textit{Afinn} }
 	\label{Afinn_summary}
 \end{figure} 
 \begin{figure}[H]
@@ -81,5 +81,5 @@ Dies kann nur empirisch ermittelt werden. In unserem Fall gehen wir von der Hypo
 	\caption{Regressions Plot des Sentimentindexes mit dem Wörterbuch \textit{Afinn} }
 	\label{Afinn_plot_regression}
 \end{figure} 
-Im Weiteren wurden noch einige verschiedenste Regressionen durchgeführt. Einige von ihnen besitzen einen nicht linearen Ansatz, diese werden als Code im Anhang mitgeführt.  
+Im Weiteren wurden noch einige verschiedene Ansätzer der Regressionen durchgeführt. Einige von ihnen besitzen einen nicht linearen Ansatz, diese werden als Code im Anhang mitgeführt.  
 

@@ -150,6 +150,18 @@ sentimentsLou <- generateSentiment(stemmedDFSCHUN, columnText = 'full_text', sen
 # Call the test function
 stemmedTestResultsDFSCHUN <- rbind(stemmedTestResultsDFSCHUN, compareSentiments(sentimentsLou, stemmedDFSCHUN, 'loughran'))
 
+# NRC - Get the Sentiments
+
+#source("SentimentFunctions.R")
+#blub <- generateSentiment(stemmedDFSCHUN, columnText = 'full_text', sentimentBook = 'nrc')
+#blub
+
+sentimentsNRC <- generateSentiment(stemmedDFSCHUN, columnText = 'full_text', sentimentBook = 'nrc')
+# Call the test function
+stemmedTestResultsDFSCHUN <- rbind(stemmedTestResultsDFSCHUN, compareSentiments(sentimentsNRC, stemmedDFSCHUN, 'nrc'))
+
+stemmedTestResultsDFSCHUN
+
 # VADER
 sentimentVader <- read_delim("data/testData/vader/vaderSentimentStemmedHUNSPELL.csv", 
                              ";", escape_double = FALSE, trim_ws = TRUE)

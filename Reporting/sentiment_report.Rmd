@@ -94,17 +94,23 @@ output:
 \pagenumbering{arabic}
 
 <!--- Beginn --->
-\section{Ergebnisse} 
-Die Analye von Wörter auf emotionale Ebene liefern wichtige Information über Texte. Mit diesen Informationen kann methodisch erkannt werden, ob ein Textabschnitt positiv oder negativ ist bzw. die Stimmung einfangen.
-Das Ziel dieser Ausarbeitung ist einen Zusammenhang zwischen dieser Stimmung (\textit{Sentiment}) der Tweets bezüglich dem Finanzbereich aus dem Jahr $2012$ und Aktienindizes nachzuweisen. 
+\section{Ergebnisse}
+Der Kurs einer Aktie setzt sich aus einem Angebot und einer Nachfrage zusammen. Die Nachfrage bzw. das Angebot einer Aktie setzt sich aus mehreren Faktoren, wie der aktuelle Stand des Unternehmens, die Art und Weise wie in den Neuigkeitsprotalen berichtet wird u. v. m. zusammen. Einer unserer Annahmen ist, dass Twitter ebenfalls ein Einflussfaktor für den Kurs sein kann. Eine ähnliches Vorgehen wurde bereits von Cindy K Soo. \cite{sentiment_housing} bezüglich den Immobilensektor gezeigt. In Ihrem Paper zeigt sie, dass die Lokalnachrichten den Immobilienmarkt um Jahre vorher beeinflussen. Daraus basierend ist unsere Annahme, dass Twitter einen ähnlichen Einfluss aufweisen kann.
+
+Ein Ziel dieser Ausarbeitung ist einen Zusammenhang zwischen dieser Stimmung und der Aktienindizies nachzuweisen. Die Ausgangssituation wird der Finanzbereich und die Aktienindizes aus dem Jahr 2012 sein.
+
+<!-- Die Analyse von Wörter auf emotionale Ebene liefern wichtige Information über Texte. Mit diesen Informationen kann methodisch erkannt werden, ob ein Textabschnitt positiv oder negativ ist bzw. die Stimmung einfangen.
+Das Ziel dieser Ausarbeitung ist einen Zusammenhang zwischen dieser Stimmung (\textit{Sentiment}) der Tweets bezüglich dem Finanzbereich aus dem Jahr $2012$ und Aktienindizes nachzuweisen. --> 
 <!-- W?rding wirtschaftliche Ereignisse -->
-Unsere Annahme ist, dass Events im Finanzsektor sich in Tweets früher abzeichenen, als in Aktienindizes.
+<!--Unsere Annahme ist, dass Events im Finanzsektor sich in Tweets früher abzeichenen, als in Aktienindizes. -->
 
 <!--sich schneller auf die sozialen Medien verbreiten. Dies nehmen wir als Anhaltspunkt und versuchen Ereignisse am Aktienindex vorherzusagen. -->
 
-Als Beispiel dient die Griechenlandkrise im Jahr $2012$. Zu der Zeit der Griechenlandkrise sind viele Hashtags entstanden und die Bürger der EU haben ihre Meinung in Tweets kundgetan. Hashtags die sich auf wichtige politische Entscheidungen im Zusammenhang der Griechenlandkrise sich beziehen, waren zum Beispiel \#Grexit,\#G7, \#Greferendum und \#EuroGipfel. Unter diesen Hashtags haben sich gewisse Informationen schnellverbreit. Diese Informationen hatten, im späteren einen gewissen Einfluss auf die Aktienindizes.
+<!-- Im Jahr 2012 war die Grieschenlandkrise ein zentrales Ereignis für den Finanzmarkt Europas. Dadurch ergibt sich die Fragestellung, ob man dieses Ereignis auf eine Art und Weise hätte vorhersagen können. -->
 
-Mittels Textmining sollen diese Informationen aus den Tweets in einen Sentimentindex umgewandelt werden. Mit diesem Sentimentindex wird versucht Aktienindizes vorherszusagen, durch Regression. Auf der Abbildung \ref{Reg_afinn1} ist eine Regression auf wöchentlichen prozentualen Veränderungen der Aktienindizes dargestellt. 
+<!--Als Beispiel dient die Griechenlandkrise im Jahr $2012$. Zu der Zeit der Griechenlandkrise sind viele Hashtags entstanden und die Bürger der EU haben ihre Meinung in Tweets kundgetan. Hashtags die sich auf wichtige politische Entscheidungen im Zusammenhang der Griechenlandkrise sich beziehen, waren zum Beispiel \#Grexit,\#G7, \#Greferendum und \#EuroGipfel. Unter diesen Hashtags haben sich gewisse Informationen schnellverbreit. Diese Informationen hatten, im späteren einen gewissen Einfluss auf die Aktienindizes. -->
+
+Mittels Textmining sollen die Informationen aus den Tweets in einen Sentimentindex umgewandelt werden. Mit diesem Sentimentindex wird versucht mittels einer Regression den Aktienindizes vorherszusagen. Auf der Abbildung \ref{Reg_afinn1} ist eine Regression auf wöchentlichen prozentualen Veränderungen der Aktienindizes dargestellt. 
 
 
 <!--Mittels erzeugten Sentimentindizies aus den Tweets können Zusammenh?nge sichtbar gemacht und Regressionen auf Aktienindizes durchgeführt werden.--> 

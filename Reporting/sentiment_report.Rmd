@@ -191,8 +191,6 @@ Im Folgendem werden die einzelnen Schritte für die Aufbereitung der Daten besch
 
 \begin{table}[H]
 \centering
-\caption{Aufbereites Dataframe}
-\label{tab:dataaufbereitung}
 \begin{tabular}{|l|l|l|l|l|l|l|l|}
 \hline
 \textbf{id} & \textbf{X} & \textbf{Language} & \textbf{Follower} & \textbf{favourites\_coun} & \dots & Month2 & week \\ \hline
@@ -201,7 +199,10 @@ Im Folgendem werden die einzelnen Schritte für die Aufbereitung der Daten besch
  \vdots           &   \vdots           &  \vdots                  &  \vdots                 &  \vdots                         &  \dots            &  \vdots      &  \vdots    \\ \hline
 12          & 13         & en                & 319               & 0                         &              & 1      & 1    \\ \hline
 13          & 13         & en                & 319               & 0                         &              & 1      & 1    \\ \hline
+ \vdots           &   \vdots           &  \vdots                  &  \vdots                 &  \vdots                         &  \dots            &  \vdots      &  \vdots    \\ \hline
 \end{tabular}
+\caption{Aufbereites Dataframe}
+\label{tab:dataaufbereitung}
 \end{table}
 \end{enumerate}
 

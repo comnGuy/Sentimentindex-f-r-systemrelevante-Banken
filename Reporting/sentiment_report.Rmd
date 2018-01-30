@@ -260,7 +260,7 @@ Zu Beginn wurden mittels den fünf Wörterbüchern ein Sentiment über den Testd
  * Die \textit{Hits} sind die Anzahl der gesamten Treffer.
  * Die \textit{noHits} spiegelt die Anzahl der keinen Treffer wieder.
 
-![Anzahl der übereinstimmungen der vorhergesagten und der manuel eingepflegten Sentiments\label{fig:ubereinstimmung_nothing}](Pictures/ubereinstimmung_nothing_new.PNG)
+![Anzahl der übereinstimmungen der vorhergesagten und der manuel eingepflegten Sentiments\label{fig:ubereinstimmung_nothing}](Pictures/ubereinstimmung_nothing_new_text.png)
 
 Die Wörterbücher "bing" und "afinn" liegen können insgesamt um die 70 übereinstimmungen aufweisen, wohingegen "loughren" knapp über 50 vorweisen kann. Das erfolgreichste Wörterbuch ist "vader" mit ca. 120 übereinstimmmungen. 
 

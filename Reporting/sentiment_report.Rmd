@@ -129,7 +129,7 @@ Ein Sentiment ist die Stimmung bzw. die Emotion des Schreibers, die der Text bei
 
 \subsection{Twitterarchive}
 \label{sub:twitter_archive}
-Twitter veröffentlicht monatlich $1$ \% ihrer gesamten Tweets auf \textit{archive.org} [TODO Referen?]. Dieses Twitterarchive wurde auf dem hauseigenen CUDA-Rechner aus dem Jahre $2012$ in einem R-spezifischen DataFrame aufbereitet und zur Verfügung gestellt. Da diese Archive alle Tweets enthält, auch Tweets die themenfremd sind, wurde ein Filter gebaut, der die benötigten Daten filtert.
+Twitter veröffentlicht monatlich $1$ \% ihrer gesamten Tweets auf \textit{archive.org} \cite{twitter_archive}. Dieses Twitterarchive wurde auf dem hauseigenen CUDA-Rechner aus dem Jahre $2012$ in einem R-spezifischen DataFrame aufbereitet und zur Verfügung gestellt. Da diese Archive alle Tweets enthält, auch Tweets die themenfremd sind, wurde ein Filter gebaut, der die benötigten Daten filtert.
 
 ![Filter für grieschiche Banken \label{fig:filter}](Pictures/filter_twitter_archive.PNG)
 
@@ -146,7 +146,7 @@ Insgesamt haben wir ca. $17.000$ Tweets durch die gewählten Filter über das ge
 
 \subsection{Twitter-API}
 \label{sub:scanned_data}
-Zu Beginn war uns nicht klar, ob ausreichend Daten durch das Twitterarchive gewonnen werden können. Dadurch ergab sich die Idee, die Twitter-API zusätzlich zu verwenden. Die Twitter-API erlaubt $450$ Anfragen alle $15$ Minuten. Der Kern des PHP-Skriptes wird durch folgenden Code erleutert. TODO Verlinkung
+Zu Beginn war uns nicht klar, ob ausreichend Daten durch das Twitterarchive gewonnen werden können. Dadurch ergab sich die Idee, die Twitter-API zusätzlich zu verwenden. Die Twitter-API erlaubt $450$ Anfragen alle $15$ Minuten. Der Kern des PHP-Skriptes wird durch folgenden Code erleutert.
 
 ```{php testphp}
 // Query with one Hashtag and a limit up to 100
@@ -177,14 +177,11 @@ Aktuell muss das Skript manuell ausgeführt werden. Dieses Problem haben wir dur
 
 \section{Preprocessing}
 \label{sub:datenaufbereitung}
-Für die Berechnung der Sentimentindizes werden ausschließlich Tweets betrachtet die mit dem sprachlichen Kürzel \textit{eng} gekennzeichnet sind. <!-- Passt der Satz hier überhaupt ins Kapitel? Bzw. den Filter habe ich ja schon vorher kurz angesprochen TODO -->Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken.
+Für die Berechnung der Sentimentindizes werden ausschließlich Tweets betrachtet die mit dem sprachlichen Kürzel \textit{eng} gekennzeichnet sind. Es werden Indizes für Europa und die USA gebaut, über die Tweets der Banken.
 
-<!-- W?rde den obigen Text weglassen und dafür ab hier beginnen? TODO -->
 Im Folgendem werden die einzelnen Schritte für die Aufbereitung der Daten beschrieben, die notwendig sind, um verschiedene Sentimentindizes zu berechnen, auf Basis von Wörterbüchern. Hierzu werden eigens programmierten Funktionen benutzt.
 
 
-<!--  Um mit den Daten besser arbeiten zu können, müssen die Tweets mit einer Spalte \textit{Month2} und \textit{week} erg?nzt werden. Mit den Spalten \textit{Month2} und \textit{week} können Indizies für Monaten und Wochen berechnet werden, dafür wird die Funktion \textit{Kalenderwochen} verwendet. -->
-<!-- Welche erzeugten CSV Dateien? In Was umgewandelt? TODO -->
 \begin{enumerate}
 \item Die erzeugten CSV-Datei mit den gefilterten Tweets werden mit der Funktion \textit{Datei$\_$einlesen} eingelesen und in ein Dataframe umgewandelt.
 \item Um ein Vergleich mit dem Dow Jones aus \ref{sub:dow_jones_data} zu ermöglichen, wurden die Wochen- und Monatsnummer des Twitterarchivs \ref{sub:twitter_archive} berechnet und aufgenommen (\textit{Month2} \& \textit{week}). 
@@ -207,15 +204,10 @@ Im Folgendem werden die einzelnen Schritte für die Aufbereitung der Daten besch
 \end{tabular}
 \end{table}
 \end{enumerate}
-<!-- Evtl. die Kapitel aufz?hlen TODO -->
-<!-- Die Tabelle vielleicht bis zum Ende f?hren? TODO -->
 
-<!-- Link evtl. in die Referenz? -->
-<!-- Anschließend wird die wöchentliche Veränderung berechnet? -->
 \subsection{Dow Jones Industrial 30 Aktienindex aus 2012}
 \label{sub:dow_jones_data}
-Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der ältesten noch bestehenden Aktienindex der USA und setzt sich heute aus den $30$ größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \url{http://www.boerse-online.de/index/historisch/dow_jones/1.1.2012_31.12.2012}.
-Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der Abbildung \ref{picture:dow_jones} ist ein Auschnitt der aufbereiteten Daten zu sehen.
+Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der ältesten noch bestehenden Aktienindex der USA und setzt sich heute aus den $30$ größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \textit{boerse-online.de} \cite{boerse_online}. Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der Abbildung \ref{picture:dow_jones} ist ein Auschnitt der aufbereiteten Daten zu sehen.
  \begin{figure}[H]
    	\centering
   \includegraphics[width=1\textwidth]{Pictures/Dow_jownes.png}
@@ -275,7 +267,7 @@ Die Wörterbücher "bing" und "afinn" liegen können insgesamt um die 70 überei
 
 Die Idee hinter Stemming ist das Reduzieren einer Wortvariante auf seinem Wortstamm. Zum Beispiel werden die Worte "Häuser" und "Häusern" zu deren Wortstamm "Haus" reduziert.
 
-Um das Stemming durchzuführen, wurde das R-Package \textit{corpus} verwendet <!-- Verlinken TODO -->. Die folgenden Varianten des Stemmings wurden durchgeführt. \textit{corpus} unterstützt vom Haus aus 17 unterschiedliche Sprachen, um ein Wortstamm zu bilden. Da der gegebene Datensatz aus englischen Texten besteht, wurde nur die englische Sprache des Standard-Packetes betrachtet. Die folgenden Stemmer und Rechtschreibkorrekturen wurden betrachtet.
+Um das Stemming durchzuführen, wurde das R-Package \textit{corpus} \cite{corpus} verwendet . Die folgenden Varianten des Stemmings wurden durchgeführt. \textit{corpus} unterstützt vom Haus aus 17 unterschiedliche Sprachen, um ein Wortstamm zu bilden. Da der gegebene Datensatz aus englischen Texten besteht, wurde nur die englische Sprache des Standard-Packetes betrachtet. Die folgenden Stemmer und Rechtschreibkorrekturen wurden betrachtet.
 
  * Der \textit{Hunspell stemmer} soll prezise Stämme bilden.
  * Der \textit{Dictionary stemmer} wird on-the-fly von lexoconista.com als Tupels von (Wörter, Stamm) geladen und mittels einer Funtkion den corpus-Package übergeben.

@@ -110,14 +110,14 @@ Das Ziel dieser Ausarbeitung ist einen Zusammenhang zwischen dieser Stimmung (\t
 
 <!--Als Beispiel dient die Griechenlandkrise im Jahr $2012$. Zu der Zeit der Griechenlandkrise sind viele Hashtags entstanden und die Bürger der EU haben ihre Meinung in Tweets kundgetan. Hashtags die sich auf wichtige politische Entscheidungen im Zusammenhang der Griechenlandkrise sich beziehen, waren zum Beispiel \#Grexit,\#G7, \#Greferendum und \#EuroGipfel. Unter diesen Hashtags haben sich gewisse Informationen schnellverbreit. Diese Informationen hatten, im späteren einen gewissen Einfluss auf die Aktienindizes. -->
 
-Mittels Textmining sollen die Informationen aus den Tweets in einen Sentimentindex umgewandelt werden. Mit diesem Sentimentindex wird versucht mittels einer Regression den Aktienindizes vorherszusagen. Auf der Abbildung \ref{Reg_afinn1} ist eine Regression auf wöchentlichen prozentualen Veränderungen der Aktienindizes dargestellt. 
+Mittels Textmining sollen die Informationen aus den Tweets in einen Sentimentindex umgewandelt werden. Mit diesem Sentimentindex wird versucht mittels einer Regression den Aktienindizes vorherszusagen. Auf der Abbildung \ref{Reg_afinn1} ist eine Regression auf wöchentlichen prozentualen Veränderungen der Aktienindizes dargestellt. Die blauen Punkte stellen die Veränderung des Aktienindizies dar und die Regressionsgrade versucht diese zu erklären. Der erklärende Anteil beträgt $3.84 \%$. 
 
 
 <!--Mittels erzeugten Sentimentindizies aus den Tweets können Zusammenh?nge sichtbar gemacht und Regressionen auf Aktienindizes durchgeführt werden.--> 
 
  \begin{figure}[H]
    	\centering
-  \includegraphics[width=1\textwidth]{Pictures/Afinn_plot.png}
+  \includegraphics[width=0.8\textwidth]{Pictures/Afinn_plot.png}
    	\caption{Multiple Regression mittels Sentimenindex auf einen Aktienindex}\label{Reg_afinn1}
 \end{figure}
 

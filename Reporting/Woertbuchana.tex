@@ -57,13 +57,13 @@ Einen gewissen Zusammenhang wurde zwischen einem einfachen Sentimentindex und de
 Die künftigen Renditen der Aktienkurse werden ausschließlich
 durch den linearen Zusammenhang zu den Sentimentindizes der letzten Wochen geschätzt. Mit Hilfe einer multiplen linearen Einfachregression wird eine Schätzung für zukünftige Renditen des Aktienkurses erstellt, da ein linearer Zusammenhang zwischen der Rendite des einzelnen Wertpapiers und der Sentimentindizes vorausgesetzt wird. Es ergibt sich folgende lineare Regressionsgleichung:
 \begin{equation}
-r_{t}=\alpha_{t}+ \sum_{k=1}^{K} \beta_{k,t} S_{k,t}+\varepsilon_{t}
+r_{t}=\alpha_{t}+ \sum_{k=1}^{K} \beta_{t-k} S_{t-k}+\varepsilon_{t}
 \end{equation}
 mit:
 \begin{itemize}
 	\item  $r_{t}$ sind die wöchentlichen Renditen bzw. prozentuale Veränderung des Aktienkurses, für die $t$ Woche.
-	\item $S_{k,t}$ ist der Sentimentindex der letzten $k$ Wochen und $\beta_{k,t}$ ist der dazugehörige Betakoeffizent für die $t$ Woche.
-	\item $\alpha_{t}$ ist das Absolutglied der $t$ Woche
+	\item $S_{t-k}$ ist der Sentimentindex der letzten $k$ Wochen und $\beta_{t-k}$ ist der dazugehörige Betakoeffizent für die $t$ Woche.
+	\item $\alpha_{t}$ ist das Absolutglied der Woche $t$
 	\item $\varepsilon_{t}$ für  Fehlerterm 
 \end{itemize}
 Im Folgendem wird versucht mit verschiedenen Sentimentindizes auf den \textit{Dow Jones Industrial} $30$ Renditen vorherzusagen. Da es den Rahmen dieser Ausarbeitung sprengen würde alle Ergebnisse der verschiedenen Regressionsansätzen aufzuzeigen und zu interpretieren, beschränkt sich dieser Abschnitt auf eine Regressionen. Zu Beginn verwenden wir als Sentimentindex für die multiple Regression den Mittelwert der Scores für positive und negative Wörter wöchentlich der US-Banken-Tweets. Das Dataframe mit den Indizes muss mit dem Dataframe der Renditen des \textit{Dow Jones Inustrial} $30$  über das Feld \textit{week} gejoint werden. Für die Modellierung der Regressionsgleichung ist es erforderlich, sich zu überlegen, inwieweit der linearen Zusammenhang der Rendite zu den Sentimentindizes der letzten Wochen sinnvoll ist.\\

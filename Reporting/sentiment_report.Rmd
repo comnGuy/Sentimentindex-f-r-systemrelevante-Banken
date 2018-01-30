@@ -281,10 +281,7 @@ Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Ab
 
 \section{Explorative Analysen von Sentimentindizies}
 
-<!-- Methoden => Verfahren? TODO -->
 In diesem Abschnitt werden Methoden angerissen, die Tweets und Sentimentindizes analysieren. Um einen ersten Eindruck von den Tweets zu erhalten, ist es vom Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einem Balkendiagramm umgesetzt.
-<!-- Ist der obige Absatz so korrekt? -->
-<!-- Balkendiagramm auf deutsch TODO -->
 
 \input{Woertbuchana}
 

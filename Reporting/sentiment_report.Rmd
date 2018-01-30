@@ -255,16 +255,17 @@ In diesem Bericht wurden die Wörterbücher \textit{bing}, \textit{afinn}, \text
 In Tabelle \ref{tab:used_wordbooks} sind die verwendeten Wörterbücher mit deren Bewertungsart, ob eine Intelligenz verfügbar und in welcher Programmiersprache dieses Wörterbuch ursprünglich vorhanden war, aufgelistet. Die Wörterbücher \textit{bing} und \textit{loughran} arbeiten mit positiven und negativen Bewertungen. \textit{afinn} arbeitet mit einer Bewertungsreichweite von -5 bis 5, wobei -5 die negativste- und 5 die positivste Stimmung wiederspiegelt. \textit{nrc} arbeitet als Ergebnis mit Emotionen, die zur Vergleichbarkeit ebenfalls in Positiv/Negativ umgewandelt werden. Das Wörterbuch \textit{vaderSentiment} wurde von 10 unabhängigen Menschen manuell mit der Bewertungsreichweite -4 bis 4 bewertet und der Durchschnitt und die Standardabweichung berechnet. Weiterhin wurde eine Logik von den Machern hinterlegt, die Verneinung, Satzzeiten, groß geschriebene Wörter u. v. m. bei der Berechnung des Sentiments beachtet. Die Logik wurde in Python umgesetzt.
 
 
-Zu Beginn wurden mittels den fünf Wörterbüchern ein Sentiment über den Testdatensatz auf Tweetebene berechnet. Diese Berechnung wurde mittels der Abbildung \ref{fig:ubereinstimmung_nothing} visualisiert. Jeder Block entspricht ein Wörterbuch und jeder Balken spiegelt die Anzahl der Treffer wieder. 
+Zu Beginn wurden mittels den fünf Wörterbüchern ein Sentiment über den Testdatensatz auf Tweetebene berechnet. Diese Berechnung wurde mittels der Abbildung \ref{fig:ubereinstimmung_nothing} mit dem Hunspell-Stemmer und der Rechtschreibkorrektur visualisiert, siehe Unterkapitel \ref{word_stemming}. Jeder Block entspricht ein Wörterbuch und jeder Balken spiegelt die Anzahl der Treffer wieder. 
 
  * Die \textit{Hits} sind die Anzahl der gesamten Treffer.
  * Die \textit{noHits} spiegelt die Anzahl der keinen Treffer wieder.
 
-![Anzahl der übereinstimmungen der vorhergesagten und der manuel eingepflegten Sentiments\label{fig:ubereinstimmung_nothing}](Pictures/ubereinstimmung_nothing_new.PNG)
+![Anzahl der übereinstimmungen der vorhergesagten und der manuel eingepflegten Sentiments\label{fig:ubereinstimmung_nothing}](Pictures/ubereinstimmung_nothing_new_text.png)
 
 Die Wörterbücher "bing" und "afinn" liegen können insgesamt um die 70 übereinstimmungen aufweisen, wohingegen "loughren" knapp über 50 vorweisen kann. Das erfolgreichste Wörterbuch ist "vader" mit ca. 120 übereinstimmmungen. 
 
 \subsection{Stemming}
+\label{word_stemming}
 
 Die Idee hinter Stemming ist das Reduzieren einer Wortvariante auf seinem Wortstamm. Zum Beispiel werden die Worte "Häuser" und "Häusern" zu deren Wortstamm "Haus" reduziert.
 

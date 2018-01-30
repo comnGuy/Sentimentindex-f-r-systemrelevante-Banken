@@ -5,7 +5,7 @@ library(tidytext)
 library(dplyr)
 source("SentimentFunctions.R")
 
-setwd('C:/Clouds/Owncloud/Studium/Text Mining/Sentimentindex-f-r-systemrelevante-Banken/Testing')
+setwd('C:/Clouds/Owncloud/Studium/Text Mining/Sentiment/Sentimentindex-f-r-systemrelevante-Banken/Testing/Woerterbuch')
 
 ############## NO STEMMING #####################
 normalDataFrame <- read_delim("data/2017-12-03_SentimentOriginal_1.csv", ";", escape_double = FALSE, trim_ws = TRUE)
@@ -169,12 +169,16 @@ stemmedTestResultsDFSCHUN <- rbind(stemmedTestResultsDFSCHUN, compareSentiments(
 
 # Plot the results
 ggplot(data=stemmedTestResultsDFSCHUN, aes(x=names, y=results, fill = names)) +
-  geom_bar(stat="identity", position="dodge") +
+  geom_bar(stat="identity", width = 1, position=position_dodge(width = 1)) +
   facet_grid(sentimentBookC ~ .) +
   coord_flip() + 
   scale_fill_manual(values=c("#00bfc4", "#f8766d")) +
   xlab("Kategorien") +
   ylab("Übereinstimmungen") +
-  guides(fill=guide_legend(title="Kategorien"))
+  guides(fill=guide_legend(title="Kategorien")) + 
+  geom_text(aes(x=names, y=results, ymax=results, label=results, 
+           hjust=1.5), 
+           position = position_dodge(width=1),
+           size=3)
 #ggtitle("Anzahl der Übereinstimmungen der vorgesagten und der manuel eingepflegten Sentiments")
 

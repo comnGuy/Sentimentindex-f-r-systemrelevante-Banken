@@ -35,6 +35,7 @@ pakete_lade<-function()
   library(HAC)
   library(lmtest)
   library(MASS)
+  require(reshape2)
   
 }
 #lese Daten ein-----------------------------------------------------
@@ -218,7 +219,7 @@ Plot_Sentiment_tweet<-function(clearing_dataframe_und_tokens,Zeit){
       count(sentiment_neu) 
     
     ggplot(data= diff, aes(x=week, y=n,fill=sentiment_neu)) + geom_col(show.legend = FALSE)+
-      geom_bar(stat="identity")+ facet_wrap(~sentiment_neu, ncol = 3, scales = "free_x")+xlab("Wochen")+ylab("Anzahl Tweets")+scale_x_continuous(limits = c(0, 13))
+      geom_bar(stat="identity")+ facet_wrap(~sentiment_neu, ncol = 3, scales = "free_x")+xlab("Wochen")+ylab("Anzahl Tweets")+scale_x_continuous(limits = c(0, 53))
     
   }
   
@@ -252,7 +253,7 @@ Plot_Sentiment_bing_positiv_minus_negativ_socre<-function(clearing_dataframe_und
       mutate(sentiment = positive - negative)
     
     ggplot(data= differenz_positive_negative, aes(x=week, y=sentiment),fill=sentiment) + geom_col(show.legend = FALSE)+
-      geom_bar(stat="identity",fill=farbe, colour="black")+xlab("Monate")+ylab("Sentiment")+scale_x_continuous(breaks = seq(0, 13, 1), lim = c(0, 13))
+      geom_bar(stat="identity",fill=farbe, colour="black")+xlab("Monate")+ylab("Sentiment")+scale_x_continuous(breaks = seq(0, 53, 1), lim = c(0, 53))
     
   }
  
@@ -462,7 +463,7 @@ plot_afinn_score<-function(afinn_score){
     
   }else{
     ggplot(afinn_score,aes(week, sentiment_mittelwert, fill = sentiment_mittelwert)) +
-      geom_col(show.legend = FALSE) +xlab("Wochen")+ylab("Sentimentindex")+scale_x_continuous(limits = c(0, 13))
+      geom_col(show.legend = FALSE) +xlab("Wochen")+ylab("Sentimentindex")+scale_x_continuous(limits = c(0, 53))
      
   }
 }

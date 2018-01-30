@@ -310,7 +310,7 @@ Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknü
 
 \newpage
 
-
+\fancyhead[L]{A Anzahl der Wörter} 
 \addcontentsline{toc}{section}{A Anzahl der Wörter} \label{anz:woerter}
 \section*{A Anzahl der Wörter}
  \begin{figure}[H]
@@ -321,12 +321,12 @@ Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknü
 
 Ein Schritt für die Erstellung eines Sentimentindizes ist die Wahl des richtigen Wörterbuchs, siehe Kapitel \ref{Woerterbuch}. Durch eine erste Visualisierung \ref{barplot} kann festgestellt werden, wie gut das ausgewählte Wörterbuch zur Fragestellung bzw. zum Anfangsproblem passt. Bei Betrachtung der Grafiken passen einige Wörter sehr gut, wie fraud, stress, strike, win, support, top oder free und andere weniger gut, wie zum Beispiel fans, wow, die oder auch hate, zur Ausgangssituation einen Sentimentindex für Banken zubauen. In unseren Fall passt das ausgesuchte Wörterbuch \textit{Bing} nicht optimal, aber insgesamt ganz gut.
 
-
+\fancyhead[L]{B Berechnung der Sentimentindizes} 
 \addcontentsline{toc}{section}{B Berechnung der Sentimentindizes}
 \section*{B Berechnung der Sentimentindizes}
 für die Berechnung von Sentimentindizes wird nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson} vorgegangen. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt, soll vorgestellt werden. Zur Berechnung des Sentimenindex wird das vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe mit dem Wörterbuch \textit{Bing} gejoint mit der gleichnamige Spalte \textit{word}. Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und $n$. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet, indem die Anzahl der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestellt.
 ```{r  eval=FALSE, echo=TRUE}
-source("../Testing/SentimentFunctionChris.R")
+source("../Testing/SentimentFunction2.R")
 #source("varianz.R")
 source("../Testing/functions.R")
 pakete_lade()
@@ -372,8 +372,25 @@ In der unteren Aufzählung werden einige Sentimentindizes berechnet, die von uns
 \end{figure}
 \end{itemize}
 
+\fancyhead[L]{C Beschreibung der Programmen und Dateien} 
+\addcontentsline{toc}{section}{C Beschreibung der Programmen und Dateien}
+\section*{C Beschreibung der Programmen und Dateien}
 
-
+Im Ordner Modell befinden sich die Dateien
+\begin{itemize}
+\item \textbf{SentimentFunction2.R:} Die Datei \textit{SentimentFunktion2} enthält verschiedene Funktionen die Plots und Sentimentindizes berechnen.
+\item \textbf{functions.R:} Die Datei \textit{functions.R:} beinhaltet die Funktion \textit{generateLinearRegressionDataFrame}. Mit dieser Funktion kann ein Dataframe mit einem Sentimentindex entsprechent transformiert werden für eine Regression. 
+\item \textbf{Daten2012usa.xls:} US-Banken Tweets
+\item \textbf{Daten2012europaneu3} EU-Banken Tweets
+\item \textbf{Regression\_neu\_becker\_2012.Rmd:} Das Programm enthält verschiedene Regressions Ansätze und Sentimentplots.
+\item \textbf{alteVersion.Rmd:} Dieses Programm beinhaltet eine veraltete Version von der Datei \textit{Regression\_neu\_becker-2012}.
+\item Im Unterordner \textit{Daten} befinden sich Aufbereitete Excel-Dateien.
+\begin{itemize}
+\item  \textbf{daten\_usa\_new\_sentiment \_vader.xlsx:} Die Excel-Datei beinhaltet die gejointen Daten der Bankentweets und dem Wörterbuch Vader.
+\item \textbf{Dow\_jones\_rendite\_2012.xlsx:} Excel-Datei beinhaltet die Dow Jones Industrial $30$ Daten
+\end{itemize}
+\end{itemize}
+\fancyhead[L]{\leftmark} 
 \input{Literratur}
 
 

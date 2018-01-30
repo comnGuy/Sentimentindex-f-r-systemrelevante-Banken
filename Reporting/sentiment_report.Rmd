@@ -170,7 +170,17 @@ Der obige Code zeigt die Abfrage eines Hastags. Die verschiedenen Hashtags werde
 Aktuell muss das Skript manuell ausgeführt werden. Dieses Problem haben wir durch ein \textit{Cronjob} gelöst. Ein Cronjob führt in definierten Intervallen oder an definierten Zeitpunkten ein Event, in unserem Fall eine PHP-Datei, aus. An dieser Stelle wurde entschieden die höher frequentierten Tweets auf einem zwei Minuten Intervall und weniger frequentierten Tweets auf einem 15 Minuten Intervall zu setzen.
 
 
-
+\subsection{Aktienindizes aus 2012}
+\label{sub:dow_jones_data}
+Der \textbf{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der ältesten noch bestehenden Aktienindex der USA und setzt sich heute aus den $30$ größten US-Unternehmen zusammen. Der tägliche Aktienindex des Dow-Jones-Industrial 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \textit{boerse-online.de} \cite{boerse_online}. Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der Abbildung \ref{picture:dow_jones} ist ein Auschnitt der aufbereiteten Daten zu sehen.
+ \begin{figure}[H]
+   	\centering
+  \includegraphics[width=1\textwidth]{Pictures/Dow_jownes.png}
+   	\caption{Ausschnitt des aufbereiteten \textit{Dow Jones Industrial} $30$ Aktienindexes}
+   	\label{picture:dow_jones}
+ \end{figure}
+ 
+Für den Vergleich der wirtschaftlichen Situation in der EU, wird der \textbf{EURO-STOXX} $50$ herangezogen. Der EURO-STOXX $50$ ist ein Aktienindex, der sich aus den $50$ größten, börsennotierten Unternehmen des Euro-Währungsgebiets zusammensetzt. Der Dow Jones wird für die US-Banken-Tweets genommen.
 
 
 
@@ -206,15 +216,7 @@ Im Folgendem werden die einzelnen Schritte für die Aufbereitung der Daten besch
 \end{table}
 \end{enumerate}
 
-\subsection{Dow Jones Industrial 30 Aktienindex aus 2012}
-\label{sub:dow_jones_data}
-Der \textit{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der ältesten noch bestehenden Aktienindex der USA und setzt sich heute aus den $30$ größten US-Unternehmen zusammen. Der tägliche Aktienindex des \textit{Dow-Jones-Industrial} 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \textit{boerse-online.de} \cite{boerse_online}. Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der Abbildung \ref{picture:dow_jones} ist ein Auschnitt der aufbereiteten Daten zu sehen.
- \begin{figure}[H]
-   	\centering
-  \includegraphics[width=1\textwidth]{Pictures/Dow_jownes.png}
-   	\caption{Ausschnitt des aufbereiteten \textit{Dow Jones Industrial} $30$ Aktienindexes}
-   	\label{picture:dow_jones}
- \end{figure}
+
 
 
 

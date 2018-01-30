@@ -284,8 +284,7 @@ Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Ab
 
 
 \section{Explorative Analysen von Sentimentindizies}
-
-In diesem Abschnitt werden Methoden angerissen, die Tweets und Sentimentindizes analysieren. Um einen ersten Eindruck von den Tweets zu erhalten, ist es vom Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einem Balkendiagramm umgesetzt.
+Die nachstehenden Kapitel basieren auf den Informationen aus der Literatur \cite{textmining}. In diesem Abschnitt werden Methoden angerissen, die Tweets und Sentimentindizes analysieren. Um einen ersten Eindruck von den Tweets zu erhalten, ist es vom Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einem Balkendiagramm umgesetzt, zusehen im Anhang \ref{anz:woerter}
 
 \input{Woertbuchana}
 
@@ -312,7 +311,7 @@ Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknü
 \newpage
 
 
-\addcontentsline{toc}{section}{A Anzahl der Wörter}
+\addcontentsline{toc}{section}{A Anzahl der Wörter} \label{anz:woerter}
 \section*{A Anzahl der Wörter}
  \begin{figure}[H]
 \centering
@@ -324,7 +323,7 @@ Ein Schritt für die Erstellung eines Sentimentindizes ist die Wahl des richtige
 
 
 \addcontentsline{toc}{section}{B Berechnung der Sentimentindizes}
-\section*{Berechnung der Sentimentindizes}
+\section*{B Berechnung der Sentimentindizes}
 für die Berechnung von Sentimentindizes wird nach dem Buch \textit{Text Mining with R} von \textit{Julia Silge and David Robinson} vorgegangen. Im Buch \textit{Text Mining with R} werden die Sentimentindizes mittels dem Prinzip \textit{tidy data} in R erstellt. Ein Beispiel für einen einfachen Sentimentindex, der positive und negative Wörter für jede Woche zählt, soll vorgestellt werden. Zur Berechnung des Sentimenindex wird das vorbereitete Dataframe aus dem Kaptiel \textit{Datenaufbereitung} benutzt. Zuerst wird der vorbereitete Dataframe mit dem Wörterbuch \textit{Bing} gejoint mit der gleichnamige Spalte \textit{word}. Im Anschluss wird der Dataframe gruppiert nach Wochen und dabei werden die verschiedene  Ausprägungen (\textit{positiv} und \textit{negativ}) in der Spalte \textit{Sentiment} gezählt. für die gezählten Ausprägungen pro Woche entsteht eine neue Spalte \textit{n}. In der Spalte \textit{Sentiment} stehen die Wörter (Ausprägungen) \textit{positiv} oder \textit{negativ} passend zu dem Wort in der Spalte \textit{word} im Datensatz. Um einen Index pro Woch zu berechnen, wird eine Spalte für jede Ausprägung mit ihrer Anzahl pro Woche erzeugt, aus den Spalten \textit{Sentiment} und $n$. Zum Schluss wird eine neue Spalte \textit{Sentiment} gebildet, indem die Anzahl der positiven minus den negativen Wörter stehen ($Sentiment=positiv-negativ$). Der Sentimentindex \textit{Sentiment} wird als Barplot dargestellt.
 ```{r  eval=FALSE, echo=TRUE}
 source("../Testing/SentimentFunctionChris.R")

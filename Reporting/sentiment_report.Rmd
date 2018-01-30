@@ -95,7 +95,7 @@ output:
 
 <!--- Beginn --->
 \section{Ergebnisse}
-Der Kurs einer Aktie setzt sich aus einem Angebot und einer Nachfrage zusammen. Die Nachfrage bzw. das Angebot einer Aktie setzt sich aus mehreren Faktoren, wie der aktuelle Stand des Unternehmens, die Art und Weise wie in den Neuigkeitsprotalen berichtet wird u. v. m. zusammen. Einer unserer Annahmen ist, dass Twitter ebenfalls ein Einflussfaktor für den Kurs sein kann. Eine ähnliches Vorgehen wurde bereits von Cindy K Soo. \cite{sentiment_housing} bezüglich den Immobilensektor gezeigt. In Ihrem Paper zeigt sie, dass die Lokalnachrichten den Immobilienmarkt um Jahre vorher beeinflussen. Diese Idee wollen wir in dieser Ausarbeitung auf Twitter und dem Finanzmarkt übertragen und beobachten, ob ein Einfluss nachweisbar ist.
+Der Kurs einer Aktie setzt sich aus einem Angebot und einer Nachfrage zusammen. Die Nachfrage bzw. das Angebot einer Aktie wird von mehreren Faktoren, wie der aktuelle Stand des Unternehmens, die Art und Weise wie in den Neuigkeitsprotalen berichtet wird u. v. m. beeinflusst. Einer unserer Annahmen ist, dass Twitter ebenfalls ein Einflussfaktor für den Kurs sein kann. Eine ähnliches Vorgehen wurde bereits von Cindy K Soo. \cite{sentiment_housing} bezüglich den Immobilensektor gezeigt. In Ihrem Paper zeigt sie, dass die Lokalnachrichten den Immobilienmarkt um Jahre vorher beeinflussen. Diese Idee wollen wir in dieser Ausarbeitung auf Twitter und dem Finanzmarkt übertragen und beobachten, ob ein Einfluss nachweisbar ist.
 
 Ein Ziel dieser Ausarbeitung ist einen Zusammenhang zwischen dieser Stimmung und der Aktienindizies nachzuweisen. Die Ausgangssituation wird der Finanzbereich und die Aktienindizes aus dem Jahr 2012 sein.
 

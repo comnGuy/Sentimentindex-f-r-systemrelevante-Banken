@@ -170,7 +170,7 @@ Der obige Code zeigt die Abfrage eines Hastags. Die verschiedenen Hashtags werde
 Aktuell muss das Skript manuell ausgeführt werden. Dieses Problem haben wir durch ein \textit{Cronjob} gelöst. Ein Cronjob führt in definierten Intervallen oder an definierten Zeitpunkten ein Event, in unserem Fall eine PHP-Datei, aus. An dieser Stelle wurde entschieden die höher frequentierten Tweets auf einem zwei Minuten Intervall und weniger frequentierten Tweets auf einem 15 Minuten Intervall zu setzen.
 
 
-\subsection{Aktienindizes aus 2012}
+\subsection{Aktienindizes aus 2012} 
 \label{sub:dow_jones_data}
 Der \textbf{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikanischen Aktienmarktes. Der Dow-Jones-Index an der New York Stock Exchange (NYSE) ist einer der ältesten noch bestehenden Aktienindex der USA und setzt sich heute aus den $30$ größten US-Unternehmen zusammen. Der tägliche Aktienindex des Dow-Jones-Industrial 30 $2012$, der für die späteren Regressionen verwendet wird, stammt von der Seite \textit{boerse-online.de} \cite{boerse_online}. Die Daten werden in eine Excel-Datei überführt. Anschließend wird die wöchentliche Veränderung des Aktenindex in Prozent berechnet. In der Abbildung \ref{picture:dow_jones} ist ein Auschnitt der aufbereiteten Daten zu sehen.
  \begin{figure}[H]

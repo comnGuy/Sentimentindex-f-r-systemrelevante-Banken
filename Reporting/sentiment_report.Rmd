@@ -302,7 +302,7 @@ Die Ergebnisse aus dem Kapitel \textit{Model} zeigen, dass Sie  geringefüge neu
 \section{Ausblick}
 Der nachstehende Text soll einen kurzen Ausblick über weitere Vorgehensweise geben.
 
-Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram (Unigrammen) mit 2-gramme (Bigramme) oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut dem [Paper 5 TODO] ist dieser Ansatz sehr vielversprechend.
+Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram (Unigrammen) mit 2-gramme (Bigramme) oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut E. Martínez-Cámara aus Ihrem Paper \cite{bigram_ref} ist dieser Ansatz sehr vielversprechend.
 
 Ein weiterer interessanter Ansatz, um die Stimmung in den Tweets zu messen, ist das Verwenden mehrere Wörterbücher und deren Ergebnisse durch ein Votum entscheiden zu lassen. Angenommen drei Wörterbücher beurteilen ein Tweet. Zwei Wörterbücher beurteilen den Tweet als negativ und das dritte Wörterbuch als positiv. Im nächsten Schritt wird durch das Votum der Tweet als negativ klassifiziert, da mehr Wörterbücher den Tweet als negativ eingestuft hatten. Eine Verfeinerung des Votums ist durch eine mögliche Gewichtung der Wörterbücher möglich.
 
@@ -376,7 +376,7 @@ In der unteren Aufzählung werden einige Sentimentindizes berechnet, die von uns
 \addcontentsline{toc}{section}{C Beschreibung der Programmen und Dateien}
 \section*{C Beschreibung der Programmen und Dateien}
 
-Im Ordner Modell befinden sich die Dateien
+Im Ordner \textit{Testing/Modell} befinden sich die folgenden Dateien.
 \begin{itemize}
 \item \textbf{SentimentFunction2.R:} Die Datei \textit{SentimentFunktion2} enthält verschiedene Funktionen die Plots und Sentimentindizes berechnen.
 \item \textbf{functions.R:} Die Datei \textit{functions.R:} beinhaltet die Funktion \textit{generateLinearRegressionDataFrame}. Mit dieser Funktion kann ein Dataframe mit einem Sentimentindex entsprechent transformiert werden für eine Regression. 
@@ -390,6 +390,17 @@ Im Ordner Modell befinden sich die Dateien
 \item \textbf{Dow\_jones\_rendite\_2012.xlsx:} Excel-Datei beinhaltet die Dow Jones Industrial $30$ Daten
 \end{itemize}
 \end{itemize}
+Im Ordner \textit{Testing/Woertbuch} befinden sich die Dateien zum Testen der Wörterbücher und Stemming-Verfahren.
+\begin{itemize}
+\item \textbf{testSentiment.R} berechnet alle Wörterbücher, Stemming Verfahren und Visualisierungen
+\item \textbf{SentimentFunction.R} enthält Funktionen, die in \textit{testSentiment.R} verwendet werden.
+\item Der Ordner \textbf{data} enthält die verschiedenen generierten Daten.
+\end{itemize}
+
+Im Ordner \textit{Testing/Filters} befinden sich die Dateien für das Filtern der Tweets auf dem Cuda-Rechner.
+
+Im Ordner \textit{Testing/Datenaufteilung} befinden sich die Dateien den Versuch für das Aufteilen der Daten. Der Grund war, dass die Speicherauslastung von R-Studio mit einem DataFrame für normale Rechner zu groß war.
+
 \fancyhead[L]{\leftmark} 
 \input{Literratur}
 

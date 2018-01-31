@@ -123,6 +123,8 @@ Mittels Textmining sollen die Informationen aus den Tweets in einen Sentimentind
 
 In diesem Paper wird die thematische die Aufbereitung der Daten, die korrekte Wahl des Wörterbuches, den Zusammenhang zwischen Aktienindizes und Sentimentindizes und die vorgestellte Regression auf Aktienindizes besprochen.
 
+\newpage
+
 \section{Daten}
 Ein Sentiment ist die Stimmung bzw. die Emotion des Schreibers, die der Text beinhaltet. Als Datengrundlage dient uns das Twitterarchiv und die Twitter-API, siehe Unterkapitel \ref{sub:twitter_archive} und \ref{sub:scanned_data}. Um die errechneten Sentiments vergleichen zu können, wurde der Dow Jones Industrial 30 Aktienindex und der EURO-STOXX 50 aus dem Jahr 2012 verwendet, siehe Unterkapitel \ref{sub:dow_jones_data}.
 
@@ -182,8 +184,7 @@ Der \textbf{Dow-Jones-Industrial} 30 Index misst die Entwicklung des US-amerikan
  
 Für den Vergleich der wirtschaftlichen Situation in der EU, wird der \textbf{EURO-STOXX 50} herangezogen. Der EURO-STOXX $50$ ist ein Aktienindex, der sich aus den $50$ größten, börsennotierten Unternehmen des Euro-Währungsgebiets zusammensetzt. 
 
-
-
+\newpage
 
 \section{Preprocessing}
 \label{sub:datenaufbereitung}
@@ -215,10 +216,7 @@ Im Folgendem werden die einzelnen Schritte für die Aufbereitung der Daten besch
 \end{table}
 \end{enumerate}
 
-
-
-
-
+\newpage
 
 \section{Wörterbücher}
 \label{Woerterbuch}
@@ -279,34 +277,37 @@ Um das Stemming durchzuführen, wurde das R-Package \textit{corpus} \cite{corpus
  
 Für die gestemmten Tweets wurden die gleichen Auswertungen berechnet, wie in Abbildung \ref{fig:ubereinstimmung_nothing} zu sehen ist. Dabei verschlechterten alle Stemming-Verfahren das Ergebnis. Die einzige Ausnahme gilt der Rechtschreibkorrektur, die insgesamt zwei Tweets mehr erkennt.
 
-
-
-
+\newpage
 
 \section{Explorative Analysen von Sentimentindizies}
-In diesem Abschnitt werden Methoden angerissen, die Tweets und Sentimentindizes analysieren, siehe Buch \cite{textmining}. Um einen ersten Eindruck der Tweets zu erhalten, ist es vom Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren. Die Visualisierung wird mittels einem Balkendiagramm umgesetzt, zusehen in Anhang \ref{anz:woerter}.
+In diesem Abschnitt werden Methoden angerissen, die Tweets und Sentimentindizes analysieren, siehe Buch \cite{textmining}. Um einen ersten Eindruck der Tweets zu erhalten, ist es vom Vorteil die am häufigsten vorkommenden positivsten und negativsten Wörter zu visualisieren, zusehen im Anhang \ref{anz:woerter}. 
 
 \input{Woertbuchana}
 
+\newpage
 
 \section{Fazit}
 
-Zu Beginn wurde das Twitter-Archiv bereitgestellt. Aus diesem haben wir sinnvolle Tweets bezüglich der Finanzbranche extrahiert. Vor der Extraktion war uns nicht klar, ob genügend Tweets extrahiert werden können, weswegen eine zweite Quelle, die Twitter-API \ref{sub:scanned_data} hinzugezogen wurde. Danach wurde im Kapitel \ref{sub:datenaufbereitung} die Daten aufbereitet und erweitert. Als nächstens haben wir die mehrere Wörterbücher und Stemming-Verfahren verglichen, siehe Kapitel \ref{Woerterbuch}. 
+Zu Beginn wurde das Twitter-Archiv bereitgestellt. Aus diesem haben wir sinnvolle Tweets bezüglich der Finanzbranche extrahiert. Vor der Extraktion war unklar, ob genügend Tweets extrahiert werden können, weswegen eine zweite Quelle, die Twitter-API \ref{sub:scanned_data} hinzugezogen wurde. Danach wurden im Kapitel \ref{sub:datenaufbereitung} die Daten aufbereitet und erweitert. Als nächstens haben wir mehrere Wörterbücher und Stemming-Verfahren verglichen, siehe Kapitel \ref{Woerterbuch}. 
 
 ![Übersicht der gesamten Ausarbeitung \label{fig:ubersicht}](Pictures/ubersicht.PNG)
 
-Der Abschnitt für den Vergleich der verschiedenen Sentimentindizes hat die Schlussfolgerung, dass die verschiedenen Sentimenindizes der Wörterbücher \textit{Vader}, \textit{Bing}, \textit{loughran}, \textit{nrc} und \textit{Afinn} ein ähnliches Verhalten aufweisen. Das Kapitel \ref{ueberein} wurden Gemeinsamkeiten in den zeitlichen Abläufe zwischen den Sentimentindizes und den Aktienindizes untersucht. In vielen Abschnitten wurde eine ähnliche Tendenz eines ähnlichen Verhaltens efasst. Der nächste Schritt wäre eine Korrelation zwischen den beiden Zeitreihen nachzuweisen und somit die zunächst nur auf visuale Beurteilung zu untermauern.
+Der Abschnitt für den Vergleich der verschiedenen Sentimentindizes hat die Schlussfolgerung, dass die verschiedenen Sentimenindizes der Wörterbücher \textit{Vader}, \textit{Bing}, \textit{loughran}, \textit{nrc} und \textit{Afinn} ein ähnliches Verhalten aufweisen. Im Kapitel \ref{ueberein} wurden Gemeinsamkeiten der zeitlichen Abläufe zwischen den Sentimentindizes und den Aktienindizes untersucht. In vielen Abschnitten wurde eine ähnliche Tendenz eines ähnlichen Verhaltens erfasst. Der nächste Schritt wäre eine Korrelation zwischen den beiden Zeitreihen nachzuweisen und somit visuale Beurteilung zu untermauern.
 
-Die Ergebnisse aus dem Kapitel \textit{Model} zeigen, dass Sie  geringefüge neue Informationen liefern um die wöchentliche prozentuale Veränderung des Aktienindiexes zu erklären. Dieses Ergebniss ist nicht ungewähnlich. Es wird davon ausgegangen, dass die Sentimentindizes und der Aktienidex sehr stark korrelieren müssten, da Sie von den gleichen Faktoren beeinflusst werden. Daher ist es umso erstaunlicher, dass überhaupt ein erster Hinweis erbracht werden konnte, dass die Sentimentindizes noch Informationen beinhalten, die die Aktienindizes erklären können.
+Die Ergebnisse aus dem Kapitel \textit{Model} zeigen, dass sie geringefüge neue Informationen liefern, um die wöchentliche prozentuale Veränderung des Aktienindiexes zu erklären. Dieses Ergebniss ist nicht ungewöhnlich. Es wird davon ausgegangen, dass die Sentimentindizes und der Aktienidex sehr stark korrelieren müssten, da sie von den gleichen Faktoren beeinflusst werden. Daher ist es umso erstaunlicher, dass überhaupt ein erster Hinweis erbracht werden konnte, dass die Sentimentindizes noch Informationen beinhalten, die die Aktienindizes erklären können.
+
+\newpage
 
 \section{Ausblick}
 Der nachstehende Text soll einen kurzen Ausblick über weitere Vorgehensweise geben.
 
-Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram (Unigrammen) mit 2-gramme (Bigramme) oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasst Wörterbücher zu verwenden. Laut E. Martínez-Cámara aus Ihrem Paper \cite{bigram_ref} ist dieser Ansatz sehr vielversprechend.
+Neben weiteren Wörterbüchern, Stemming-Verfahren und besseren Rechtschreibkorrekturen besteht die Möglichkeit anstatt 1-gram (Unigrammen) mit 2-gramme (Bigramme) oder 3-gramme zu arbeiten. Das bedeutet dementsprechend angepasste Wörterbücher zu verwenden. Laut E. Martínez-Cámara \cite{bigram_ref} ist dieser Ansatz sehr vielversprechend.
 
-Ein weiterer interessanter Ansatz, um die Stimmung in den Tweets zu messen, ist das Verwenden mehrere Wörterbücher und deren Ergebnisse durch ein Votum entscheiden zu lassen. Angenommen drei Wörterbücher beurteilen ein Tweet. Zwei Wörterbücher beurteilen den Tweet als negativ und das dritte Wörterbuch als positiv. Im nächsten Schritt wird durch das Votum der Tweet als negativ klassifiziert, da mehr Wörterbücher den Tweet als negativ eingestuft hatten. Eine Verfeinerung des Votums ist durch eine mögliche Gewichtung der Wörterbücher möglich.
+Ein weiterer interessanter Ansatz um die Sentiments stabiler und genauer zu bestimmen, ist das Verwenden mehrerer Wörterbücher. Die Sentiments dieser Wörterbücher laufen für das Endergebnis nochmal durch ein Votum. Angenommen drei Wörterbücher beurteilen ein Tweet. Zwei Wörterbücher bestimmen den Tweet als negativ und das dritte als positiv. Im nächsten Schritt wird durch das Votum der Tweet als negativ klassifiziert, da mehr Wörterbücher den Tweet als negativ eingestuft hatten. Das Votum kann durch eine Gewichtung der Wörterbücher verfeinert werden.
 
-Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknüpfen. Die Logik könnte in der Lage sein gute Verneinungen zu erkennen, wie \glqq Der Kurs ist nicht schlecht! #bitcoin\grqq{}. Um den Zusammenhang zwischen den Sentimentindizes und den Aktienindizes besser zu Beurteilen zu können, wäre es nötig sich $2-3$ Jahre die Sentimenindizes und den Aktienindizes an zu sehen und zu analysieren. Außerdem kann bei der multiplen Regression noch verschiedenste Ansätze ausprobiert werden, wie zum Beispiel nicht lineare Regression oder auch die variantion der Regressoren. Ein Ansatz um die Targets (Aktienindizes) besser anhand der Sentimenindizes zu erklären ware die Zeitreihenanalyse. Bei der Zeitreihenanalyse werden eine zeitabhängige Folge von Datenpunkten betrachtet. 
+Außerdem besteht die Möglichkeit eine Logik mit den Wörterbüchern zu verknüpfen. Die Logik könnte in der Lage sein Verneinungen zu erkennen, wie \glqq Der Kurs ist nicht schlecht! #bitcoin\grqq{}. 
+
+Um den Zusammenhang zwischen den Sentiment- und den Aktienindizies besser Beurteilen zu können, könnte eine Erhöhung der Zeitspanne helfen. Weiterhin kann eine nicht lineare Regression oder an der Variation der Regressoren geschraubt werden. Ein Ansatz, um die Targets (Aktienindizes) besser anhand der Sentimenindizes zu erklären,  ist die Zeitreihenanalyse. Die Zeitreihenanalyse betrachtet eine zeitabhängige Folge von Datenpunkten. 
 
 \newpage
 

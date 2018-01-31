@@ -1,0 +1,217 @@
+---
+title: "Untitled"
+output: pdf_document
+---
+
+```{r setup}
+require(ggplot2)
+library(tidyr)
+library(tidytext)
+library(dplyr)
+library(lubridate)
+library(reshape2)
+library(wordcloud)
+#usa pro Monat
+daten_usa<-read.csv("C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten2012usa.csv")
+data_fr_usa<- data.frame(daten_usa, stringsAsFactors=FALSE)
+data_fr_usa$Tweets<-as.character(data_fr_usa$Tweets)
+library(stringr)
+
+
+#join bing
+data_fr_usa$Month2<-NULL
+data_fr_usa[data_fr_usa$Month=="Jan","Month2"]<- month(01)
+data_fr_usa[data_fr_usa$Month=="Feb","Month2"]<- month(02)
+data_fr_usa[data_fr_usa$Month=="Mar","Month2"]<- month(03)
+data_fr_usa[data_fr_usa$Month=="Apr","Month2"]<- month(04)
+data_fr_usa[data_fr_usa$Month=="May","Month2"]<- month(05)
+data_fr_usa[data_fr_usa$Month=="Jun","Month2"]<- month(06)
+data_fr_usa[data_fr_usa$Month=="Jul","Month2"]<- month(07)
+data_fr_usa[data_fr_usa$Month=="Aug","Month2"]<- month(08)
+data_fr_usa[data_fr_usa$Month=="Sep","Month2"]<- month(09)
+data_fr_usa[data_fr_usa$Month=="Oct","Month2"]<- month(10)
+data_fr_usa[data_fr_usa$Month=="Nov","Month2"]<- month(11)
+data_fr_usa[data_fr_usa$Month=="Dec","Month2"]<- month(12)
+library(stringr)
+#doppelt<-distinct(data_fr_usa, id_str)---------------------------------------
+
+
+#sortieren Monate und Tage----------------------------------------------------
+
+sortiernMonth<-data_fr_usa[order(data_fr_usa$Month2, data_fr_usa$DayOfMonth),]
+sortab<-sortiernMonth[ sortiernMonth$DayOfMonth>1,]
+
+
+#variablen definieren für schleife--------------------------------------------
+
+wochen<-sortab
+woche<-0
+n<-1
+gesamttage<-0
+wochen$week<-1
+#berechnen der Kalenderwoche--------------------------------------------------
+
+for(n in 1:  length(wochen$DayOfMonth)) {
+   if (n==1){
+   anzahltag= wochen$DayOfMonth[n]
+   print(n)
+  }
+else if(wochen$DayOfMonth[n] < wochen$DayOfMonth[n-1]) {
+
+if(wochen$Month[n]=="Jan"||wochen$Month[n]=="Mar"||wochen$Month[n]=="Jul"||wochen$Month[n]=="Aug"||wochen$Month[n]=="Oct"|wochen$Month[n]=="Dec"){
+  print("gut31")
+   endmonth= 31-wochen$DayOfMonth[n-1]
+   anfangmonth=wochen$DayOfMonth[n]-0
+   anzahltag=endmonth+anfangmonth
+  }
+  else if (wochen$Month[n]=="Feb"){
+    print("Februa")
+   endmonth= 29-wochen$DayOfMonth[n-1]
+   anfangmonth=wochen$DayOfMonth[n]-0
+   anzahltag=endmonth+anfangmonth
+  } else{
+    print("normal")
+  endmonth= 30-wochen$DayOfMonth[n-1]
+  anfangmonth=wochen$DayOfMonth[n]-0
+  anzahltag=endmonth+anfangmonth}
+ 
+  }else{
+    
+
+  anzahltag=wochen$DayOfMonth[n]-wochen$DayOfMonth[n-1]
+
+  }
+
+  gesamttage<- gesamttage+ anzahltag
+  mod=gesamttage %% 7
+  woche<- gesamttage%/%7
+ 
+    if(mod==0){
+    wochen$week[n]<-1
+    }
+    else{
+    wochen$week[n]<-woche
+    }
+  
+ # tidy_2012_ohne_stopwords[n=="Sun",14]
+  
+}
+#plus eins dazu rechnen, da von 0 bis 51 geht---------------------------------
+wochen$week<- wochen$week+1
+#doppelte heraus gefiltert
+wochen_distinct<- distinct(wochen)
+#clearing-----------------------------------------------
+replace_reg <- "https://t.co/[A-Za-z\\d]+|http://[A-Za-z\\d]+|&amp;|&lt;|&gt;|RT|https"
+unnest_reg <- "([^A-Za-z_\\d#@']|'(?![A-Za-z_\\d#@]))"
+tidy_daten2012_word<- wochen_distinct  %>%
+  unnest_tokens(word, Tweets, token = "regex", pattern = unnest_reg) %>%
+  filter(!word %in% stop_words$word,
+         str_detect(word, "[a-z]"))
+#sentimentanalyse-------------------------------------------------------------
+#tidy_daten2012_word <- wochen_distinct %>% unnest_tokens(word, Tweets)
+
+#tidy_2012_ohne_stopwords <- tidy_daten2012_word %>% anti_join(stop_words)
+bing <- get_sentiments("bing")
+datplot<-tidy_daten2012_word %>%
+  inner_join(bing) %>%
+  group_by(week)%>%
+  count(sentiment) %>%
+spread(sentiment, n)%>%
+  mutate(sentiment = positive - negative)
+#idf_tf----------------------------------------------------------------------
+datplot<-tidy_daten2012_word   %>%
+  inner_join(bing) %>%
+  group_by(week)%>%
+  count(word) %>%
+  inner_join(bing)%>%
+  ungroup()
+ 
+tf_idf_data<-datplot %>% bind_tf_idf(word,week,n) %>%  arrange(desc(tf_idf))
+#tf_idf_spread[is.na(tf_idf_spread$negative),"negative"]<-0
+
+
+tf_idf_spread<-tf_idf_data %>%
+  group_by(week)%>%
+  spread(sentiment, n)
+
+tf_idf_spread[is.na(tf_idf_spread$negative),"negative"]<-0
+tf_idf_spread[is.na(tf_idf_spread$positive),"positive"]<-0
+
+sentiment_score_week_tf_idf<-tf_idf_spread %>%
+mutate(sentiment = positive - negative)%>%
+mutate(senitment_index = tf_idf *sentiment)%>%
+group_by(week)%>%
+summarise(positive_sum = sum(positive), negative_sum= sum(negative), sentiment_sum = sum(sentiment), tf_idf_sum = sum(tf_idf),sentiment_index = sum(senitment_index))
+
+#lese Rendite ein------------------------------------------------------------
+library(readxl)
+Rendite3 <- read_excel("~/textmining/R-projekt/BeckerSeminar2/Daten/Dow_jones_rendite_2012.xlsx")
+View(Rendite3)
+#Join rendite mit sentimenanalyse über Kalenderwoche (week)-------------------
+rendite<- datplot %>% inner_join(Rendite3)
+save(rendite, file = "C:/Users/Christian/Documents/textmining/R-projekt/BeckerSeminar2/Testing/Daten_Regresssion.rda")
+
+#rendite1<- sentiment_score_week_tf_idf %>% inner_join(Rendite3)
+rendite2<- datplot %>% inner_join(Rendite3)
+rendite2$
+# Linear Regression----------------------------------------------------------
+
+fit <- lm(Rendite ~ sentiment, data=rendite)
+summary(fit)
+
+boxplot(rendite$Rendite, main="Rendite", sub=paste("Outlier rows: ", boxplot.stats(rendite$Rendite)$out))  # box plot for 'speed'
+
+plot(rendite$week, rendite$Rendite)
+abline(fit, col = "red")
+
+#neu----------------------------------------------------------------------------------
+reg_data1 <- data.frame( Sentiment1=numeric(), Sentiment2=numeric(), Sentiment3=numeric(), rendite4=numeric() )
+i=3
+j=1
+zeile=4
+for(n in 3:  length(rendite1$sentiment_sum)) {
+  reg_data1[j,1]<-rendite1$sentiment_sum[i-2]
+  reg_data1[j,2]<-rendite1$sentiment_sum[i-1]
+  reg_data1[j,3]<-rendite1$sentiment_sum[i]
+  reg_data1[j,4]<-rendite1Rendite[i]
+  zeile=n%%3
+    if(zeile==0){  
+      j=j+1
+    
+}
+i=i+1  
+}
+
+fit <- lm(rendite4 ~ Sentiment1 + Sentiment2 + Sentiment3, data=reg_data1)
+summary(fit)
+
+plot(reg_data1, rendite$Rendite)
+abline(fit, col = "red")
+#neu2------------------------------------------------------------------------------------
+#neu----------------------------------------------------------------------------------
+reg_data2 <- data.frame( Sentiment1=numeric(), Sentiment2=numeric(), Sentiment3=numeric(), rendite4=numeric() )
+i=3
+j=1
+zeile=4
+for(n in 3:  length(rendite2$sentiment)) {
+  reg_data2[j,1]<-rendite2$sentiment[i-2]
+  reg_data2[j,2]<-rendite2$sentiment[i-1]
+  reg_data2[j,3]<-rendite2$sentiment[i]
+  reg_data2[j,4]<-rendite2$Rendite[i]
+  zeile=rendite2$sentiment[n]%%3
+    if((zeile==0) & !(n==3) ){  
+      j=j+1
+    
+}
+i=i+1  
+}
+
+fit <- lm(rendite4 ~ Sentiment1 + Sentiment2 + Sentiment3, data=reg_data2)
+summary(fit)
+
+plot(reg_data1, rendite$Rendite)
+abline(fit, col = "red")
+```
+
+## R Markdown
+
